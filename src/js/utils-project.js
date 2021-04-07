@@ -278,6 +278,7 @@ export const openModal = (modal, id) => {
 const closeModal = (e) => {
 	e.preventDefault();
 	e.stopImmediatePropagation();
+	console.log(e);
 
 	// cover ESC press
 	if (e.type === "keyup" && e.key !== "Escape") return;
@@ -287,12 +288,16 @@ const closeModal = (e) => {
 	if (!modal) return;
 
 	Fade.out(modal, 500);
+	modal.removeAttribute("title");
 	removeModalListeners();
 
 	if (modal.dataset.for == "img-large") imgNormalize();
 };
 
 export const imageEnlarge = (e) => {
+	e.preventDefault();
+	e.stopImmediatePropagation();
+
 	if (e.type !== "dblclick" && e.type !== "touchstart") return;
 
 	// emulating a double tap with time between two touchstarts
@@ -305,14 +310,19 @@ export const imageEnlarge = (e) => {
 		clearTimeout(clickTimer);
 		clickTimer = null;
 	}
-	console.log(e.type);
+
 	const slider = e.target.closest(".slider");
 	slider.classList.add("max");
 	slider.classList.remove("default");
-	openModal(document.querySelector(".modal"), "img-large");
+	slider.title = "Klicken zum Schließen.";
+
+	const modal = document.querySelector(".modal");
+	modal.title = "Klicken zum Schließen.";
+	openModal(modal, "img-large");
 };
 const imgNormalize = () => {
 	const slider = document.querySelector(".slider.max");
 	slider.classList.remove("max");
 	slider.classList.add("default");
+	slider.removeAttribute("title");
 };

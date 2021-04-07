@@ -1168,18 +1168,18 @@ section.main .slider.default {
 .slider.max .container {
 	align-items: center;
 	display: flex;
-	left: 0;
 	height: 100%;
 	justify-content: center;
+	left: 0;
 	overflow: auto;
 	padding: 0;
 	pointer-events: none;
 	position: fixed;
-	width: 100%;
 	top: 0;
+	width: 100%;
 	z-index: 999999;
 }
-.slider.default .img .container .cover {
+.slider .img .container .cover {
 	pointer-events: none;
 	position: relative;
 	overflow: hidden;
@@ -1187,11 +1187,13 @@ section.main .slider.default {
 	width: 100%;
 }
 .slider.max .img .container .cover {
-	pointer-events: none;
-	position: relative;
-	overflow: hidden;
-	height: auto;
-	width: auto;
+	align-items: center;
+	display: flex;
+	justify-content: center;
+	max-height: 92vh;
+	height: 100%;
+	max-width: 92vw;
+	width: 100%;
 }
 
 .slider.default .container img {
@@ -1204,11 +1206,12 @@ section.main .slider.default {
 	z-index: -1;
 }
 .slider.max .container img {
-	pointer-events: all;
-	max-width: 92vw;
-	min-width: 0;
-	max-height: 92vh;
-	min-height: 0;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
+	-o-object-fit: contain;
+	width: 100%;
 }
 
 .slider-wrap {

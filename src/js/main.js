@@ -28,7 +28,7 @@ const sliderDefaultOpts = {
 	lazyload: true,
 	lazyloadSelector: ".tns-lazy",
 	mode: "gallery",
-	mouseDrag: true,
+	mouseDrag: false,
 	nav: true,
 	navAsThumbnails: true,
 	navPosition: "bottom",
@@ -37,7 +37,7 @@ const sliderDefaultOpts = {
 	slideBy: "page",
 	speed: 500,
 	swipeAngle: 15,
-	touch: true,
+	touch: false,
 };
 
 const init = async () => {
@@ -80,7 +80,7 @@ const init = async () => {
 const setEventListeners = () => {
 	// document.querySelector(".btn-link").addEventListener("click", getPage);
 
-	document.addEventListener("click", (e) => console.log(e));
+	// document.addEventListener("touchstart", (e) => console.log(e));
 
 	foreach(document.querySelectorAll(".main .slider"), (slider) =>
 		slider.addEventListener("dblclick", imageEnlarge)

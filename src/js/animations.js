@@ -43,6 +43,7 @@ export const Fade = {
 		window.setTimeout(() => {
 			el.style.removeProperty("opacity");
 			el.style.removeProperty("transition");
+			el.style.removeProperty("display");
 			hideElement(el);
 		}, duration);
 	},
