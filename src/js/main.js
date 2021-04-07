@@ -2,12 +2,14 @@
 import { calendar } from "./cal.js";
 import {
 	goToBooking,
+	imageEnlarge,
 	openDropdown,
 	openSelector,
 	scaleGrids,
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
+import { showElement } from "./animations.js";
 import { foreach, timeout } from "./utils-standard.js";
 import { tns } from "../../node_modules/tiny-slider/src/tiny-slider";
 
@@ -44,17 +46,6 @@ const init = async () => {
 	calendar.init({ disablePastDays: true, markToday: true });
 
 	const sliders = {
-		landing: tns(
-			Object.assign(sliderDefaultOpts, {
-				autoplay: true,
-				container: "#slider-landing",
-				controls: false,
-				mouseDrag: true,
-				navContainer: "#slider-landing-nav",
-				preventScrollOnTouch: false,
-				speed: 1000,
-			})
-		),
 		duene: tns(
 			Object.assign(sliderDefaultOpts, {
 				container: "#slider-duene",
@@ -69,6 +60,17 @@ const init = async () => {
 				navContainer: "#slider-moewe-thumbnails",
 			})
 		),
+		landing: tns(
+			Object.assign(sliderDefaultOpts, {
+				autoplay: true,
+				container: "#slider-landing",
+				controls: false,
+				mouseDrag: true,
+				navContainer: "#slider-landing-nav",
+				preventScrollOnTouch: false,
+				speed: 1000,
+			})
+		),
 	};
 
 	await timeout(2000);
@@ -77,6 +79,15 @@ const init = async () => {
 
 const setEventListeners = () => {
 	// document.querySelector(".btn-link").addEventListener("click", getPage);
+
+	document.addEventListener("click", (e) => console.log(e));
+
+	foreach(document.querySelectorAll(".main .slider"), (slider) =>
+		slider.addEventListener("dblclick", imageEnlarge)
+	);
+	foreach(document.querySelectorAll(".main .slider"), (slider) =>
+		slider.addEventListener("touchstart", imageEnlarge)
+	);
 
 	document
 		.querySelector("#select-house")

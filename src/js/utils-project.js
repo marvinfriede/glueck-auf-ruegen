@@ -237,3 +237,82 @@ export const scaleGrids = () => {
 		foreach(items, (item) => (item.style.marginLeft = padding));
 	});
 };
+
+// ------------------------------------------------------------------------
+// modals
+// ------------------------------------------------------------------------
+
+/**
+ * Attach listeners for closing modal functions. "Click event" would be triggered immediately and thereby closing the modal after opening "click event".
+ * @returns {void}
+ */
+const addModalListeners = () => {
+	document.addEventListener("mousedown", closeModal);
+	document.addEventListener("touchstart", closeModal);
+	document.addEventListener("keyup", closeModal);
+};
+
+/**
+ * Remove listeners for closing modal functions.
+ * @returns {void}
+ */
+const removeModalListeners = () => {
+	document.removeEventListener("mousedown", closeModal);
+	document.removeEventListener("touchstart", closeModal);
+	document.removeEventListener("keyup", closeModal);
+};
+
+export const openModal = (modal, id) => {
+	if (!modal) return;
+	modal.setAttribute("data-for", id);
+
+	Fade.in(modal, 500);
+	addModalListeners();
+};
+
+/**
+ * Closes visible modal, if users click outside. Calls reset function for upload modal.
+ * @param {MouseEvent} e event object
+ * @returns {void}
+ */
+const closeModal = (e) => {
+	e.preventDefault();
+	e.stopImmediatePropagation();
+
+	// cover ESC press
+	if (e.type === "keyup" && e.key !== "Escape") return;
+
+	// do nothing, if modal is not even visible
+	const modal = document.querySelector(".modal.visible");
+	if (!modal) return;
+
+	Fade.out(modal, 500);
+	removeModalListeners();
+
+	if (modal.dataset.for == "img-large") imgNormalize();
+};
+
+export const imageEnlarge = (e) => {
+	if (e.type !== "dblclick" && e.type !== "touchstart") return;
+
+	// emulating a double tap with time between two touchstarts
+	let clickTimer = null;
+	if (e.type === "touchstart") {
+		if (clickTimer == null) {
+			clickTimer = setTimeout(() => (clickTimer = null), 500);
+			return;
+		}
+		clearTimeout(clickTimer);
+		clickTimer = null;
+	}
+	console.log(e.type);
+	const slider = e.target.closest(".slider");
+	slider.classList.add("max");
+	slider.classList.remove("default");
+	openModal(document.querySelector(".modal"), "img-large");
+};
+const imgNormalize = () => {
+	const slider = document.querySelector(".slider.max");
+	slider.classList.remove("max");
+	slider.classList.add("default");
+};

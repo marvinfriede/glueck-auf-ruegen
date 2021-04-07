@@ -298,6 +298,20 @@ sup {
 	user-select: none;
 	width: 100%;
 }
+.modal {
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	left: 0;
+	height: 100%;
+	justify-content: center;
+	overflow: auto;
+	padding: 0;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 999998;
+}
 .hidden {
 	display: none !important;
 }
@@ -966,7 +980,6 @@ section.landing .form .form-button .form-button--text {
 	color: var(--white);
 	font-size: var(--fs-L);
 }
-
 section.landing .form .form-button img {
 	background-color: transparent;
 	display: none;
@@ -1132,6 +1145,13 @@ section.intro .welcome .desc-final {
 
 /* ---- slider ---- */
 
+section.main .slider.default {
+	cursor: pointer;
+	border: 1px solid var(--gray2);
+}
+.slider.max {
+	pointer-events: none;
+}
 .slider > div.img {
 	background-color: transparent;
 	background-position: center center;
@@ -1139,16 +1159,42 @@ section.intro .welcome .desc-final {
 	background-size: cover;
 }
 
-.slider > .img > .cover {
+.slider.default .container {
+	height: 100%;
+	pointer-events: none;
+	width: 100%;
+}
+
+.slider.max .container {
+	align-items: center;
+	display: flex;
+	left: 0;
+	height: 100%;
+	justify-content: center;
+	overflow: auto;
+	padding: 0;
+	pointer-events: none;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 999999;
+}
+.slider.default .img .container .cover {
+	pointer-events: none;
 	position: relative;
 	overflow: hidden;
 	height: 100%;
 	width: 100%;
 }
-.content-bg .slider > .img > .cover {
-	border: 1px solid var(--gray1);
+.slider.max .img .container .cover {
+	pointer-events: none;
+	position: relative;
+	overflow: hidden;
+	height: auto;
+	width: auto;
 }
-.slider > .img > .cover > img {
+
+.slider.default .container img {
 	position: absolute;
 	min-width: 1000%;
 	min-height: 1000%;
@@ -1156,6 +1202,13 @@ section.intro .welcome .desc-final {
 	top: 50%;
 	transform: translateX(-50%) translateY(-50%) scale(0.1);
 	z-index: -1;
+}
+.slider.max .container img {
+	pointer-events: all;
+	max-width: 92vw;
+	min-width: 0;
+	max-height: 92vh;
+	min-height: 0;
 }
 
 .slider-wrap {
@@ -1230,6 +1283,7 @@ section.intro .welcome .desc-final {
 	padding: 0;
 	cursor: pointer;
 	transition: background-color 0.3s;
+	z-index: 1;
 }
 .customize-tools .controls li img {
 	border-radius: 5px;
@@ -1275,6 +1329,9 @@ section.intro .welcome .desc-final {
 
 .customize-tools .tns-nav > .tns-nav-active {
 	background-color: var(--gray5);
+}
+.tns-fadeIn {
+	z-index: unset !important;
 }
 
 #slider-landing-ow,
