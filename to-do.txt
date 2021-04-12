@@ -1,3 +1,7 @@
-webpack mit bilder hash
-arrival nach departure ausschließen
-Fade calendar
+"Mehr"-Option einbauen
+
+padding-top of landing section on scroll fixen
+
+Loading transition
+
+loading animation von Bildern
