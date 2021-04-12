@@ -1,16 +1,27 @@
 import { Fade } from "./animations.js";
-import { data } from "./data.js";
+import { BOOKED } from "./data.js";
 import { foreach, isInt, isStrEmpty } from "./utils-standard.js";
-import { openDropdown } from "./utils-project.js";
+import { dateDiff, openDropdown } from "./utils-project.js";
 
 export const calendar = {
 	cal: document.querySelector(".cal-wrap"),
 	main: document.querySelector(".cal-main"),
 	selectMonth: document.querySelector("#select-month"),
 	selectYear: document.querySelector("#select-year"),
-	arvl: document.querySelector("#arrival input"),
-	arvlDay: null,
-	dprt: document.querySelector("#departure input"),
+	arvl: {
+		input: document.querySelector("#arrival input"),
+		node: null,
+		dayInt: null,
+		dayIso: null,
+		dayLoc: null,
+	},
+	dprt: {
+		input: document.querySelector("#departure input"),
+		node: null,
+		dayInt: null,
+		dayIso: null,
+		dayLoc: null,
+	},
 	dprtDay: null,
 	isCalOpen: false,
 	activeInp: false,
@@ -30,8 +41,8 @@ export const calendar = {
 			"#select-year .selection"
 		).innerText = this.date.getFullYear();
 
-		this.arvl.value = "";
-		this.dprt.value = "";
+		this.arvl.input.value = "";
+		this.dprt.input.value = "";
 	},
 
 	createListeners: function () {
@@ -56,10 +67,10 @@ export const calendar = {
 			.addEventListener("click", openDropdown);
 
 		// opening and closing the calendar
-		this.arvl.addEventListener("click", (e) => {
+		this.arvl.input.addEventListener("click", (e) => {
 			_this.showCalendar(e);
 		});
-		this.dprt.addEventListener("click", (e) => {
+		this.dprt.input.addEventListener("click", (e) => {
 			_this.showCalendar(e);
 		});
 
@@ -86,19 +97,19 @@ export const calendar = {
 		// date selection
 		if (el.dataset.date) {
 			// set arrival
-			if (this.activeInp === this.arvl) {
+			if (this.activeInp === this.arvl.input) {
 				// set values and styling after verifying the time span
 				if (this.verifySelection(el)) {
-					this.arvlDay = el;
+					this.arvl.node = el;
 					this.setInput(el);
 					this.calDayStyling(el, "cal-main__date--arrival");
 				}
 			}
 
 			// set departure
-			else if (this.activeInp === this.dprt) {
+			else if (this.activeInp === this.dprt.input) {
 				if (this.verifySelection(el)) {
-					this.dprtDay = el;
+					this.dprt.node = el;
 					this.setInput(el);
 					this.calDayStyling(el, "cal-main__date--departure");
 				}
@@ -139,26 +150,26 @@ export const calendar = {
 	},
 
 	verifySelection: function (el) {
-		if (el == this.dprtDay) {
+		if (el == this.dprt.node) {
 			this.calDayStyling(el, "cal-main__date--departure", false);
-			this.clearInput(this.dprt, this.dprtDay);
+			this.clearInput(this.dprt.input, this.dprt.node);
 			return false;
 		}
-		if (el == this.arvlDay) {
+		if (el == this.arvl.node) {
 			this.calDayStyling(el, "cal-main__date--arrival", false);
-			this.clearInput(this.arvl, this.arvlDay);
+			this.clearInput(this.arvl.input, this.arvl.node);
 			return false;
 		}
 
-		let other, arvlDate, dprtDate;
-		if (this.activeInp == this.arvl) {
-			other = this.dprt;
-			dprtDate = other.dataset.value;
-			arvlDate = el.dataset.date;
-		} else if (this.activeInp == this.dprt) {
-			other = this.arvl;
-			arvlDate = other.dataset.value;
-			dprtDate = el.dataset.date;
+		let other;
+		if (this.activeInp == this.arvl.input) {
+			other = this.dprt.input;
+			this.dprt.dayIso = other.dataset.value;
+			this.arvl.dayIso = el.dataset.date;
+		} else if (this.activeInp == this.dprt.input) {
+			other = this.arvl.input;
+			this.arvl.dayIso = other.dataset.value;
+			this.dprt.dayIso = el.dataset.date;
 		}
 
 		// both empty: no restriction
@@ -170,12 +181,32 @@ export const calendar = {
 			return true;
 
 		// convert date string to int
-		arvlDate = Date.parse(arvlDate);
-		dprtDate = Date.parse(dprtDate);
+		this.arvl.dayInt = Date.parse(this.arvl.dayIso);
+		this.arvl.dayLoc = new Date(this.arvl.dayInt).toLocaleDateString();
+		this.dprt.dayInt = Date.parse(this.dprt.dayIso);
+		this.dprt.dayLoc = new Date(this.dprt.dayInt).toLocaleDateString();
+
+		// check if any booked day is between selection
+		const daysStayed = dateDiff(this.arvl.dayInt, this.dprt.dayInt);
+		let i, day, month, year;
+
+		// start with dprt since selection of arvl is prohibited
+		let date = new Date(this.dprt.dayInt);
+		for (i = 0; i < daysStayed; i++) {
+			month = date.getMonth() + 1;
+			day = date.getDate();
+			year = date.getFullYear();
+
+			// check if day is included in list of booked days of month
+			if (BOOKED[year][month].includes(day)) return false;
+
+			// set date to previous day
+			date.setDate(date.getDate() - 1);
+		}
 
 		// check if order is correct
-		if (isInt(arvlDate) && isInt(dprtDate)) {
-			if (arvlDate < dprtDate) return true;
+		if (isInt(this.arvl.dayInt) && isInt(this.dprt.dayInt)) {
+			if (this.arvl.dayInt < this.dprt.dayInt) return true;
 		}
 
 		return false;
@@ -233,10 +264,16 @@ export const calendar = {
 		el.setAttribute("data-value", "");
 		el.setAttribute("data-has-value", false);
 
-		if (this.arvlDay === day) {
-			this.arvlDay = null;
-		} else if (this.dprtDay === day) {
-			this.dprtDay = null;
+		if (this.arvl.node === day) {
+			this.arvl.node = null;
+			this.arvl.dayInt = null;
+			this.arvl.dayIso = null;
+			this.arvl.dayLoc = null;
+		} else if (this.dprt.node === day) {
+			this.dprt.node = null;
+			this.dprt.dayInt = null;
+			this.dprt.dayIso = null;
+			this.dprt.dayLoc = null;
 		}
 	},
 
@@ -317,7 +354,7 @@ export const calendar = {
 		if (
 			(this.opts.disablePastDays &&
 				this.date.getTime() <= this.today.getTime() - 1) ||
-			(data[year] && data[year][month].indexOf(dayNum) > -1)
+			(BOOKED[year] && BOOKED[year][month].indexOf(dayNum) > -1)
 		) {
 			div.classList.add("cal-main__date--disabled");
 			div.title = "Belegt";

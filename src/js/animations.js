@@ -4,11 +4,11 @@
  * @returns {void}
  */
 export const hideElement = (el) => {
-	if (!el) return;
-	el.classList.add("hidden");
-	el.classList.remove("visible");
-	el.setAttribute("aria-hidden", true);
-	return;
+	if (el) {
+		el.classList.add("hidden");
+		el.classList.remove("visible");
+		el.setAttribute("aria-hidden", true);
+	}
 };
 
 /**
@@ -17,10 +17,11 @@ export const hideElement = (el) => {
  * @returns {void}
  */
 export const showElement = (el) => {
-	if (!el) return;
-	el.classList.add("visible");
-	el.classList.remove("hidden");
-	el.setAttribute("aria-hidden", false);
+	if (el) {
+		el.classList.add("visible");
+		el.classList.remove("hidden");
+		el.setAttribute("aria-hidden", false);
+	}
 };
 
 export const Fade = {
@@ -28,9 +29,10 @@ export const Fade = {
 	 * Hide element with fade out animation
 	 * @param {HTMLElement} el element that is removed
 	 * @param {Number} duration of fade out animation (1000 = 1s)
+	 * @param {Boolean} remove remove element after animation from DOM
 	 * @returns {void}
 	 */
-	out: (el, duration = 1000) => {
+	out: (el, duration = 1000, remove = false) => {
 		el.style.opacity = 1;
 		el.style.transition = `opacity ${duration}ms`;
 
@@ -45,6 +47,7 @@ export const Fade = {
 			el.style.removeProperty("transition");
 			el.style.removeProperty("display");
 			hideElement(el);
+			if (remove === true) el.parentNode.removeChild(el);
 		}, duration);
 	},
 
@@ -87,19 +90,5 @@ export const Fade = {
 		} else {
 			this.out(el, duration);
 		}
-	},
-
-	/**
-	 * Remove element from DOM with fade out animation
-	 * @param {HTMLElement} el element that is removed
-	 * @param {Number} duration of fade out animation (1000 = 1s)
-	 * @returns {void}
-	 */
-	outRemove: (el, duration) => {
-		const seconds = duration / 1000;
-		el.style.transition = "opacity " + seconds + "s ease";
-		el.style.opacity = 0;
-
-		setTimeout(() => el.parentNode.removeChild(el), duration);
 	},
 };

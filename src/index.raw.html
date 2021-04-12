@@ -167,7 +167,11 @@
 								<div class="form-wrap--bg"></div>
 								<div class="form">
 									<div class="form-field-wrap">
-										<div id="select-house" class="form-field drop-root">
+										<div
+											id="select-house"
+											class="form-field drop-root"
+											data-value="duene"
+										>
 											<div class="select">
 												<div class="icon symbol">
 													<img src="img/house.svg" alt="Haus" loading="lazy" />
@@ -193,7 +197,11 @@
 									</div>
 
 									<div class="form-field-wrap">
-										<div id="select-guests" class="form-field drop-root">
+										<div
+											id="select-guests"
+											class="form-field drop-root"
+											data-value="6"
+										>
 											<div class="select">
 												<div class="icon symbol">
 													<img
@@ -259,7 +267,11 @@
 									</div>
 
 									<div class="form-field-wrap">
-										<div id="select-extras" class="form-field selector-root">
+										<div
+											id="select-extras"
+											class="form-field selector-root"
+											data-value=""
+										>
 											<div class="select">
 												<div class="icon symbol">
 													<img
@@ -278,24 +290,38 @@
 												</div>
 											</div>
 											<div class="selector hidden" aria-hidden="true">
-												<div class="selector-option" data-value="1">
+												<div
+													class="selector-option"
+													data-id="1"
+													data-name="dog"
+													data-selected="false"
+													aria-selected="false"
+												>
 													<div class="selector-option--text">Hund</div>
 													<div class="selector-option--checkbox">
 														<span>x</span>
 													</div>
 												</div>
-												<div class="selector-option" data-value="2">
-													<div class="selector-option--text">Handtücher</div>
+												<div
+													class="selector-option"
+													data-id="2"
+													data-name="sheets"
+													data-selected="false"
+													aria-selected="false"
+												>
+													<div class="selector-option--text">
+														Handtücher/Bettwäsche
+													</div>
 													<div class="selector-option--checkbox">
 														<span>x</span>
 													</div>
 												</div>
-												<div class="selector-option" data-value="3">
-													<div class="selector-option--text">Bettwäsche</div>
+												<!-- <div class="selector-option" data-value="3" data-selected="false" aria-selected="false">
+													<div class="selector-option--text"></div>
 													<div class="selector-option--checkbox">
 														<span>x</span>
 													</div>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</div>
@@ -784,7 +810,7 @@
 								<div
 									id="slider-duene"
 									class="slider default"
-									title="Doppelklick für Vollbild."
+									title="Klicken für Vollbild."
 								>
 									<div class="img" data-id="0" data-name="wz">
 										<div class="container">
@@ -1005,9 +1031,9 @@
 								</div>
 							</div>
 
-							<div class="btn">
+							<!-- <div class="btn">
 								<a href="duene.html" class="btn-link">Mehr</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 
@@ -1072,7 +1098,7 @@
 								<div
 									id="slider-moewe"
 									class="slider default"
-									title="Doppelklick für Vollbild."
+									title="Klicken für Vollbild."
 								>
 									<div class="img" data-id="0" data-name="garten">
 										<div class="container">
@@ -1193,9 +1219,9 @@
 								</div>
 							</div>
 
-							<div class="btn">
+							<!-- <div class="btn">
 								<a href="moewe.html" class="btn-link">Mehr</a>
-							</div>
+							</div> -->
 						</div>
 					</div>
 
@@ -1470,8 +1496,125 @@
 			</footer>
 		</div>
 
-		<div class="transition-element"></div>
+		<!-- <div class="transition-element"></div> -->
 		<!-- <div class="bg temp"></div> -->
-		<div class="modal hidden"></div>
+
+		<div class="modal hidden">
+			<div class="content has-max-width">
+				<div class="container" title="">
+					<div class="summary">
+						<div class="title">Buchungszusammenfassung</div>
+						<div class="data">
+							<div id="data-house" class="row">
+								<div class="descriptor">Objekt</div>
+								<div class="selector"></div>
+							</div>
+							<div id="data-guests" class="row">
+								<div class="descriptor">Personen</div>
+								<div class="selector"></div>
+							</div>
+							<div id="data-extras" class="row">
+								<div class="descriptor">Extras</div>
+								<div class="selector truncate"></div>
+							</div>
+							<div id="data-dates" class="row">
+								<div class="descriptor">Zeitraum</div>
+								<div class="selector"></div>
+							</div>
+						</div>
+					</div>
+
+					<div class="pricing">
+						<div class="title"></div>
+						<div class="row hidden" data-id="stays">
+							<div class="item"></div>
+							<div class="price"></div>
+						</div>
+						<div class="row hidden" data-id="extra-1">
+							<div class="item">Hund</div>
+							<div class="price"></div>
+						</div>
+						<div class="row hidden" data-id="extra-2">
+							<div class="item">Handtücher/Bettwäsche</div>
+							<div class="price"></div>
+						</div>
+						<div class="row hidden" data-id="cleaning">
+							<div class="item">Endreinigung</div>
+							<div class="price"></div>
+						</div>
+						<div class="row hidden" data-id="sum">
+							<div class="item"></div>
+							<div class="price total"></div>
+						</div>
+					</div>
+
+					<div class="contact-panel">
+						<a
+							id="mail"
+							class="contact-panel--item"
+							href="mailto:Glueck-auf-ruegen@web.de"
+							title="Schreiben Sie uns eine E-Mail"
+						>
+							<div class="icon symbol l">
+								<svg
+									alt="E-Mail"
+									loading="lazy"
+									viewBox="0 0 64 48"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill="#fff"
+										d="M63.47,5.17A8,8,0,0,0,56,0H8A8,8,0,0,0,.48,5.33,7.44,7.44,0,0,0,0,8V40a8,8,0,0,0,5,7.41A7.85,7.85,0,0,0,8,48H56a7.32,7.32,0,0,0,2.85-.56A7.84,7.84,0,0,0,63,43.89,8,8,0,0,0,64,40V8A7.86,7.86,0,0,0,63.47,5.17ZM5.33,8A2.68,2.68,0,0,1,8,5.33H56A2.68,2.68,0,0,1,58.67,8v.51l-21.26,16L33,27.92l-1,.75-1-.78-4.46-3.33L5.33,8.61Zm0,32V15.28L22.11,27.89,5.39,40.45A2,2,0,0,1,5.33,40Zm6,2.67L26.56,31.23l3.84,2.9a2.64,2.64,0,0,0,3.2,0l3.81-2.88L52.53,42.67ZM58.67,40a2,2,0,0,1-.08.56L41.84,27.89,58.67,15.17Z"
+									/>
+								</svg>
+							</div>
+							<div class="text truncate">Glueck-auf-ruegen@web.de</div>
+						</a>
+						<a
+							id="phone"
+							class="contact-panel--item"
+							href="tel:+491622343287"
+							title="Rufen Sie uns an."
+						>
+							<div class="icon symbol l">
+								<svg
+									alt="Telefon"
+									loading="lazy"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 128 128"
+								>
+									<path
+										fill="#fff"
+										d="M106.58248,18.67715A62.18831,62.18831,0,0,0,1.93547,60.03859a61.70661,61.70661,0,0,0,16.742,46.54357,62.43431,62.43431,0,0,0,45.323,19.60672,3.336,3.336,0,0,0,0-6.672A55.51807,55.51807,0,0,1,60.45157,8.59416a55.52222,55.52222,0,0,1,59.06559,55.406,54.92693,54.92693,0,0,1-6.01939,25.17219,11.9927,11.9927,0,0,1-15.77551,5.10177l-1.769-.83767c1.00287-1.00816,1.93339-1.9714,2.61278-2.7002a2.1727,2.1727,0,0,0-.30922-3.23231L81.66209,76.84846a2.47073,2.47073,0,0,0-3.51561.59958c-1.3311,1.96515-4.36767,6.26821-4.36767,6.26821s-7.10343,3.825-19.67079-8.74253c-.19018-.19018-.34262-.36718-.52533-.55492-.18773-.18285-.36474-.33515-.55492-.52533-12.5675-12.5675-8.74266-19.67079-8.74266-19.67079S48.58831,51.186,50.55346,49.855a2.47084,2.47084,0,0,0,.59944-3.51574L40.49762,29.74468a2.17273,2.17273,0,0,0-3.23231-.30936c-2.46794,2.30071-7.5617,7.373-8.341,9.00017A17.31791,17.31791,0,0,0,28.20378,51.24,73.99183,73.99183,0,0,0,46.1976,80.45027c.23076.23076.46478.4318.69623.65727.22547.23144.42664.4656.65727.69636A73.99538,73.99538,0,0,0,76.7615,99.79772a17.31863,17.31863,0,0,0,12.8045-.72066,7.3097,7.3097,0,0,0,1.10848-.7588l4.19174,1.985a18.7027,18.7027,0,0,0,24.576-8.10114,61.5348,61.5348,0,0,0,6.747-28.202A62.43431,62.43431,0,0,0,106.58248,18.67715Z"
+									/>
+								</svg>
+							</div>
+							<div class="text truncate">0162 / 2343287</div>
+						</a>
+						<a
+							class="contact-panel--item"
+							href="https://www.facebook.com/groups/186695742564570/user/100029476337580"
+							target="_blank"
+							title="Schreiben Sie uns auf Facebook."
+						>
+							<div class="icon symbol l">
+								<svg
+									alt="facebook"
+									loading="lazy"
+									viewBox="0 0 512 512"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill="#fff"
+										d="m75 512h167v-182h-60v-60h60v-75c0-41.355469 33.644531-75 75-75h75v60h-60c-16.542969 0-30 13.457031-30 30v60h87.292969l-10 60h-77.292969v182h135c41.355469 0 75-33.644531 75-75v-362c0-41.355469-33.644531-75-75-75h-362c-41.355469 0-75 33.644531-75 75v362c0 41.355469 33.644531 75 75 75zm-45-437c0-24.8125 20.1875-45 45-45h362c24.8125 0 45 20.1875 45 45v362c0 24.8125-20.1875 45-45 45h-105v-122h72.707031l20-120h-92.707031v-30h90v-120h-105c-57.898438 0-105 47.101562-105 105v45h-60v120h60v122h-137c-24.8125 0-45-20.1875-45-45zm0 0"
+									/>
+								</svg>
+							</div>
+							<div class="text truncate">Fewo's Glück Auf Rügen</div>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>

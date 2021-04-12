@@ -1,5 +1,7 @@
-import { foreach } from "./utils-standard.js";
+import { foreach, isInt, sanitizeHTML } from "./utils-standard.js";
 import { Fade, hideElement, showElement } from "./animations.js";
+import { calendar } from "./cal.js";
+import { MAIN_SEASON, PRICES } from "./data.js";
 
 export const toggleSmallMenu = () => {
 	if (document.querySelector("header.s").classList.contains("open")) {
@@ -43,6 +45,8 @@ export const openDropdown = (e) => {
 	}
 };
 const closeDropdown = (e) => {
+	e.preventDefault();
+
 	const drop = document.querySelector(".dropdown.visible");
 	const root = drop.closest(".drop-root");
 	if (!drop || !root) return;
@@ -66,6 +70,7 @@ const closeDropdown = (e) => {
 		// display selection
 		const name = e.target.getAttribute("data-value");
 		root.querySelector(".selection").innerText = name;
+		root.dataset.value = name;
 
 		// change available options
 		if (root.id === "select-house") {
@@ -80,14 +85,14 @@ const updateDropdownGuests = (name) => {
 		// show all options and display max number of guests
 		foreach(opts, (opt) => showElement(opt));
 		document.querySelector("#select-guests .selection").innerText = "6";
+		document.querySelector("#select-guests").dataset.value = 6;
 	} else if (name === "Möwe") {
 		// hide all options with more than 2 people and display max number
 		foreach(opts, (opt) => {
-			if (opt.getAttribute("data-value") > 2) {
-				hideElement(opt);
-			}
+			if (opt.getAttribute("data-value") > 2) hideElement(opt);
 		});
 		document.querySelector("#select-guests .selection").innerText = "2";
+		document.querySelector("#select-guests").dataset.value = 2;
 	} else {
 		// if something goes wrong...
 		console.warn("Identifier in dropdown options not found.");
@@ -95,6 +100,8 @@ const updateDropdownGuests = (name) => {
 };
 
 export const openSelector = (e) => {
+	e.preventDefault();
+
 	const select = e.target.closest(".selector-root").querySelector(".selector");
 	const caret = e.target.closest(".selector-root").querySelector(".caret img");
 
@@ -120,30 +127,38 @@ const closeSelector = (e) => {
 	const root = select.closest(".selector-root");
 	if (!select || !root) return;
 
+	// cover ESC press
+	if (e.type === "keyup" && e.key !== "Escape") return;
+
 	// cover click of selector option
 	if (e.target.closest(".selector-option")) {
 		const opt = e.target.closest(".selector-option");
 		if (opt.classList.contains("active")) {
 			opt.classList.remove("active");
+			opt.setAttribute("data-selected", false);
+			opt.setAttribute("aria-selected", false);
 		} else {
 			opt.classList.add("active");
+			opt.setAttribute("data-selected", true);
+			opt.setAttribute("aria-selected", true);
 		}
+
 		const act = root.querySelectorAll(".active .selector-option--text");
 		const text = root.querySelector(".selection");
 		if (act.length === 0) {
 			text.classList.add("faded");
 			text.innerText = "keine Extras";
+			root.dataset.value = "";
 		} else {
 			text.classList.remove("faded");
-			text.innerText = Array.from(act)
+			const sels = Array.from(act)
 				.map((e) => e.innerText)
 				.join(", ");
+			text.innerText = sels;
+			root.dataset.value = sels;
 		}
 		return;
 	}
-
-	// cover ESC press
-	if (e.type === "keyup" && e.key !== "Escape") return;
 
 	// close selector
 	const caret = root.querySelector(".caret img");
@@ -262,12 +277,11 @@ const removeModalListeners = () => {
 	document.removeEventListener("keyup", closeModal);
 };
 
-export const openModal = (modal, id) => {
-	if (!modal) return;
-	modal.setAttribute("data-for", id);
-
-	Fade.in(modal, 500);
-	addModalListeners();
+export const openModal = (modal) => {
+	if (modal) {
+		Fade.in(modal, 500);
+		addModalListeners();
+	}
 };
 
 /**
@@ -276,53 +290,289 @@ export const openModal = (modal, id) => {
  * @returns {void}
  */
 const closeModal = (e) => {
-	e.preventDefault();
 	e.stopImmediatePropagation();
-	console.log(e);
+	if (e.touches) e.preventDefault();
 
 	// cover ESC press
 	if (e.type === "keyup" && e.key !== "Escape") return;
+
+	// targets
+	if (e.target.closest(".content")) return;
 
 	// do nothing, if modal is not even visible
 	const modal = document.querySelector(".modal.visible");
 	if (!modal) return;
 
-	Fade.out(modal, 500);
-	modal.removeAttribute("title");
-	removeModalListeners();
+	if (modal.dataset.for == "img-large") {
+		Fade.out(modal, 500, true);
+		imgNormalize();
+	} else {
+		Fade.out(modal, 500);
+	}
 
-	if (modal.dataset.for == "img-large") imgNormalize();
+	modal.removeAttribute("title");
+	modal.removeAttribute("data-for");
+	removeModalListeners();
 };
 
 export const imageEnlarge = (e) => {
 	e.preventDefault();
 	e.stopImmediatePropagation();
-
-	if (e.type !== "dblclick" && e.type !== "touchstart") return;
-
-	// emulating a double tap with time between two touchstarts
-	let clickTimer = null;
-	if (e.type === "touchstart") {
-		if (clickTimer == null) {
-			clickTimer = setTimeout(() => (clickTimer = null), 500);
-			return;
-		}
-		clearTimeout(clickTimer);
-		clickTimer = null;
-	}
+	if (e.type !== "click") return;
 
 	const slider = e.target.closest(".slider");
 	slider.classList.add("max");
 	slider.classList.remove("default");
 	slider.title = "Klicken zum Schließen.";
 
-	const modal = document.querySelector(".modal");
+	const modal = document.createElement("div");
+	modal.classList.add("hidden", "modal");
+	modal.id = "img-bg";
 	modal.title = "Klicken zum Schließen.";
-	openModal(modal, "img-large");
+	modal.setAttribute("data-for", "img-large");
+	document.body.appendChild(modal);
+	openModal(modal);
 };
 const imgNormalize = () => {
 	const slider = document.querySelector(".slider.max");
 	slider.classList.remove("max");
 	slider.classList.add("default");
 	slider.removeAttribute("title");
+};
+
+export const dateDiff = (first, second) => {
+	if (isInt(first) && isInt(second))
+		return Math.round((second - first) / (1000 * 60 * 60 * 24));
+};
+
+export const doBooking = (e) => {
+	try {
+		const modal = document.querySelector(".modal");
+		modal.title = "Klicken zum Schließen.";
+		openModal(modal, "booking");
+
+		const data = {
+			house: {
+				from: document.querySelector("#select-house .selection"),
+				to: document.querySelector("#data-house .selector"),
+				value: document.querySelector("#select-house .selection").innerText,
+			},
+			guests: {
+				from: document.querySelector("#select-guests .selection"),
+				to: document.querySelector("#data-guests .selector"),
+				value: document.querySelector("#select-guests .selection").innerText,
+			},
+			extras: {
+				from: document.querySelector("#select-extras .selection"),
+				dog: document.querySelector("#select-extras [data-name=dog]").dataset
+					.selected,
+				sheets: document.querySelector("#select-extras [data-name=sheets]")
+					.dataset.selected,
+				to: document.querySelector("#data-extras .selector"),
+			},
+			date: {
+				arvl: {
+					to: document.querySelector("#data-dates .selector"),
+					value: calendar.arvl.dayLoc,
+					iso: calendar.arvl.dayIso,
+				},
+				dprt: {
+					to: document.querySelector("#data-dates .selector"),
+					value: calendar.dprt.dayLoc,
+					iso: calendar.dprt.dayIso,
+				},
+				stays: {
+					value: dateDiff(calendar.arvl.dayInt, calendar.dprt.dayInt),
+				},
+			},
+		};
+
+		bookingFillHouse(data);
+		bookingFillGuests(data);
+		bookingFillExtras(data);
+		bookingFillDate(data);
+		bookingPrices(data);
+	} catch (err) {
+		console.error(err);
+		alert("Unknown error occurred.");
+	}
+};
+const bookingFillHouse = (data) => {
+	data.guests.to.innerText = data.guests.value;
+};
+const bookingFillGuests = (data) => {
+	data.house.to.innerText = data.house.value;
+};
+const bookingFillExtras = (data) => {
+	if (data.extras.dog || data.extras.sheets) {
+		data.extras.to.innerText = data.extras.from.innerText;
+	} else {
+		data.extras.to.innerText = "Keine.";
+	}
+};
+const bookingFillDate = (data) => {
+	const mail = document.querySelector("#mail");
+	if (data.date.arvl.value && data.date.dprt.value) {
+		// create subject and body of mail
+		const subject = `Buchung ${sanitizeHTML(
+			data.house.value
+		)} vom ${sanitizeHTML(data.date.arvl.value)} bis ${sanitizeHTML(
+			data.date.dprt.value
+		)}`;
+		const body = `Sehr geehrte Familie Wolf,
+		
+		...
+
+		Buchungszusammenfassung
+		 - Unterkunft: ${sanitizeHTML(data.house.value)}
+		 - Personen: ${sanitizeHTML(data.guests.value)}
+		 - Anreise: ${sanitizeHTML(data.date.arvl.value)}
+		 - Abreise: ${sanitizeHTML(data.date.dprt.value)}
+		 - Extras: ${sanitizeHTML(data.extras.from.innerText)}
+		 
+
+		Mit freundlichen Grüßen
+		`;
+
+		// replace href
+		mail.href =
+			"mailto:Glueck-auf-ruegen@web.de?subject=" +
+			encodeURIComponent(subject) +
+			"&body=" +
+			encodeURIComponent(body);
+
+		data.date.arvl.to.innerText = `${data.date.arvl.value} - ${data.date.dprt.value}`;
+	} else {
+		mail.href = "mailto:Glueck-auf-ruegen@web.de";
+		data.date.arvl.to.innerText = "Nichts ausgewählt.";
+	}
+};
+const bookingPrices = (data) => {
+	const title = document.querySelector(".modal .pricing .title");
+	const stays = document.querySelector(".pricing [data-id='stays']");
+	const cleaning = document.querySelector(".pricing [data-id='cleaning']");
+	const extra1 = document.querySelector(".pricing [data-id='extra-1']");
+	const extra2 = document.querySelector(".pricing [data-id='extra-2']");
+	const sum = document.querySelector(".pricing [data-id='sum']");
+
+	if (!data.date.arvl.value || !data.date.dprt.value) {
+		// error message if no date is set
+		title.innerText =
+			"Preise konnten nicht ermittelt werden, da An- und Abreise nicht festgelegt wurden.";
+
+		// hide all elements for pricing
+		hideElement(stays);
+		hideElement(cleaning);
+		hideElement(extra1);
+		hideElement(extra2);
+		hideElement(sum);
+
+		// do nothing further
+		return;
+	}
+
+	let price = PRICES[data.house.value].cleaning; // final cleaning
+
+	// regular title
+	title.innerText = "";
+
+	// get main and low season days
+	let i, day, month, year;
+	let main = 0,
+		low = 0;
+	let date = new Date(data.date.arvl.iso);
+	for (i = 0; i < data.date.stays.value; i++) {
+		month = date.getMonth() + 1;
+		day = date.getDate();
+		year = date.getFullYear();
+
+		// check if day is included in list of booked days of month
+		if (MAIN_SEASON[year][month].includes(day)) {
+			main += 1;
+		} else {
+			low += 1;
+		}
+
+		// set date to next day
+		date.setDate(date.getDate() + 1);
+	}
+
+	// fill in text
+	stays.firstElementChild.innerText = `${data.date.stays.value} Nächte`;
+	if (low === 0) {
+		stays.lastElementChild.innerText = `${main} x ${
+			PRICES[data.house.value].main
+		} €`;
+	} else if (main === 0) {
+		stays.lastElementChild.innerText = `${low} x ${
+			PRICES[data.house.value].low
+		} €`;
+	} else {
+		stays.lastElementChild.innerText = `${main} x	${
+			PRICES[data.house.value].main
+		} € + ${low} x	${PRICES[data.house.value].low} €`;
+	}
+
+	// add prices for house (main and low season)
+	price +=
+		main * PRICES[data.house.value].main + low * PRICES[data.house.value].low;
+	showElement(stays);
+
+	// extras
+	if (data.extras.dog == "true") {
+		extra1.lastElementChild.innerText = `${main + low} x ${
+			PRICES[data.house.value].dog
+		} €`;
+		showElement(extra1);
+		price += (main + low) * PRICES[data.house.value].dog;
+	} else {
+		hideElement(extra1);
+	}
+	if (data.extras.sheets == "true") {
+		extra2.lastElementChild.innerText = `${data.guests.value} x ${
+			PRICES[data.house.value].sheets
+		} €`;
+		price += data.guests.value * PRICES[data.house.value].sheets;
+		showElement(extra2);
+	} else {
+		hideElement(extra2);
+	}
+
+	// cleaning
+	cleaning.lastElementChild.innerText = `${
+		PRICES[data.house.value].cleaning
+	} €`;
+	showElement(cleaning);
+
+	// total price
+	sum.lastElementChild.innerText = price + " €";
+	showElement(sum);
+};
+
+export const showContact = (e) => {
+	const text = e.target.querySelector(".text");
+	text.style.display = "block";
+	const width = window.getComputedStyle(text).getPropertyValue("width");
+	text.style.width = 0;
+	text.style.transition = "all 500ms ease-in-out";
+
+	setTimeout(() => {
+		text.style.opacity = 1;
+		text.style.width = width;
+		text.style.marginLeft = 10 + "px";
+	}, 1);
+};
+
+export const hideContact = (e) => {
+	const text = e.target.querySelector(".text");
+
+	text.style.width = 0;
+	text.style.removeProperty("opacity");
+	text.style.removeProperty("margin-left");
+
+	setTimeout(() => {
+		text.style.removeProperty("display");
+		text.style.removeProperty("width");
+		text.style.removeProperty("transition");
+	}, 500);
 };

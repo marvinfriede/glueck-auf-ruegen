@@ -15,22 +15,6 @@ export const foreach = (list, cb) => Array.prototype.forEach.call(list, cb);
 export const foreachKey = (list, cb) => Object.keys(list).forEach(cb);
 
 /**
- * Finding the index of an element within its parentNode's children
- * @param {HTMLElement} el target element
- * @returns {Number} index of element
- */
-export const getNodeIndex = (el) => [...el.parentNode.children].indexOf(el);
-
-/**
- * Remove all children of passed element.
- * @param {HTMLElement} el
- * @returns {void}
- */
-export const clearChildren = (el) => {
-	while (el.firstChild) el.removeChild(el.lastChild);
-};
-
-/**
  * Checks if argument is an integer.
  * @param {any} value target for check
  * @returns {Boolean}
@@ -103,3 +87,36 @@ export const splitStringBetweenTwoChars = (haystack, char1, char2) => {
  * @returns {Boolean}
  */
 export const isStrEmpty = (str) => !str || 0 === str.length;
+
+// --------------------------------------------------------
+// DOM manipulation
+// --------------------------------------------------------
+
+/**
+ * Sanitize and encode HTML.
+ * @param {String} str string
+ * @returns {String}
+ */
+export const sanitizeHTML = (str) => {
+	const temp = document.createElement("div");
+	temp.textContent = str;
+	return temp.innerHTML;
+};
+
+/**
+ * Finding the index of an element within its parentNode's children
+ * @param {HTMLElement} el target element
+ * @returns {Number} index of element
+ */
+export const getNodeIndex = (el) => [...el.parentNode.children].indexOf(el);
+
+/**
+ * Remove all children of passed element.
+ * @param {HTMLElement} el
+ * @param {Boolean} removeSelf remove the element itself
+ * @returns {void}
+ */
+export const clearChildren = (el, removeSelf = false) => {
+	if (removeSelf === true) el.parentNode.removeChild(el);
+	while (el.firstChild) el.removeChild(el.lastChild);
+};

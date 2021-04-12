@@ -1,15 +1,17 @@
 // import javascript
 import { calendar } from "./cal.js";
 import {
+	doBooking,
 	goToBooking,
+	hideContact,
 	imageEnlarge,
 	openDropdown,
 	openSelector,
 	scaleGrids,
+	showContact,
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
-import { showElement } from "./animations.js";
 import { foreach, timeout } from "./utils-standard.js";
 import { tns } from "../../node_modules/tiny-slider/src/tiny-slider";
 
@@ -32,7 +34,6 @@ const sliderDefaultOpts = {
 	nav: true,
 	navAsThumbnails: true,
 	navPosition: "bottom",
-	preventScrollOnTouch: "auto",
 	rewind: true,
 	slideBy: "page",
 	speed: 500,
@@ -74,7 +75,7 @@ const init = async () => {
 	};
 
 	await timeout(2000);
-	scaleGrids();
+	handleWindowResize();
 };
 
 const setEventListeners = () => {
@@ -83,11 +84,10 @@ const setEventListeners = () => {
 	// document.addEventListener("touchstart", (e) => console.log(e));
 
 	foreach(document.querySelectorAll(".main .slider"), (slider) =>
-		slider.addEventListener("dblclick", imageEnlarge)
+		slider.addEventListener("click", imageEnlarge)
 	);
-	foreach(document.querySelectorAll(".main .slider"), (slider) =>
-		slider.addEventListener("touchstart", imageEnlarge)
-	);
+
+	document.querySelector("#contact").addEventListener("click", doBooking);
 
 	document
 		.querySelector("#select-house")
@@ -106,6 +106,11 @@ const setEventListeners = () => {
 	foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
 		btn.addEventListener("click", goToBooking)
 	);
+
+	foreach(document.querySelectorAll(".contact-panel--item"), (el) => {
+		el.addEventListener("mouseenter", showContact);
+		el.addEventListener("mouseleave", hideContact);
+	});
 
 	document.querySelector("header.s").addEventListener("click", toggleSmallMenu);
 

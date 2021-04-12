@@ -1,5 +1,6 @@
 .cal-wrap {
-	left: -1px;
+	min-width: 40vw;
+	right: -1px;
 	position: absolute;
 	top: 100%;
 	width: calc(100% + 2px);
