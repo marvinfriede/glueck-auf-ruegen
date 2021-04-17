@@ -1,6 +1,7 @@
 // import javascript
 import { calendar } from "./cal.js";
 import {
+	closeModalManually,
 	doBooking,
 	goToBooking,
 	hideContact,
@@ -9,6 +10,7 @@ import {
 	openSelector,
 	scaleGrids,
 	showContact,
+	toggleAccordion,
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
@@ -87,6 +89,10 @@ const setEventListeners = () => {
 		slider.addEventListener("click", imageEnlarge)
 	);
 
+	document.querySelectorAll(".accordion").forEach((el) => {
+		el.addEventListener("click", toggleAccordion);
+	});
+
 	document.querySelector("#contact").addEventListener("click", doBooking);
 
 	document
@@ -106,6 +112,10 @@ const setEventListeners = () => {
 	foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
 		btn.addEventListener("click", goToBooking)
 	);
+
+	foreach(document.querySelectorAll(".modal .close-button"), (el) => {
+		el.addEventListener("click", closeModalManually);
+	});
 
 	foreach(document.querySelectorAll(".contact-panel--item"), (el) => {
 		el.addEventListener("mouseenter", showContact);

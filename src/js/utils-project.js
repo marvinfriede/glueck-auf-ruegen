@@ -1,7 +1,7 @@
-import { foreach, isInt, sanitizeHTML } from "./utils-standard.js";
+import { dateDiff, dt, foreach, sanitizeHTML } from "./utils-standard.js";
 import { Fade, hideElement, showElement } from "./animations.js";
 import { calendar } from "./cal.js";
-import { MAIN_SEASON, PRICES } from "./data.js";
+import { PRICES } from "./data.js";
 
 export const toggleSmallMenu = () => {
 	if (document.querySelector("header.s").classList.contains("open")) {
@@ -299,6 +299,9 @@ const closeModal = (e) => {
 	// targets
 	if (e.target.closest(".content")) return;
 
+	closeModalManually();
+};
+export const closeModalManually = (e) => {
 	// do nothing, if modal is not even visible
 	const modal = document.querySelector(".modal.visible");
 	if (!modal) return;
@@ -330,6 +333,18 @@ export const imageEnlarge = (e) => {
 	modal.id = "img-bg";
 	modal.title = "Klicken zum Schließen.";
 	modal.setAttribute("data-for", "img-large");
+
+	const button = document.createElement("div");
+	button.classList.add("close-button", "fixed");
+	button.id = "temp";
+	const div = document.createElement("div");
+	div.classList.add("icon", "symbol", "l");
+	const img = document.createElement("img");
+	img.src = "img/window-close.svg";
+	img.alt = "X";
+	div.append(img);
+	button.appendChild(div);
+	document.body.append(button);
 	document.body.appendChild(modal);
 	openModal(modal);
 };
@@ -338,11 +353,8 @@ const imgNormalize = () => {
 	slider.classList.remove("max");
 	slider.classList.add("default");
 	slider.removeAttribute("title");
-};
 
-export const dateDiff = (first, second) => {
-	if (isInt(first) && isInt(second))
-		return Math.round((second - first) / (1000 * 60 * 60 * 24));
+	Fade.out(document.querySelector("#temp"), 500, true);
 };
 
 export const doBooking = (e) => {
@@ -373,16 +385,14 @@ export const doBooking = (e) => {
 			date: {
 				arvl: {
 					to: document.querySelector("#data-dates .selector"),
-					value: calendar.arvl.dayLoc,
-					iso: calendar.arvl.dayIso,
+					value: calendar.arvl.date,
 				},
 				dprt: {
 					to: document.querySelector("#data-dates .selector"),
-					value: calendar.dprt.dayLoc,
-					iso: calendar.dprt.dayIso,
+					value: calendar.dprt.date,
 				},
 				stays: {
-					value: dateDiff(calendar.arvl.dayInt, calendar.dprt.dayInt),
+					value: dateDiff(calendar.arvl.date, calendar.dprt.date),
 				},
 			},
 		};
@@ -394,7 +404,8 @@ export const doBooking = (e) => {
 		bookingPrices(data);
 	} catch (err) {
 		console.error(err);
-		alert("Unknown error occurred.");
+		alert("Ein interner Fehler ist aufgetreten. Seite wird neu geladen.");
+		location.reload();
 	}
 };
 const bookingFillHouse = (data) => {
@@ -413,12 +424,13 @@ const bookingFillExtras = (data) => {
 const bookingFillDate = (data) => {
 	const mail = document.querySelector("#mail");
 	if (data.date.arvl.value && data.date.dprt.value) {
+		const arvlLocale = dt(data.date.arvl.value).toLocaleDateString();
+		const dprtLocale = dt(data.date.dprt.value).toLocaleDateString();
+
 		// create subject and body of mail
 		const subject = `Buchung ${sanitizeHTML(
 			data.house.value
-		)} vom ${sanitizeHTML(data.date.arvl.value)} bis ${sanitizeHTML(
-			data.date.dprt.value
-		)}`;
+		)} vom ${sanitizeHTML(arvlLocale)} bis ${sanitizeHTML(dprtLocale)}`;
 		const body = `Sehr geehrte Familie Wolf,
 		
 		...
@@ -426,8 +438,8 @@ const bookingFillDate = (data) => {
 		Buchungszusammenfassung
 		 - Unterkunft: ${sanitizeHTML(data.house.value)}
 		 - Personen: ${sanitizeHTML(data.guests.value)}
-		 - Anreise: ${sanitizeHTML(data.date.arvl.value)}
-		 - Abreise: ${sanitizeHTML(data.date.dprt.value)}
+		 - Anreise: ${sanitizeHTML(arvlLocale)}
+		 - Abreise: ${sanitizeHTML(dprtLocale)}
 		 - Extras: ${sanitizeHTML(data.extras.from.innerText)}
 		 
 
@@ -441,7 +453,7 @@ const bookingFillDate = (data) => {
 			"&body=" +
 			encodeURIComponent(body);
 
-		data.date.arvl.to.innerText = `${data.date.arvl.value} - ${data.date.dprt.value}`;
+		data.date.arvl.to.innerText = `${arvlLocale} - ${dprtLocale}`;
 	} else {
 		mail.href = "mailto:Glueck-auf-ruegen@web.de";
 		data.date.arvl.to.innerText = "Nichts ausgewählt.";
@@ -471,77 +483,76 @@ const bookingPrices = (data) => {
 		return;
 	}
 
-	let price = PRICES[data.house.value].cleaning; // final cleaning
+	// shortcuts
+	const house = data.house.value;
+	const numStays = data.date.stays.value;
+
+	let price = PRICES[house].cleaning; // final cleaning
 
 	// regular title
 	title.innerText = "";
 
-	// get main and low season days
-	let i, day, month, year;
-	let main = 0,
-		low = 0;
-	let date = new Date(data.date.arvl.iso);
-	for (i = 0; i < data.date.stays.value; i++) {
-		month = date.getMonth() + 1;
-		day = date.getDate();
-		year = date.getFullYear();
-
-		// check if day is included in list of booked days of month
-		if (MAIN_SEASON[year][month].includes(day)) {
-			main += 1;
-		} else {
-			low += 1;
-		}
+	// add all days to price
+	let date = dt(data.date.arvl.value).toDate();
+	let priceOfDay,
+		priceNights = 0;
+	let i;
+	for (i = 0; i < numStays; i++) {
+		priceOfDay = getPriceOfDate(date, house);
+		priceNights += priceOfDay;
 
 		// set date to next day
 		date.setDate(date.getDate() + 1);
 	}
+	price += priceNights;
 
 	// fill in text
-	stays.firstElementChild.innerText = `${data.date.stays.value} Nächte`;
-	if (low === 0) {
-		stays.lastElementChild.innerText = `${main} x ${
-			PRICES[data.house.value].main
-		} €`;
-	} else if (main === 0) {
-		stays.lastElementChild.innerText = `${low} x ${
-			PRICES[data.house.value].low
-		} €`;
+	if (numStays == "1") {
+		stays.firstElementChild.innerText = `${numStays} Nacht`;
 	} else {
-		stays.lastElementChild.innerText = `${main} x	${
-			PRICES[data.house.value].main
-		} € + ${low} x	${PRICES[data.house.value].low} €`;
+		stays.firstElementChild.innerText = `${numStays} Nächte`;
 	}
+	stays.lastElementChild.innerText = `${priceNights} €`;
 
-	// add prices for house (main and low season)
-	price +=
-		main * PRICES[data.house.value].main + low * PRICES[data.house.value].low;
+	// if (low === 0) {
+	// 	stays.lastElementChild.innerText = `${main} x ${
+	// 		PRICES[data.house.value].main
+	// 	} €`;
+	// } else if (main === 0) {
+	// 	stays.lastElementChild.innerText = `${low} x ${
+	// 		PRICES[data.house.value].low
+	// 	} €`;
+	// } else {
+	// 	stays.lastElementChild.innerText = `${main} x	${
+	// 		PRICES[data.house.value].main
+	// 	} € + ${low} x	${PRICES[data.house.value].low} €`;
+	// }
+
 	showElement(stays);
 
 	// extras
 	if (data.extras.dog == "true") {
-		extra1.lastElementChild.innerText = `${main + low} x ${
-			PRICES[data.house.value].dog
-		} €`;
+		extra1.lastElementChild.innerText = `${numStays} x ${PRICES.dog.night} € + ${PRICES.dog.cleaning} €`;
 		showElement(extra1);
-		price += (main + low) * PRICES[data.house.value].dog;
+
+		// add cost
+		price += numStays * PRICES.dog.night;
+		price += PRICES.dog.cleaning;
 	} else {
 		hideElement(extra1);
 	}
 	if (data.extras.sheets == "true") {
-		extra2.lastElementChild.innerText = `${data.guests.value} x ${
-			PRICES[data.house.value].sheets
-		} €`;
-		price += data.guests.value * PRICES[data.house.value].sheets;
+		extra2.lastElementChild.innerText = `${data.guests.value} x ${PRICES.sheets} €`;
 		showElement(extra2);
+
+		// add cost
+		price += data.guests.value * PRICES.sheets;
 	} else {
 		hideElement(extra2);
 	}
 
 	// cleaning
-	cleaning.lastElementChild.innerText = `${
-		PRICES[data.house.value].cleaning
-	} €`;
+	cleaning.lastElementChild.innerText = `${PRICES[house].cleaning} €`;
 	showElement(cleaning);
 
 	// total price
@@ -576,3 +587,43 @@ export const hideContact = (e) => {
 		text.style.removeProperty("transition");
 	}, 500);
 };
+
+export const toggleAccordion = (e) => {
+	const el = e.target.closest(".accordion");
+	const panel = el.nextElementSibling;
+	if (el.classList.contains("active")) {
+		el.classList.remove("active");
+		panel.style.maxHeight = null;
+	} else {
+		el.classList.add("active");
+		panel.style.maxHeight = panel.scrollHeight + "px";
+	}
+};
+
+const getPriceOfDate = (date, houseID) => {
+	if (!PRICES) throw new ConstMissingException("Price list not defined");
+
+	const arr = PRICES[houseID][dt(date).getUTCFullYear()];
+	date = dt(date).toInt();
+
+	let begin, end, i;
+	const len = arr.length;
+	for (i = 0; i < len; i++) {
+		begin = dt(arr[i].begin).toInt();
+		end = dt(arr[i].end).toInt();
+		if (date >= begin && date <= end) return arr[i].price;
+	}
+
+	throw new DateError("Date not found in price list.", date);
+};
+
+export function ConstMissingException(message) {
+	this.message = message;
+	this.name = "ConstMissingException";
+}
+export function DateError(message, date) {
+	this.message = message;
+	this.date = date;
+	this.dateStr = new Date(date);
+	this.name = "DateError";
+}

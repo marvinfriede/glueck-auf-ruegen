@@ -24,7 +24,8 @@
 	--blue5: #4b9fe1;
 	--blue6: #63bce5;
 	--blue7: #7ed5ea;
-	--blue8: #e1edff;
+	--blue8: #cadbf5;
+	--blue9: #e1edff;
 	--main-color: #28559a;
 	--main-color--hover: #0f2557;
 }
@@ -354,6 +355,76 @@ sup {
 	transform: rotateZ(270deg);
 }
 
+/* ---- accordion ---- */
+.accordion {
+	cursor: pointer;
+	transition: background-color 300ms ease-in-out;
+}
+.accordion:hover,
+.accordion.active {
+	background-color: var(--blue8);
+}
+.accordion ~ .panel {
+	max-height: 0;
+	overflow: hidden;
+	padding-left: 10px;
+	padding-right: 10px;
+	transition: all 500ms ease-in-out;
+}
+.accordion.active ~ .panel {
+	margin-bottom: 10px;
+	margin-top: 10px;
+}
+
+/* ---- close button ---- */
+.close-button {
+	align-items: center;
+	background-color: var(--danger);
+	border: 2px solid var(--black);
+	box-shadow: 0 6px 10px 0 rgba(33, 33, 33, 0.14),
+		0 1px 18px 0 rgba(33, 33, 33, 0.06), 0 3px 10px 0 rgba(33, 33, 33, 0.1);
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	position: absolute;
+	right: 2px;
+	top: -10px;
+	width: 40px;
+	z-index: 999999999;
+}
+.close-button.fixed {
+	position: fixed;
+	right: 10px !important;
+	top: 10px !important;
+}
+@media (min-width: 576px) {
+	.close-button {
+		height: 50px;
+		right: -5px;
+		top: -20px;
+		width: 50px;
+	}
+}
+@media (min-width: 768px) {
+	.close-button {
+		height: 60px;
+		right: -15px;
+		top: -25px;
+		width: 60px;
+	}
+}
+@media (min-width: 1200px) {
+	.close-button {
+		height: 70px;
+		right: -20px;
+		top: -35px;
+		width: 70px;
+	}
+}
+
+/* ---- modal ---- */
 .modal {
 	align-items: center;
 	background-color: rgba(0, 0, 0, 0.7);
@@ -369,9 +440,11 @@ sup {
 	z-index: 999998;
 }
 .modal .content {
-	z-index: 999999;
+	position: relative;
 	width: 100%;
+	z-index: 999999;
 }
+
 .modal .container {
 	background-color: var(--white);
 	border-radius: 5px;
@@ -416,7 +489,7 @@ sup {
 	padding-bottom: 5px;
 }
 .modal .pricing {
-	background-color: var(--blue8);
+	background-color: var(--blue9);
 	border-radius: 6px;
 	color: var(--blue2);
 	display: flex;
@@ -439,7 +512,7 @@ sup {
 	padding-left: 10px;
 }
 .modal .pricing .row .price.total {
-	border-top: 1px solid var(--gray6);
+	border-top: 1px solid var(--blue3);
 	font-size: var(--fs-l);
 	padding-top: 15px;
 }
@@ -481,7 +554,7 @@ sup {
 }
 
 .modal .contact-panel--item:hover {
-	background-color: var(--blue8);
+	background-color: var(--blue9);
 	flex-grow: 1;
 }
 .modal .contact-panel--item:hover svg path {
@@ -1683,24 +1756,44 @@ section.main .pricing .card-main--row {
 	justify-content: space-between;
 	padding: 20px 20px;
 }
-section.main .pricing .card-main--row .season {
+section.main .pricing .panel .panel-row {
+	align-items: center;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	padding: 15px 15px;
+}
+section.main .pricing .season {
 	font-size: var(--fs-l);
 }
-section.main .pricing .card-main--row .extras {
+section.main .pricing .extras {
 	font-size: var(--fs-s);
 }
-section.main .pricing .card-main--row .note {
+section.main .pricing .note {
 	font-size: var(--fs-xs);
 	position: absolute;
 	right: 0;
 	white-space: nowrap;
 }
 
-section.main .pricing .card-main--row .price {
+section.main .pricing .price-wrap {
+	--gap: 20px;
+	align-items: flex-end;
+	display: inline-flex;
+	flex-direction: column;
+	margin-top: calc(-1 * var(--gap));
+	height: calc(100% + var(--gap));
+}
+section.main .pricing .price-wrap > div {
+	margin-top: var(--gap);
+}
+
+section.main .pricing .price {
 	font-size: var(--fs-l);
 	position: relative;
 }
-section.main .pricing .card-main--row .price.large {
+section.main .pricing .price.large {
 	font-size: var(--fs-L);
 }
 
@@ -1784,8 +1877,14 @@ section.main .map iframe {
 	section.main .pricing .card:last-child {
 		margin-left: 20px;
 	}
+	section.main .pricing .card-main--row {
+		padding: 20px 25px;
+	}
 }
 @media (min-width: 768px) {
+	section.main .pricing .card-main--row {
+		padding: 20px 30px;
+	}
 }
 @media (min-width: 992px) {
 	.separator {
@@ -1804,6 +1903,9 @@ section.main .map iframe {
 	}
 	.slider-wrap.landscape .slider > div {
 		height: 75vh;
+	}
+	section.main .pricing .price-wrap {
+		--gap: 25px;
 	}
 }
 @media (min-width: 1200px) {
