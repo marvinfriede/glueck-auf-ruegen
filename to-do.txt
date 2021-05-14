@@ -1,18 +1,5 @@
-alle bilder
-
 mehr bei info grid
-
-Kinderreisebett tooltip düne
-
-padding-top of landing section on scroll fixen
 
 Loading transition
 
 loading animation von Bildern
-
-alt attribute nur bei bildern, die gefunden werden sollen
--> logos: alt=""
-
-<noscript>
-	Diese Website benötigt JavaScript, um fehlerfrei zu funktionieren.
-</noscript>

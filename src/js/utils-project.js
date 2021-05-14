@@ -172,6 +172,16 @@ const closeSelector = (e) => {
 	document.removeEventListener("keyup", closeSelector);
 };
 
+export const openGoogleMap = () => {
+	const note = document.querySelector(".map .note");
+	note.remove();
+
+	const iframe = document.querySelector(".map iframe");
+	iframe.src =
+		"https://www.google.com/maps/embed/v1/place?key=AIzaSyCgS9zPo0uJVFHERZ9WmY68Uw8Py4VqyKU&q=place/Buchenweg+4,+18586+Sellin,+Deutschland&zoom=14";
+	Fade.in(iframe);
+};
+
 export const goToBooking = (e) => {
 	document.querySelector("#buchen").scrollIntoView();
 	if (!e.target.dataset.value) return;
@@ -189,25 +199,27 @@ export const goToBooking = (e) => {
 };
 
 export const updateListSelection = (e) => {
-	const ul = e.target
-		.closest(".customize-tools")
-		.querySelector("ul.thumbnails");
+	const wrap = e.target.closest(".slider-wrap");
+	const ul = wrap.querySelector("ul.thumbnails");
 	let active;
 
 	if (e.target.closest("li").classList.contains("next")) {
 		active =
-			ul.querySelector(".tns-nav-active").nextElementSibling ||
-			ul.firstElementChild;
+			ul.querySelector(".tns-nav-active").nextElementSibling || ul.firstElementChild;
 	} else {
 		active =
-			ul.querySelector(".tns-nav-active").previousElementSibling ||
-			ul.lastElementChild;
+			ul.querySelector(".tns-nav-active").previousElementSibling || ul.lastElementChild;
 	}
 	active.scrollIntoView({
 		behavior: "smooth",
 		block: "nearest",
 		inline: "start",
 	});
+
+	// get title from picture (by data-id) and place in in container below image
+	const img = wrap.querySelector(`[data-id="${active.dataset.nav}"] img`);
+	const cont = wrap.querySelector(".image-title span");
+	cont.innerText = img.title;
 };
 
 export const scaleGrids = () => {
@@ -220,8 +232,7 @@ export const scaleGrids = () => {
 		for (let i = 0; i < items.length; i++) {
 			if (
 				Math.abs(
-					items[i].getBoundingClientRect().y -
-						items[i + 1].getBoundingClientRect().y
+					items[i].getBoundingClientRect().y - items[i + 1].getBoundingClientRect().y
 				) < 5
 			) {
 				factor += 1;
@@ -247,8 +258,7 @@ export const scaleGrids = () => {
 		}
 
 		// calculate padding to make grid centered
-		const padding =
-			(grid.offsetWidth / factor - longest.offsetWidth) * 0.5 + "px";
+		const padding = (grid.offsetWidth / factor - longest.offsetWidth) * 0.5 + "px";
 		foreach(items, (item) => (item.style.marginLeft = padding));
 	});
 };
@@ -376,10 +386,9 @@ export const doBooking = (e) => {
 			},
 			extras: {
 				from: document.querySelector("#select-extras .selection"),
-				dog: document.querySelector("#select-extras [data-name=dog]").dataset
+				dog: document.querySelector("#select-extras [data-name=dog]").dataset.selected,
+				sheets: document.querySelector("#select-extras [data-name=sheets]").dataset
 					.selected,
-				sheets: document.querySelector("#select-extras [data-name=sheets]")
-					.dataset.selected,
 				to: document.querySelector("#data-extras .selector"),
 			},
 			date: {
@@ -428,9 +437,9 @@ const bookingFillDate = (data) => {
 		const dprtLocale = dt(data.date.dprt.value).toLocaleDateString();
 
 		// create subject and body of mail
-		const subject = `Buchung ${sanitizeHTML(
-			data.house.value
-		)} vom ${sanitizeHTML(arvlLocale)} bis ${sanitizeHTML(dprtLocale)}`;
+		const subject = `Buchung ${sanitizeHTML(data.house.value)} vom ${sanitizeHTML(
+			arvlLocale
+		)} bis ${sanitizeHTML(dprtLocale)}`;
 		const body = `Sehr geehrte Familie Wolf,
 		
 		...

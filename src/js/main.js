@@ -7,6 +7,7 @@ import {
 	hideContact,
 	imageEnlarge,
 	openDropdown,
+	openGoogleMap,
 	openSelector,
 	scaleGrids,
 	showContact,
@@ -95,19 +96,13 @@ const setEventListeners = () => {
 
 	document.querySelector("#contact").addEventListener("click", doBooking);
 
-	document
-		.querySelector("#select-house")
-		.addEventListener("click", openDropdown);
-	document
-		.querySelector("#select-guests")
-		.addEventListener("click", openDropdown);
-	document
-		.querySelector("#select-extras")
-		.addEventListener("click", openSelector);
+	document.querySelector("#select-house").addEventListener("click", openDropdown);
+	document.querySelector("#select-guests").addEventListener("click", openDropdown);
+	document.querySelector("#select-extras").addEventListener("click", openSelector);
 
-	foreach(document.querySelectorAll(".customize-tools ul.controls li"), (btn) =>
-		btn.addEventListener("click", updateListSelection)
-	);
+	foreach(document.querySelectorAll(".customize-tools ul.controls li"), (btn) => {
+		btn.addEventListener("click", updateListSelection);
+	});
 
 	foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
 		btn.addEventListener("click", goToBooking)
@@ -122,6 +117,8 @@ const setEventListeners = () => {
 		el.addEventListener("mouseleave", hideContact);
 	});
 
+	document.querySelector(".map .note").addEventListener("click", openGoogleMap);
+
 	document.querySelector("header.s").addEventListener("click", toggleSmallMenu);
 
 	window.addEventListener("resize", handleWindowResize);
@@ -133,16 +130,20 @@ const toggleNavOnScroll = () => {
 	const currentScrollPos = window.pageYOffset;
 	const headerL = document.querySelector("header.l");
 	const headerS = document.querySelector("header.s");
+	const landing = document.querySelector("section.landing");
 
+	// avoid equal case -> do nothing on init
 	if (prevScrollPos > currentScrollPos) {
 		if (window.innerWidth >= 768) {
 			headerL.style.top = 0;
+			landing.style.marginTop = "var(--header-height)";
 		} else {
 			headerS.style.right = "20px";
 		}
-	} else {
+	} else if (prevScrollPos < currentScrollPos) {
 		if (window.innerWidth >= 768) {
-			headerL.style.top = "-64px";
+			headerL.style.top = "calc(-1 * var(--header-height))";
+			landing.style.marginTop = 0;
 		} else {
 			headerS.style.right = "-60px";
 		}
