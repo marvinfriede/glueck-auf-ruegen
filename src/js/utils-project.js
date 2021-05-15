@@ -178,7 +178,7 @@ export const openGoogleMap = () => {
 
 	const iframe = document.querySelector(".map iframe");
 	iframe.src =
-		"https://www.google.com/maps/embed/v1/place?key=AIzaSyCgS9zPo0uJVFHERZ9WmY68Uw8Py4VqyKU&q=place/Buchenweg+4,+18586+Sellin,+Deutschland&zoom=14";
+		"https://www.google.com/maps/embed/v1/place?key=AIzaSyAPDv1gSmdxeAka2fbuY7oMVUXMnxkTHow&q=place/Buchenweg+4,+18586+Sellin,+Deutschland&zoom=14";
 	Fade.in(iframe);
 };
 
