@@ -2,8 +2,6 @@
 
 ### Ferienwohnungen im Ostseebad Sellin
 
-===================================
-
 Egal ob Störtebecker Festspiele, Kap Arkona, Bernsteinmuseum oder der Baumwipfelpfad des Naturerbe Zentrums Rügen - die zahlreichen Ausflugsziele der Insel Rügen lassen sich von Sellin aus problemlos erreichen. Mit der Anbindung an verschiedene Wander- und Radwege bietet Sellin auch für Aktiv-Urlauber ein lohnenswertes Urlaubsziel.
 
 Aber auch Sellin hat mit einem wunderschönen Sandstrand, der hier besonders gut erhaltenen Bäderarchitektur der Ostseebäder und der über die Grenzen der Insel Rügen bekannten Seebrücke einiges zu bieten.
