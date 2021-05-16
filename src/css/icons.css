@@ -1,0 +1,101 @@
+.icon.caret > img {
+	height: 10px;
+	width: 10px;
+}
+.icon.symbol > img {
+	height: 15px;
+	width: 15px;
+}
+.icon.symbol.l {
+	height: 25px;
+	width: 25px;
+}
+.icon.symbol.l > img,
+.icon.symbol.l > svg {
+	height: 100%;
+	width: 100%;
+}
+@media (min-width: 380px) {
+	.icon.caret > img {
+		height: 12.5px;
+		width: 12.5px;
+	}
+	.icon.symbol > img {
+		height: 17.5px;
+		width: 17.5px;
+	}
+	.icon.symbol.l {
+		height: 27.5px;
+		width: 27.5px;
+	}
+}
+@media (min-width: 576px) {
+	.icon.caret > img {
+		height: 15px;
+		width: 15px;
+	}
+	.icon.symbol > img {
+		height: 20px;
+		width: 20px;
+	}
+	.icon.symbol.l {
+		height: 30px;
+		width: 30px;
+	}
+}
+@media (min-width: 768px) {
+	.icon.caret > img {
+		height: 17.5px;
+		width: 17.5px;
+	}
+	.icon.symbol > img {
+		height: 22.5px;
+		width: 22.5px;
+	}
+	.icon.symbol.l {
+		height: 32.5px;
+		width: 32.5px;
+	}
+}
+@media (min-width: 992px) {
+	.icon.caret > img {
+		height: 20px;
+		width: 20px;
+	}
+	.icon.symbol > img {
+		height: 25px;
+		width: 25px;
+	}
+	.icon.symbol.l {
+		height: 35px;
+		width: 35px;
+	}
+}
+@media (min-width: 1200px) {
+	.icon.caret > img {
+		height: 22.5px;
+		width: 22.5px;
+	}
+	.icon.symbol > img {
+		height: 27.5px;
+		width: 27.5px;
+	}
+	.icon.symbol.l {
+		height: 37.5px;
+		width: 37.5px;
+	}
+}
+@media (min-width: 1440px) {
+	.icon.caret > img {
+		height: 25px;
+		width: 25px;
+	}
+	.icon.symbol > img {
+		height: 30px;
+		width: 30px;
+	}
+	.icon.symbol.l {
+		height: 40px;
+		width: 40px;
+	}
+}

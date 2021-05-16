@@ -55,6 +55,7 @@ export const PRICES = {
 			{ begin: "2021/11/01", end: "2021/12/22", price: 119 },
 			{ begin: "2021/12/23", end: "2021/12/31", price: 210 },
 		],
+		bed: 0,
 		cleaning: 90,
 	},
 	// bungalow moewe
@@ -69,7 +70,9 @@ export const PRICES = {
 			{ begin: "2021/12/23", end: "2021/12/31", price: 99 },
 		],
 		cleaning: 110,
+		bed: 10,
 	},
+	// gleich
 	dog: { night: 10, cleaning: 20 },
 	sheets: 15,
 };

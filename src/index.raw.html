@@ -63,7 +63,7 @@
 		<!-- fonts -->
 		<link rel="preconnect" href="https://fonts.gstatic.com" />
 		<link
-			href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Nunito:ital,wght@0,400;0,700;1,200;1,700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,300&display=swap"
 			rel="stylesheet"
 		/>
 	</head>
@@ -89,7 +89,12 @@
 										<a class="nav-link" href="#preise">Preise</a>
 									</div>
 									<div class="nav-item">
-										<a class="nav-link special" data-target="booking">Buchen</a>
+										<a class="nav-link" href="#details">Details</a>
+									</div>
+									<div class="nav-item">
+										<a class="nav-link special" data-target="booking">
+											<div>Buchen</div></a
+										>
 									</div>
 								</div>
 							</div>
@@ -109,6 +114,7 @@
 					<a class="nav-link" href="#moewe">Bungalow Möwe</a>
 					<a class="nav-link" href="#lage">Lage</a>
 					<a class="nav-link" href="#preise">Preise</a>
+					<a class="nav-link" href="#details">Details</a>
 					<a class="nav-link" data-target="booking">Buchen</a>
 				</div>
 			</aside>
@@ -340,12 +346,18 @@
 														<span>x</span>
 													</div>
 												</div>
-												<!-- <div class="selector-option" data-value="3" data-selected="false" aria-selected="false">
-													<div class="selector-option--text"></div>
+												<div
+													class="selector-option"
+													data-value="3"
+													data-name="bed"
+													data-selected="false"
+													aria-selected="false"
+												>
+													<div class="selector-option--text">Zustellbett</div>
 													<div class="selector-option--checkbox">
 														<span>x</span>
 													</div>
-												</div> -->
+												</div>
 											</div>
 										</div>
 									</div>
@@ -663,74 +675,77 @@
 
 							<div class="title">Ferienwohnung Düne</div>
 							<div class="info-grid">
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/ruler.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">117 m<sup>2</sup></span>
-								</div>
-								<div class="grid-item longest">
-									<span class="icon symbol"
-										><img src="img/people.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text"
-										>bis 6 Personen
-										<span class="tooltip" tabindex="0">
-											(+1 Kleinkind)
-											<span class="tooltiptext"
-												>Nur Aufbettung mit Kinderreisebett möglich.</span
-											>
+								<div class="grid">
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/ruler.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">117 m<sup>2</sup></span>
+									</div>
+									<div class="grid-item longest">
+										<span class="icon symbol"
+											><img src="img/people.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text"
+											>bis 6 Personen
+											<span class="tooltip" tabindex="0">
+												(+1 Kleinkind)
+												<span class="tooltiptext"
+													>Nur Aufbettung mit Kinderreisebett möglich.</span
+												>
+											</span>
 										</span>
-									</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/bed.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">3 Schlafzimmer</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/bathtub.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">2 Bäder</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/balcony.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Balkon</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/house.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">1. Obergeschoss</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/flower.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Garten</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/washing-machine.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Waschmaschine</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/parking.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Parkplätze</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/wlan.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">WLAN</span>
+									</div>
 								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/bed.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">3 Schlafzimmer</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/bathtub.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">2 Bäder</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/balcony.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Balkon</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/house.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">1. Obergeschoss</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/flower.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Garten</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/washing-machine.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Waschmaschine</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/parking.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Parkplätze</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/wlan.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">WLAN</span>
-								</div>
+								<a href="#details" title="Scrolle zu den Details.">Details</a>
 							</div>
 
 							<div class="slider-wrap landscape">
@@ -758,8 +773,8 @@
 													<img
 														class="tns-lazy"
 														data-src="img/duene/wz2.opt.jpg"
-														alt="Wohnzimmer mit Flachbild-TV"
-														title="Wohnzimmer mit Flachbild-TV"
+														alt="Wohnzimmer mit Flachbild-Kabel-TV"
+														title="Wohnzimmer mit Flachbild-Kabel-TV"
 													/>
 												</div>
 											</div>
@@ -1197,54 +1212,57 @@
 							<div class="title">Bungalow Möwe</div>
 
 							<div class="info-grid">
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/ruler.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">64 m<sup>2</sup></span>
+								<div class="grid">
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/ruler.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">64 m<sup>2</sup></span>
+									</div>
+									<div class="grid-item longest">
+										<span class="icon symbol"
+											><img src="img/people.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">2 Erwachsene + 1 Kind </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/bed.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">1 Schlafzimmer</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/bathtub.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">1 Bad</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/flower.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Garten</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/balcony.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Terrasse</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/parking.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">Parkplätze</span>
+									</div>
+									<div class="grid-item">
+										<span class="icon symbol"
+											><img src="img/wlan.svg" alt="" loading="lazy"
+										/></span>
+										<span class="text">WLAN</span>
+									</div>
 								</div>
-								<div class="grid-item longest">
-									<span class="icon symbol"
-										><img src="img/people.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">2 Erwachsene + 1 Kind </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/bed.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">1 Schlafzimmer</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/bathtub.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">1 Bad</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/flower.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Garten</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/balcony.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Terrasse</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/parking.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">Parkplätze</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon symbol"
-										><img src="img/wlan.svg" alt="" loading="lazy"
-									/></span>
-									<span class="text">WLAN</span>
-								</div>
+								<a href="#details" title="Scrolle zu den Details.">Details</a>
 							</div>
 
 							<div class="slider-wrap landscape">
@@ -1272,8 +1290,8 @@
 													<img
 														class="tns-lazy"
 														data-src="img/moewe/wz2.opt.jpg"
-														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
-														title="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
+														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
+														title="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
 													/>
 												</div>
 											</div>
@@ -1284,8 +1302,8 @@
 													<img
 														class="tns-lazy"
 														data-src="img/moewe/wz3.opt.jpg"
-														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
-														title="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
+														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
+														title="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
 													/>
 												</div>
 											</div>
@@ -1296,8 +1314,8 @@
 													<img
 														class="tns-lazy"
 														data-src="img/moewe/wz4.opt.jpg"
-														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
-														title="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
+														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
+														title="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
 													/>
 												</div>
 											</div>
@@ -1308,8 +1326,8 @@
 													<img
 														class="tns-lazy"
 														data-src="img/moewe/wz5.opt.jpg"
-														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
-														title="Wohnbereich mit Esstisch, Sofa und Flachbild-TV"
+														alt="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
+														title="Wohnbereich mit Esstisch, Sofa und Flachbild-Kabel-TV"
 													/>
 												</div>
 											</div>
@@ -1639,47 +1657,59 @@
 							</div>
 
 							<div class="info-grid">
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Seebrücke/Strand (600m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Restaurants (400m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Bäcker (250m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Supermarkt (1000m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text">
-										Ahoi Bad (1000m) -
-										<span class="tooltip" tabindex="0" style="text-decoration: underline">
-											kostenlos!
-											<span class="tooltiptext">Täglich 3 Stunden für unsere Gäste.</span>
+								<div class="grid">
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Seebrücke/Strand (600m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Hundestrand (750m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Restaurants (400m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Bäcker (250m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Supermarkt (1000m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text">
+											Ahoi Bad (1000m) -
+											<span
+												class="tooltip"
+												tabindex="0"
+												style="text-decoration: underline"
+											>
+												kostenlos!
+												<span class="tooltiptext"
+													>Täglich 3 Stunden für unsere Gäste.</span
+												>
+											</span>
 										</span>
-									</span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Haltestelle Seldivner Bäderbahn (200m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Haltestelle Rasender Roland (600m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Friseur, Drogerie (200m) </span>
-								</div>
-								<div class="grid-item">
-									<span class="icon"></span>
-									<span class="text"> Hunderstrand (600m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Haltestelle Seldivner Bäderbahn (200m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Haltestelle Rasender Roland (600m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Friseur, Drogerie (200m) </span>
+									</div>
+									<div class="grid-item">
+										<span class="icon"></span>
+										<span class="text"> Hunderstrand (600m) </span>
+									</div>
 								</div>
 							</div>
 
@@ -1720,7 +1750,12 @@
 									</div>
 									<div class="card-main">
 										<div class="card-main--row accordion">
-											<div class="season">Preisliste</div>
+											<div class="season">
+												<div>Preisliste</div>
+												<div class="icon caret">
+													<img src="img/arrow-right.svg" alt="" class="rotate90deg" />
+												</div>
+											</div>
 											<div class="price large">
 												119€ - 210€
 												<div class="note">pro Nacht</div>
@@ -1787,6 +1822,11 @@
 											</div>
 										</div>
 
+										<div class="card-main--row">
+											<div class="extras">Kinderreisebett</div>
+											<div class="price">kostenlos</div>
+										</div>
+
 										<div class="card-footer">
 											<button
 												class="booking"
@@ -1807,7 +1847,12 @@
 									</div>
 									<div class="card-main">
 										<div class="card-main--row accordion">
-											<div class="season">Preisliste</div>
+											<div class="season">
+												<div>Preisliste</div>
+												<div class="icon caret">
+													<img src="img/arrow-right.svg" alt="" class="rotate90deg" />
+												</div>
+											</div>
 											<div class="price large">
 												65€ - 99€
 												<div class="note">pro Nacht</div>
@@ -1873,6 +1918,15 @@
 												<div class="note">pro Person</div>
 											</div>
 										</div>
+
+										<div class="card-main--row">
+											<div class="extras">Zustellbett</div>
+											<div class="price">
+												10€
+												<div class="note">pro Nacht</div>
+											</div>
+										</div>
+
 										<div class="card-footer">
 											<button
 												class="booking"
@@ -1882,6 +1936,121 @@
 											>
 												Buchen
 											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div id="id-6" class="content-bg">
+						<div class="content has-max-width">
+							<div id="details" class="separator"></div>
+
+							<div class="title">Details</div>
+
+							<div class="details">
+								<div class="row">
+									<div class="row-title">Ausstattung</div>
+									<div class="row-content">
+										<div class="row-content--title">Badezimmer</div>
+										<div class="rwo-content--content">
+											Badewanne oder Dusche, Toilettenpapier, Handtücher gegen Aufpreis,
+											WC, Haartrockner
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Küche</div>
+										<div class="rwo-content--content">
+											Esstisch, Reinigungsmittel, Toaster, Herdplatte, Backofen,
+											Küchenutensilien, Wasserkocher, Spülmaschine, Mikrowelle,
+											Kühlschrank
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Schlafzimmer</div>
+										<div class="rwo-content--content">
+											Boxspringbett oder französisches Doppelbett, Schrank, Bettwäsche
+											gegen Aufpreis, TV (Düne)
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Wohnbereich</div>
+										<div class="rwo-content--content">
+											Sofa, Essbereich, Tisch, Flachbild-Kabel-TV, Kamin (Düne)
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Garten</div>
+										<div class="rwo-content--content">
+											Gartenmöbel, Essbereich, Grillmöglichkeit, Klettergerüst, Schaukeln,
+											gemeinsame Nutzung (Düne und Möwe)
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Extras</div>
+										<div class="rwo-content--content">
+											Steckdose in Bettnähe, Wäscheständer, Holz- oder Parkettböden,
+											Fliesen-/Marmorboden, Heizung, Bügeleisen, Brettspiele/Puzzle,
+											Bücher/DVDs/Musik für Kinder, Rauchmelder
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="row-title">An-/Abreise</div>
+									<div class="row-content">
+										<div class="row-content--title">Anreise</div>
+										<div class="rwo-content--content">15:00 - 0:00 Uhr</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Abreise</div>
+										<div class="rwo-content--content">8:00 - 10:00 Uhr</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="row-title">Aufbettung</div>
+									<div class="row-content">
+										<div class="row-content--title">Babybett</div>
+										<div class="rwo-content--content">kostenlos auf Anfrage</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Zustellbett</div>
+										<div class="rwo-content--content">
+											auf Anfrage gegen Aufpreis, nur im Bungalow Möwe möglich
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="row-title">Sonstiges</div>
+									<div class="row-content">
+										<div class="row-content--title">Haustiere</div>
+										<div class="rwo-content--content">
+											Haustiere sind erlaubt (gegen Aufpreis).
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Parkplätze</div>
+										<div class="rwo-content--content">
+											kostenlos, behindertengerecht, direkt an der Unterkunft
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Internet</div>
+										<div class="rwo-content--content">
+											kostenloses WLAN in allen Bereichen der Unterkunft
+										</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Rauchen</div>
+										<div class="rwo-content--content">Rauchen ist verboten.</div>
+									</div>
+									<div class="row-content">
+										<div class="row-content--title">Feiern</div>
+										<div class="rwo-content--content">
+											Parties/Feiern/Veranstaltungen sind nicht gestattet.
 										</div>
 									</div>
 								</div>
@@ -1986,6 +2155,10 @@
 						</div>
 						<div class="row hidden" data-id="extra-2">
 							<div class="item">Handtücher/Bettwäsche</div>
+							<div class="price"></div>
+						</div>
+						<div class="row hidden" data-id="extra-3">
+							<div class="item">Zustellbett</div>
 							<div class="price"></div>
 						</div>
 						<div class="row hidden" data-id="cleaning">

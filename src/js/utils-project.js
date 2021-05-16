@@ -225,7 +225,7 @@ export const updateListSelection = (e) => {
 export const scaleGrids = () => {
 	const grids = document.querySelectorAll(".info-grid");
 	foreach(grids, (grid) => {
-		const items = Array.from(grid.querySelectorAll(".grid-item"));
+		const items = Array.from(grid.querySelectorAll(".grid-item, .info-grid a"));
 
 		// calculate how many items are in one row
 		let factor = 1;
@@ -389,6 +389,7 @@ export const doBooking = (e) => {
 				dog: document.querySelector("#select-extras [data-name=dog]").dataset.selected,
 				sheets: document.querySelector("#select-extras [data-name=sheets]").dataset
 					.selected,
+				bed: document.querySelector("#select-extras [data-name=bed]").dataset.selected,
 				to: document.querySelector("#data-extras .selector"),
 			},
 			date: {
@@ -424,7 +425,7 @@ const bookingFillGuests = (data) => {
 	data.house.to.innerText = data.house.value;
 };
 const bookingFillExtras = (data) => {
-	if (data.extras.dog || data.extras.sheets) {
+	if (data.extras.dog || data.extras.sheets || data.extras.bed) {
 		data.extras.to.innerText = data.extras.from.innerText;
 	} else {
 		data.extras.to.innerText = "Keine.";
@@ -474,6 +475,7 @@ const bookingPrices = (data) => {
 	const cleaning = document.querySelector(".pricing [data-id='cleaning']");
 	const extra1 = document.querySelector(".pricing [data-id='extra-1']");
 	const extra2 = document.querySelector(".pricing [data-id='extra-2']");
+	const extra3 = document.querySelector(".pricing [data-id='extra-3']");
 	const sum = document.querySelector(".pricing [data-id='sum']");
 
 	if (!data.date.arvl.value || !data.date.dprt.value) {
@@ -486,6 +488,7 @@ const bookingPrices = (data) => {
 		hideElement(cleaning);
 		hideElement(extra1);
 		hideElement(extra2);
+		hideElement(extra3);
 		hideElement(sum);
 
 		// do nothing further
@@ -522,21 +525,6 @@ const bookingPrices = (data) => {
 		stays.firstElementChild.innerText = `${numStays} Nächte`;
 	}
 	stays.lastElementChild.innerText = `${priceNights} €`;
-
-	// if (low === 0) {
-	// 	stays.lastElementChild.innerText = `${main} x ${
-	// 		PRICES[data.house.value].main
-	// 	} €`;
-	// } else if (main === 0) {
-	// 	stays.lastElementChild.innerText = `${low} x ${
-	// 		PRICES[data.house.value].low
-	// 	} €`;
-	// } else {
-	// 	stays.lastElementChild.innerText = `${main} x	${
-	// 		PRICES[data.house.value].main
-	// 	} € + ${low} x	${PRICES[data.house.value].low} €`;
-	// }
-
 	showElement(stays);
 
 	// extras
@@ -558,6 +546,15 @@ const bookingPrices = (data) => {
 		price += data.guests.value * PRICES.sheets;
 	} else {
 		hideElement(extra2);
+	}
+	if (data.extras.bed == "true") {
+		extra3.lastElementChild.innerText = `${numStays} x ${PRICES[house].bed} €`;
+		showElement(extra3);
+
+		// add cost
+		price += data.guests.value * PRICES[house].bed;
+	} else {
+		hideElement(extra3);
 	}
 
 	// cleaning
@@ -600,12 +597,18 @@ export const hideContact = (e) => {
 export const toggleAccordion = (e) => {
 	const el = e.target.closest(".accordion");
 	const panel = el.nextElementSibling;
+	const caret = el.querySelector(".icon.caret img");
+
 	if (el.classList.contains("active")) {
 		el.classList.remove("active");
 		panel.style.maxHeight = null;
+		caret.classList.add("rotate90deg");
+		caret.classList.remove("rotate270deg");
 	} else {
 		el.classList.add("active");
 		panel.style.maxHeight = panel.scrollHeight + "px";
+		caret.classList.remove("rotate90deg");
+		caret.classList.add("rotate270deg");
 	}
 };
 

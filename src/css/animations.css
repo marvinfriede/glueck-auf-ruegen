@@ -1,0 +1,22 @@
+@keyframes moving-arrow {
+	0% {
+		left: -12%;
+	}
+	50% {
+		left: 0%;
+	}
+	100% {
+		left: 12%;
+	}
+}
+@-webkit-keyframes moving-arrow {
+	0% {
+		left: -12%;
+	}
+	50% {
+		left: 0%;
+	}
+	100% {
+		left: 12%;
+	}
+}
