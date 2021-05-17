@@ -289,6 +289,7 @@ const removeModalListeners = () => {
 
 export const openModal = (modal) => {
 	if (modal) {
+		document.body.classList.add("modal-open");
 		Fade.in(modal, 500);
 		addModalListeners();
 	}
@@ -323,6 +324,7 @@ export const closeModalManually = (e) => {
 		Fade.out(modal, 500);
 	}
 
+	document.body.classList.remove("modal-open");
 	modal.removeAttribute("title");
 	modal.removeAttribute("data-for");
 	removeModalListeners();
