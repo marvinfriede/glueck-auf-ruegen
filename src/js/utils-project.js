@@ -1,5 +1,6 @@
 import { dateDiff, dt, foreach, sanitizeHTML } from "./utils-standard.js";
 import { Fade, hideElement, showElement } from "./animations.js";
+import { openModal } from "./overlays.js";
 import { calendar } from "./cal.js";
 import { PRICES } from "./data.js";
 
@@ -263,112 +264,6 @@ export const scaleGrids = () => {
 	});
 };
 
-// ------------------------------------------------------------------------
-// modals
-// ------------------------------------------------------------------------
-
-/**
- * Attach listeners for closing modal functions. "Click event" would be triggered immediately and thereby closing the modal after opening "click event".
- * @returns {void}
- */
-const addModalListeners = () => {
-	document.addEventListener("mousedown", closeModal);
-	document.addEventListener("touchstart", closeModal);
-	document.addEventListener("keyup", closeModal);
-};
-
-/**
- * Remove listeners for closing modal functions.
- * @returns {void}
- */
-const removeModalListeners = () => {
-	document.removeEventListener("mousedown", closeModal);
-	document.removeEventListener("touchstart", closeModal);
-	document.removeEventListener("keyup", closeModal);
-};
-
-export const openModal = (modal) => {
-	if (modal) {
-		document.body.classList.add("modal-open");
-		Fade.in(modal, 500);
-		addModalListeners();
-	}
-};
-
-/**
- * Closes visible modal, if users click outside. Calls reset function for upload modal.
- * @param {MouseEvent} e event object
- * @returns {void}
- */
-const closeModal = (e) => {
-	e.stopImmediatePropagation();
-	if (e.touches) e.preventDefault();
-
-	// cover ESC press
-	if (e.type === "keyup" && e.key !== "Escape") return;
-
-	// targets
-	if (e.target.closest(".content")) return;
-
-	closeModalManually();
-};
-export const closeModalManually = (e) => {
-	// do nothing, if modal is not even visible
-	const modal = document.querySelector(".modal.visible");
-	if (!modal) return;
-
-	if (modal.dataset.for == "img-large") {
-		Fade.out(modal, 500, true);
-		imgNormalize();
-	} else {
-		Fade.out(modal, 500);
-	}
-
-	document.body.classList.remove("modal-open");
-	modal.removeAttribute("title");
-	modal.removeAttribute("data-for");
-	removeModalListeners();
-};
-
-export const imageEnlarge = (e) => {
-	e.preventDefault();
-	e.stopImmediatePropagation();
-	if (e.type !== "click") return;
-
-	const slider = e.target.closest(".slider");
-	slider.classList.add("max");
-	slider.classList.remove("default");
-	slider.title = "Klicken zum Schließen.";
-
-	const modal = document.createElement("div");
-	modal.classList.add("hidden", "modal");
-	modal.id = "img-bg";
-	modal.title = "Klicken zum Schließen.";
-	modal.setAttribute("data-for", "img-large");
-
-	const button = document.createElement("div");
-	button.classList.add("close-button", "fixed");
-	button.id = "temp";
-	const div = document.createElement("div");
-	div.classList.add("icon", "symbol", "l");
-	const img = document.createElement("img");
-	img.src = "img/window-close.svg";
-	img.alt = "X";
-	div.append(img);
-	button.appendChild(div);
-	document.body.append(button);
-	document.body.appendChild(modal);
-	openModal(modal);
-};
-const imgNormalize = () => {
-	const slider = document.querySelector(".slider.max");
-	slider.classList.remove("max");
-	slider.classList.add("default");
-	slider.removeAttribute("title");
-
-	Fade.out(document.querySelector("#temp"), 500, true);
-};
-
 export const doBooking = (e) => {
 	try {
 		const modal = document.querySelector(".modal");
@@ -594,24 +489,6 @@ export const hideContact = (e) => {
 		text.style.removeProperty("width");
 		text.style.removeProperty("transition");
 	}, 500);
-};
-
-export const toggleAccordion = (e) => {
-	const el = e.target.closest(".accordion");
-	const panel = el.nextElementSibling;
-	const caret = el.querySelector(".icon.caret img");
-
-	if (el.classList.contains("active")) {
-		el.classList.remove("active");
-		panel.style.maxHeight = null;
-		caret.classList.add("rotate90deg");
-		caret.classList.remove("rotate270deg");
-	} else {
-		el.classList.add("active");
-		panel.style.maxHeight = panel.scrollHeight + "px";
-		caret.classList.remove("rotate90deg");
-		caret.classList.add("rotate270deg");
-	}
 };
 
 const getPriceOfDate = (date, houseID) => {

@@ -1,21 +1,20 @@
 // import javascript
 import { calendar } from "./cal.js";
 import {
-	closeModalManually,
 	doBooking,
 	goToBooking,
 	hideContact,
-	imageEnlarge,
 	openDropdown,
 	openGoogleMap,
 	openSelector,
 	scaleGrids,
 	showContact,
-	toggleAccordion,
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
 import { foreach, timeout } from "./utils-standard.js";
+import { openImgFullscreen, closeModalManually } from "./overlays.js";
+import { toggleAccordion } from "./accordion.js";
 import { tns } from "../../node_modules/tiny-slider/src/tiny-slider";
 
 // import styles
@@ -77,48 +76,55 @@ const init = async () => {
 		),
 	};
 
-	await timeout(2000);
+	// cheap hack
+	await timeout(1000);
 	handleWindowResize();
 };
 
 const setEventListeners = () => {
-	// document.querySelector(".btn-link").addEventListener("click", getPage);
-
-	// document.addEventListener("touchstart", (e) => console.log(e));
-
+	// enlarge images in sliders
 	foreach(document.querySelectorAll(".main .slider"), (slider) =>
-		slider.addEventListener("click", imageEnlarge)
+		slider.addEventListener("click", openImgFullscreen)
 	);
 
+	// accordion
 	document.querySelectorAll(".accordion").forEach((el) => {
 		el.addEventListener("click", toggleAccordion);
 	});
 
-	document.querySelector("#contact").addEventListener("click", doBooking);
-
+	// dropdowns in booking modal
 	document.querySelector("#select-house").addEventListener("click", openDropdown);
 	document.querySelector("#select-guests").addEventListener("click", openDropdown);
 	document.querySelector("#select-extras").addEventListener("click", openSelector);
 
+	// autoscroll in horizontal image thumbnails
 	foreach(document.querySelectorAll(".customize-tools ul.controls li"), (btn) => {
 		btn.addEventListener("click", updateListSelection);
 	});
 
+	// jump to booking through buttons in price cards
 	foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
 		btn.addEventListener("click", goToBooking)
 	);
 
+	// open booking modal
+	document.querySelector("#contact").addEventListener("click", doBooking);
+
+	// closing button in all modals (currently only one in use)
 	foreach(document.querySelectorAll(".modal .close-button"), (el) => {
 		el.addEventListener("click", closeModalManually);
 	});
 
+	// animation for contact bar in booking modal
 	foreach(document.querySelectorAll(".contact-panel--item"), (el) => {
 		el.addEventListener("mouseenter", showContact);
 		el.addEventListener("mouseleave", hideContact);
 	});
 
+	// show google maps
 	document.querySelector(".map .note").addEventListener("click", openGoogleMap);
 
+	// toggle side nav with button on small screens
 	document.querySelector("header.s").addEventListener("click", toggleSmallMenu);
 
 	window.addEventListener("resize", handleWindowResize);
