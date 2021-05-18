@@ -20,13 +20,14 @@ import { tns } from "../../node_modules/tiny-slider/src/tiny-slider";
 // import styles
 import "../css/main.css";
 import "../../node_modules/tiny-slider/src/tiny-slider.scss";
+import { Fade } from "./animations.js";
 
 const sliderDefaultOpts = {
 	autoplay: false,
 	autoplayButton: false,
 	autoplayButtonOutput: false,
 	autoplayHoverPause: true,
-	autoplayTimeout: 10000,
+	autoplayTimeout: 15000,
 	controls: true,
 	items: 1,
 	lazyload: true,
@@ -41,44 +42,6 @@ const sliderDefaultOpts = {
 	speed: 500,
 	swipeAngle: 15,
 	touch: false,
-};
-
-const init = async () => {
-	setEventListeners();
-	// setAnimations();
-	calendar.init({ disablePastDays: true, markToday: true });
-
-	const sliders = {
-		duene: tns(
-			Object.assign(sliderDefaultOpts, {
-				container: "#slider-duene",
-				controlsContainer: "#slider-duene-controls",
-				navContainer: "#slider-duene-thumbnails",
-			})
-		),
-		moewe: tns(
-			Object.assign(sliderDefaultOpts, {
-				container: "#slider-moewe",
-				controlsContainer: "#slider-moewe-controls",
-				navContainer: "#slider-moewe-thumbnails",
-			})
-		),
-		landing: tns(
-			Object.assign(sliderDefaultOpts, {
-				autoplay: true,
-				container: "#slider-landing",
-				controls: false,
-				mouseDrag: true,
-				navContainer: "#slider-landing-nav",
-				preventScrollOnTouch: false,
-				speed: 1000,
-			})
-		),
-	};
-
-	// cheap hack
-	await timeout(1000);
-	handleWindowResize();
 };
 
 const setEventListeners = () => {
@@ -131,6 +94,10 @@ const setEventListeners = () => {
 	window.addEventListener("scroll", handleWindowScroll);
 };
 
+const removeLoadingMask = () => {
+	Fade.out(document.querySelector(".mask"), 1500, true);
+};
+
 let prevScrollPos = window.pageYOffset;
 const toggleNavOnScroll = () => {
 	const currentScrollPos = window.pageYOffset;
@@ -169,6 +136,40 @@ const handleWindowResize = () => {
 // init
 // ---------------------------------------------------
 
+const init = async () => {
+	setEventListeners();
+	calendar.init({ disablePastDays: true, markToday: true });
+
+	tns(
+		Object.assign(sliderDefaultOpts, {
+			container: "#slider-duene",
+			controlsContainer: "#slider-duene-controls",
+			navContainer: "#slider-duene-thumbnails",
+		})
+	);
+	tns(
+		Object.assign(sliderDefaultOpts, {
+			container: "#slider-moewe",
+			controlsContainer: "#slider-moewe-controls",
+			navContainer: "#slider-moewe-thumbnails",
+		})
+	);
+	tns(
+		Object.assign(sliderDefaultOpts, {
+			autoplay: true,
+			container: "#slider-landing",
+			controls: false,
+			navContainer: "#slider-landing-nav",
+			preventScrollOnTouch: false,
+			speed: 1000,
+		})
+	);
+};
+
 document.addEventListener("DOMContentLoaded", () => {
 	init();
+	removeLoadingMask();
+});
+window.addEventListener("load", () => {
+	handleWindowResize();
 });

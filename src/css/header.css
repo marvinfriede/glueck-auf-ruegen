@@ -256,9 +256,6 @@ aside.nav-collapsed .nav-link:hover {
 	header.l {
 		display: block;
 	}
-	.bg {
-		height: calc(100% - var(--header-height));
-	}
 	header.s,
 	aside {
 		display: none !important;
