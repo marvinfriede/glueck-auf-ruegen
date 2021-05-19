@@ -116,6 +116,9 @@ module.exports = {
               return "img/sellin/[name].[ext]";
             },
           },
+          { 
+            from: path.resolve(__dirname, "src/sitemap.xml"),
+          },
         ],
       }),
     ],
