@@ -29,12 +29,10 @@ export const calendar = {
 		this.createMonth();
 		this.createListeners();
 
-		document.querySelector(
-			"#select-month .selection"
-		).innerText = this.getMonthAsString(this.date.getMonth());
-		document.querySelector(
-			"#select-year .selection"
-		).innerText = this.date.getFullYear();
+		document.querySelector("#select-month .selection").innerText = this.getMonthAsString(
+			this.date.getMonth()
+		);
+		document.querySelector("#select-year .selection").innerText = this.date.getFullYear();
 
 		this.arvl.input.value = "";
 		this.dprt.input.value = "";
@@ -43,23 +41,15 @@ export const calendar = {
 	createListeners: function () {
 		const _this = this;
 
-		document
-			.querySelector(".cal-header__btn.next")
-			.addEventListener("click", (e) => {
-				_this.updateCalendar("month", _this.date.getMonth() + 1);
-			});
-		document
-			.querySelector(".cal-header__btn.prev")
-			.addEventListener("click", (e) => {
-				_this.updateCalendar("month", _this.date.getMonth() - 1);
-			});
+		document.querySelector(".cal-header__btn.next").addEventListener("click", (e) => {
+			_this.updateCalendar("month", _this.date.getMonth() + 1);
+		});
+		document.querySelector(".cal-header__btn.prev").addEventListener("click", (e) => {
+			_this.updateCalendar("month", _this.date.getMonth() - 1);
+		});
 
-		document
-			.querySelector("#select-month")
-			.addEventListener("click", openDropdown);
-		document
-			.querySelector("#select-year")
-			.addEventListener("click", openDropdown);
+		document.querySelector("#select-month").addEventListener("click", openDropdown);
+		document.querySelector("#select-year").addEventListener("click", openDropdown);
 
 		// opening and closing the calendar
 		this.arvl.input.addEventListener("click", (e) => {
@@ -152,9 +142,7 @@ export const calendar = {
 
 		// apply styling
 		if (!applyStyling) return;
-		el.closest(".cal-main__date.cal-main__date--active").classList.add(
-			targetClass
-		);
+		el.closest(".cal-main__date.cal-main__date--active").classList.add(targetClass);
 		el.setAttribute("data-date-for", id2);
 		el.setAttribute("data-has-type", true);
 	},
@@ -212,8 +200,14 @@ export const calendar = {
 			day = date.getDate();
 			year = date.getFullYear();
 
-			// check if day is included in list of booked days of month
-			if (BOOKED[year][month].includes(day)) return false;
+			// if this year is not even listed, it's surely not booked
+			if (BOOKED.hasOwnProperty(year)) {
+				if (BOOKED[year].hasOwnProperty(month)) {
+					if (BOOKED[year][month].includes(day))
+						// check if day is included in list of booked days of month
+						return false;
+				}
+			}
 
 			// set date to previous day
 			date.setDate(date.getDate() - 1);
@@ -340,12 +334,10 @@ export const calendar = {
 		this.date.setMonth(this.date.getMonth() - 1);
 
 		// print current month and year in header
-		document.querySelector(
-			"#select-month .selection"
-		).innerText = this.getMonthAsString(currMonth);
-		document.querySelector(
-			"#select-year .selection"
-		).innerText = this.date.getFullYear();
+		document.querySelector("#select-month .selection").innerText = this.getMonthAsString(
+			currMonth
+		);
+		document.querySelector("#select-year .selection").innerText = this.date.getFullYear();
 	},
 
 	createDay: function (day) {
@@ -375,8 +367,7 @@ export const calendar = {
 			div.classList.add("cal-main__date--today");
 
 		if (
-			(this.opts.disablePastDays &&
-				this.date.getTime() <= this.today.getTime() - 1) ||
+			(this.opts.disablePastDays && this.date.getTime() <= this.today.getTime() - 1) ||
 			(BOOKED[year] && BOOKED[year][month].indexOf(dayNum) > -1)
 		) {
 			div.classList.add("cal-main__date--disabled");

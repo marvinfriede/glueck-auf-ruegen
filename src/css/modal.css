@@ -78,6 +78,7 @@ body.modal-open {
 }
 .modal .pricing .title {
 	font-size: var(--fs-l);
+	line-height: 1.25;
 }
 .modal .pricing .row {
 	align-items: center;

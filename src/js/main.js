@@ -1,7 +1,6 @@
 // import javascript
 import { calendar } from "./cal.js";
 import {
-	doBooking,
 	goToBooking,
 	hideContact,
 	openDropdown,
@@ -12,8 +11,8 @@ import {
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
-import { foreach, timeout } from "./utils-standard.js";
-import { openImgFullscreen, closeModalManually } from "./overlays.js";
+import { foreach } from "./utils-standard.js";
+import { openImgFullscreen, openBookingModal, closeModalManually } from "./overlays.js";
 import { toggleAccordion } from "./accordion.js";
 import { tns } from "../../node_modules/tiny-slider/src/tiny-slider";
 
@@ -71,7 +70,7 @@ const setEventListeners = () => {
 	);
 
 	// open booking modal
-	document.querySelector("#contact").addEventListener("click", doBooking);
+	document.querySelector("#contact").addEventListener("click", openBookingModal);
 
 	// closing button in all modals (currently only one in use)
 	foreach(document.querySelectorAll(".modal .close-button"), (el) => {
