@@ -200,12 +200,11 @@ export const calendar = {
 			day = date.getDate();
 			year = date.getFullYear();
 
-			// if this year is not even listed, it's surely not booked
+			// if this year/month is not even listed, it's surely not booked
 			if (BOOKED.hasOwnProperty(year)) {
 				if (BOOKED[year].hasOwnProperty(month)) {
-					if (BOOKED[year][month].includes(day))
-						// check if day is included in list of booked days of month
-						return false;
+					// check if day is included in list of booked days of month
+					if (BOOKED[year][month].includes(day)) return false;
 				}
 			}
 
