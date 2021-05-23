@@ -196,7 +196,7 @@ export const goToBooking = (e) => {
 	}
 };
 
-export const updateListSelection = (e) => {
+export const updateListSelection = (e, scroll = true) => {
 	const wrap = e.target.closest(".slider-wrap");
 	const ul = wrap.querySelector("ul.thumbnails");
 	let active;
@@ -208,11 +208,15 @@ export const updateListSelection = (e) => {
 		active =
 			ul.querySelector(".tns-nav-active").previousElementSibling || ul.lastElementChild;
 	}
-	active.scrollIntoView({
-		behavior: "smooth",
-		block: "nearest",
-		inline: "start",
-	});
+
+	// scroll thumbnail into view
+	if (scroll === true) {
+		active.scrollIntoView({
+			behavior: "smooth",
+			block: "nearest",
+			inline: "start",
+		});
+	}
 
 	// get title from picture (by data-id) and place in in container below image
 	const img = wrap.querySelector(`[data-id="${active.dataset.nav}"] img`);

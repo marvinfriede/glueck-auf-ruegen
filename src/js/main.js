@@ -63,6 +63,9 @@ const setEventListeners = () => {
 	foreach(document.querySelectorAll(".customize-tools ul.controls li"), (btn) => {
 		btn.addEventListener("click", updateListSelection);
 	});
+	foreach(document.querySelectorAll(".customize-tools ul.thumbnails"), (btn) => {
+		btn.addEventListener("click", (e) => updateListSelection(e, false));
+	});
 
 	// jump to booking through buttons in price cards
 	foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
