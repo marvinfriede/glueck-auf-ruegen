@@ -118,9 +118,12 @@ module.exports = {
           },
           { 
             from: path.resolve(__dirname, "src/sitemap.xml"),
+            to({ context, absoluteFilename }) {
+              return "[name].[ext]";
+            },
           },
           { 
-            from: path.resolve(__dirname, "src/sitemap_index.xml"),
+            from: path.resolve(__dirname, "src/sitemap.xml"),
             to({ context, absoluteFilename }) {
               return "sitemap/[name].[ext]";
             },
