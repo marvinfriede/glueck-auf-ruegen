@@ -17,7 +17,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "[name].[contentHash].js",
+    filename: "js/[name].[contentHash].js",
   },
   module: {
     rules: [
@@ -123,9 +123,9 @@ module.exports = {
             },
           },
           { 
-            from: path.resolve(__dirname, "src/sitemap.xml"),
+            from: path.resolve(__dirname, "src/robots.txt"),
             to({ context, absoluteFilename }) {
-              return "sitemap/[name].[ext]";
+              return "[name].[ext]";
             },
           },
         ],
@@ -134,7 +134,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "[name].[contentHash].css",
+      filename: "css/[name].[contentHash].css",
     }),
     new CleanWebpackPlugin(),
   ],
