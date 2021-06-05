@@ -39,10 +39,10 @@ module.exports = {
           options: {
             //name: "[name].[hash].[ext]",
             name(resourcePath, resourceQuery) {
-            // resourcePath - /absolute/path/to/file.js
-            // resourceQuery - ?foo=bar
+              // resourcePath - /absolute/path/to/file.js
+              // resourceQuery - ?foo=bar
 
-            return resourcePath.substring(resourcePath.indexOf("src/img/") + 8, resourcePath.lastIndexOf(".")) + ".[ext]";
+              return resourcePath.substring(resourcePath.indexOf("src/img/") + 8, resourcePath.lastIndexOf(".")) + ".[ext]";
             },
             outputPath: "img",
           },
