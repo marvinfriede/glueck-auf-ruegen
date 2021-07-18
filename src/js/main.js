@@ -14,6 +14,7 @@ import {
 import { foreach } from "./utils-standard.js";
 import { openImgFullscreen, openBookingModal, closeModalManually } from "./overlays.js";
 import { toggleAccordion } from "./accordion.js";
+import InjectWarning from "./inject-warning.js";
 import { tns } from "../../node_modules/tiny-slider/src/tiny-slider";
 
 // import styles
@@ -174,4 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 window.addEventListener("load", () => {
 	handleWindowResize();
+
+	// inject "under construction" warning
+	const warning = new InjectWarning();
+	warning.setParent(document.querySelector("main section.landing"));
+	warning.setMessage(
+		"Buchungskalender nicht aktuell. Seite wird noch minimal überarbeitet. Buchung/Nachfragen trotzdem möglich."
+	);
+	warning.addClass("warning");
+	warning.inject();
 });

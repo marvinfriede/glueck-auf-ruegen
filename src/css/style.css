@@ -1402,3 +1402,15 @@ section.footer .contact .title {
 section.footer .contact .title a {
 	color: var(--white);
 }
+
+/*-------------------------------------------------
+-------------------- warning ----------------------
+--------------------------------------------------*/
+.warning {
+	align-items: center;
+	background-color: var(--danger-bg);
+	display: flex;
+	justify-content: center;
+	padding: 15px 10px;
+	width: 100%;
+}
