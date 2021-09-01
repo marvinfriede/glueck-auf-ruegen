@@ -12,11 +12,14 @@ module.exports = {
     main: path.resolve(__dirname, "src/js/main.js"),
   },
   output: {
+    assetModuleFilename: "img/[name].[contenthash].[ext]",
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
   },
   devServer: {
-    contentBase: path.join(__dirname, 'dist'),
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
     compress: true,
     open: true,
     port: 8080,
@@ -38,20 +41,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(svg|png|jpe?g|gif)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            //name: "[name].[hash].[ext]",
-            name(resourcePath, resourceQuery) {
-            // resourcePath - /absolute/path/to/file.js
-            // resourceQuery - ?foo=bar
-
-            return resourcePath.substring(resourcePath.indexOf("src/img/") + 8, resourcePath.lastIndexOf(".")) + ".[ext]";
-          	},
-            outputPath: "img",
-          },
-        },
+        test: /\.(svgz?|png|jpe?g|gif)$/,
+        type: "asset/resource",
       },
       {
         test: /\.scss$/i,

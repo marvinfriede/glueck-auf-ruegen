@@ -6,7 +6,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
 const path = require('path');
 
@@ -16,8 +16,9 @@ module.exports = {
     main: path.resolve(__dirname, "src/js/main.js"),
   },
   output: {
+    assetModuleFilename: "img/[name].[contenthash][ext]",
     path: path.resolve(__dirname, "dist"),
-    filename: "js/[name].[contentHash].js",
+    filename: "js/[name].[contenthash].js",
   },
   module: {
     rules: [
@@ -33,20 +34,8 @@ module.exports = {
         ],
       },
       {
-        test: /\.(svg|png|jpe?g|gif)$/,
-        use: {
-          loader: "file-loader",
-          options: {
-            //name: "[name].[hash].[ext]",
-            name(resourcePath, resourceQuery) {
-              // resourcePath - /absolute/path/to/file.js
-              // resourceQuery - ?foo=bar
-
-              return resourcePath.substring(resourcePath.indexOf("src/img/") + 8, resourcePath.lastIndexOf(".")) + ".[ext]";
-            },
-            outputPath: "img",
-          },
-        },
+        test: /\.(svgz?|png|jpe?g|gif)$/,
+        type: "asset/resource",
       },
       {
         test: /\.scss$/i,
@@ -79,7 +68,7 @@ module.exports = {
         },
         extractComments: false,
       }),
-      new OptimizeCSSAssetsPlugin(),
+      new CssMinimizerPlugin(),
       new HtmlWebpackPlugin({
         filename: "./index.html",
         template: path.resolve(__dirname, "src/index.raw.html"),
@@ -101,31 +90,31 @@ module.exports = {
           { 
             from: path.resolve(__dirname, "src/img/duene/*opt*"),
             to({ context, absoluteFilename }) {
-              return "img/duene/[name].[ext]";
+              return "img/duene/[name][ext]";
             },
           },
           { 
             from: path.resolve(__dirname, "src/img/moewe/*opt*"),
             to({ context, absoluteFilename }) {
-              return "img/moewe/[name].[ext]";
+              return "img/moewe/[name][ext]";
             },
           },
           { 
             from: path.resolve(__dirname, "src/img/sellin/*opt*"),
             to({ context, absoluteFilename }) {
-              return "img/sellin/[name].[ext]";
+              return "img/sellin/[name][ext]";
             },
           },
           { 
             from: path.resolve(__dirname, "src/sitemap.xml"),
             to({ context, absoluteFilename }) {
-              return "[name].[ext]";
+              return "[name][ext]";
             },
           },
           { 
             from: path.resolve(__dirname, "src/robots.txt"),
             to({ context, absoluteFilename }) {
-              return "[name].[ext]";
+              return "[name][ext]";
             },
           },
         ],
