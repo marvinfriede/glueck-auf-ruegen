@@ -96,63 +96,14 @@ sup {
 }
 
 /*-------------------------------------------------
------------------ close button --------------------
---------------------------------------------------*/
-
-.close-button {
-	align-items: center;
-	background-color: var(--danger);
-	border: 2px solid var(--black);
-	box-shadow: 0 6px 10px 0 rgba(33, 33, 33, 0.14), 0 1px 18px 0 rgba(33, 33, 33, 0.06),
-		0 3px 10px 0 rgba(33, 33, 33, 0.1);
-	border-radius: 50%;
-	cursor: pointer;
-	display: flex;
-	height: 40px;
-	justify-content: center;
-	position: absolute;
-	right: 2px;
-	top: 20px;
-	width: 40px;
-	z-index: 999999999;
-}
-.close-button.fixed {
-	position: fixed;
-	right: 10px !important;
-	top: 10px !important;
-}
-@media (min-width: 576px) {
-	.close-button {
-		height: 50px;
-		right: -5px;
-		top: 10px;
-		width: 50px;
-	}
-}
-@media (min-width: 768px) {
-	.close-button {
-		height: 60px;
-		right: -15px;
-		top: 5px;
-		width: 60px;
-	}
-}
-@media (min-width: 1200px) {
-	.close-button {
-		height: 70px;
-		right: -20px;
-		top: -5px;
-		width: 70px;
-	}
-}
-
-/*-------------------------------------------------
 ------------ width and padding of page ------------
 --------------------------------------------------*/
 
 .content {
 	display: -ms-flexbox !important;
 	display: flex;
+	flex-direction: column;
+	flex-wrap: nowrap;
 	margin-top: 0;
 	margin-right: auto;
 	margin-left: auto;
@@ -161,8 +112,12 @@ sup {
 	position: relative;
 }
 
+/* ------------------------------------------------
+------------------- max-width ---------------------
+------------------------------------------------ */
+
 .has-max-width {
-	max-width: 100%;
+	max-width: 90%;
 }
 @media (min-width: 576px) {
 	.has-max-width {
@@ -171,7 +126,7 @@ sup {
 }
 @media (min-width: 768px) {
 	.has-max-width {
-		max-width: 720px;
+		max-width: calc(100% - 70px);
 	}
 }
 @media (min-width: 992px) {
@@ -190,16 +145,31 @@ sup {
 --------------------------------------------------*/
 
 section.landing {
-	height: calc(640px + var(--header-height));
+	height: 640px;
 	position: relative;
-	margin-top: var(--header-height);
-	transition-duration: 300ms;
-	transition-timing-function: ease-in-out;
-	transition-property: margin-top;
 }
+@media (min-width: 768px) {
+	section.landing {
+		height: 710px;
+	}
+}
+@media (min-width: 992px) {
+	section.landing {
+		height: 640px;
+	}
+}
+@media (min-width: 1200px) {
+	section.landing {
+		height: 820px;
+	}
+}
+@media (min-width: 1999px) {
+	section.landing {
+		height: 1040px;
+	}
+}
+
 section.landing .content {
-	align-content: space-between;
-	flex-direction: column;
 	padding-bottom: 64px;
 	padding-top: 64px;
 	height: 100%;
@@ -212,9 +182,10 @@ section.landing .landing-wrap {
 	-ms-flex-pack: center;
 	justify-content: center;
 	height: 100%;
-	padding-bottom: 25px;
 	width: 100%;
 }
+
+/*  */
 
 /*-------------------------------------------------
 ----------------- landing: title ------------------
@@ -483,7 +454,11 @@ section.landing .form .dates-wrap .date-label {
 	transition: all 500ms ease-out;
 }
 section.landing .form .dates-wrap input:focus ~ .date-label,
-section.landing .form .dates-wrap .date-picker[data-has-value="true"] ~ .date-label {
+section.landing
+	.form
+	.dates-wrap
+	.date-picker[data-has-value="true"]
+	~ .date-label {
 	font-size: var(--fs-xs);
 	top: -10px;
 }
@@ -529,17 +504,11 @@ section.landing .form .form-button img {
 @media (min-width: 576px) {
 }
 @media (min-width: 768px) {
-	section.landing {
-		height: calc(710px + var(--header-height));
-	}
 	section.landing .desc {
 		padding-top: 20px;
 	}
 }
 @media (min-width: 992px) {
-	section.landing {
-		height: calc(640px + var(--header-height));
-	}
 	section.landing .form {
 		flex-direction: row;
 	}
@@ -572,7 +541,11 @@ section.landing .form .form-button img {
 		padding-top: 30px;
 	}
 	section.landing .form .dates-wrap input:focus ~ .date-label,
-	section.landing .form .dates-wrap .date-picker[data-has-value="true"] ~ .date-label {
+	section.landing
+		.form
+		.dates-wrap
+		.date-picker[data-has-value="true"]
+		~ .date-label {
 		top: -15px;
 	}
 	section.landing .form .form-button .form-button--text {
@@ -593,9 +566,6 @@ section.landing .form .form-button img {
 	}
 }
 @media (min-width: 1200px) {
-	section.landing {
-		height: calc(820px + var(--header-height));
-	}
 	section.landing .form {
 		padding: 15px;
 	}
@@ -605,11 +575,6 @@ section.landing .form .form-button img {
 	}
 	section.landing .desc {
 		padding-top: 30px;
-	}
-}
-@media (min-width: 1999px) {
-	section.landing {
-		height: calc(1040px + var(--header-height));
 	}
 }
 
@@ -756,12 +721,10 @@ section.main .slider.default {
 	width: 100%;
 }
 
-.slider-wrap {
-	background-color: transparent;
-	height: auto;
-	user-select: none;
-	width: auto;
+.modal .slider {
+	border: 1px solid var(--gray3);
 }
+
 .slider-wrap .slider-wrap-inner {
 	border: 1px solid var(--gray2);
 }
@@ -957,7 +920,7 @@ section.main .info-grid .grid {
 	font-style: italic;
 	font-weight: 300;
 	row-gap: 20px;
-	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 	width: 100%;
 }
 section.main .info-grid .grid-item {
@@ -1000,8 +963,40 @@ section.main .pricing {
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
+	gap: 20px;
 	width: 100%;
 }
+@media (min-width: 380px) {
+	section.main .pricing {
+		gap: 30px;
+	}
+}
+@media (min-width: 576px) {
+	section.main .pricing {
+		gap: 40px;
+	}
+}
+@media (min-width: 768px) {
+	section.main .pricing {
+		gap: 60px;
+	}
+}
+@media (min-width: 992px) {
+	section.main .pricing {
+		gap: 80px;
+	}
+}
+@media (min-width: 1200px) {
+	section.main .pricing {
+		gap: 100px;
+	}
+}
+@media (min-width: 1400px) {
+	section.main .pricing {
+		gap: 150px;
+	}
+}
+
 section.main .pricing .card {
 	background-color: aliceblue;
 	border-radius: 30px;
@@ -1277,12 +1272,6 @@ section.main .details .row-content--title {
 	section.main .pricing .card {
 		margin-top: 80px;
 	}
-	section.main .pricing .card:first-child {
-		margin-right: 20px;
-	}
-	section.main .pricing .card:last-child {
-		margin-left: 20px;
-	}
 	section.main .map {
 		margin-top: 60px;
 	}
@@ -1315,12 +1304,6 @@ section.main .details .row-content--title {
 	}
 	section.main .info-grid .grid {
 		grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-	}
-	section.main .pricing .card:first-child {
-		margin-right: 40px;
-	}
-	section.main .pricing .card:last-child {
-		margin-left: 40px;
 	}
 	section.main .btn {
 		height: 80px;
@@ -1410,7 +1393,9 @@ section.footer .contact .title a {
 	align-items: center;
 	background-color: var(--danger-bg);
 	display: flex;
+	height: var(--header-height);
 	justify-content: center;
 	padding: 15px 10px;
+	text-align: center;
 	width: 100%;
 }

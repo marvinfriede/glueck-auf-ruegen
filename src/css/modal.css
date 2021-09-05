@@ -22,8 +22,7 @@ body.modal-open {
 }
 .modal .content {
 	margin: auto;
-	padding-bottom: 30px;
-	padding-top: 30px;
+	padding: 0;
 	position: relative;
 	width: 100%;
 	z-index: 999999;
@@ -219,5 +218,56 @@ body.modal-open {
 	}
 	.modal .pricing {
 		margin: 50px 0 60px 0;
+	}
+}
+
+/*-------------------------------------------------
+----------------- close button --------------------
+--------------------------------------------------*/
+
+.close-button {
+	align-items: center;
+	background-color: var(--danger);
+	border: 2px solid var(--black);
+	box-shadow: 0 6px 10px 0 rgba(33, 33, 33, 0.14),
+		0 1px 18px 0 rgba(33, 33, 33, 0.06), 0 3px 10px 0 rgba(33, 33, 33, 0.1);
+	border-radius: 50%;
+	cursor: pointer;
+	display: flex;
+	height: 40px;
+	justify-content: center;
+	position: absolute;
+	right: 2px;
+	top: 20px;
+	width: 40px;
+	z-index: 999999999;
+}
+.close-button.fixed {
+	position: fixed;
+	right: 10px !important;
+	top: 10px !important;
+}
+@media (min-width: 576px) {
+	.close-button {
+		height: 50px;
+		right: -25px;
+		top: -25px;
+		width: 50px;
+	}
+}
+@media (min-width: 768px) {
+	.close-button {
+		height: 60px;
+		right: -30px;
+		top: -30px;
+		width: 60px;
+	}
+}
+@media (min-width: 1200px) {
+	.close-button {
+		height: 70px;
+		right: -35px;
+		top: -35px;
+		width: 70px;
 	}
 }

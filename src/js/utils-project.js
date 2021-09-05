@@ -37,9 +37,10 @@ export const openDropdown = (e) => {
 			caret.classList.add("rotate270deg");
 		}
 		Fade.in(drop, 500);
-		document.addEventListener("mousedown", closeDropdown);
-		document.addEventListener("touchstart", closeDropdown);
-		document.addEventListener("keyup", closeDropdown);
+		setTimeout(() => {
+			document.addEventListener("click", closeDropdown);
+			document.addEventListener("keyup", closeDropdown);
+		}, 10);
 	}
 };
 const closeDropdown = (e) => {
@@ -59,8 +60,7 @@ const closeDropdown = (e) => {
 		caret.classList.add("rotate90deg");
 	}
 	Fade.out(drop, 500);
-	document.removeEventListener("mousedown", closeDropdown);
-	document.removeEventListener("touchstart", closeDropdown);
+	document.removeEventListener("click", closeDropdown);
 	document.removeEventListener("keyup", closeDropdown);
 
 	// do extra stuff for certain targets (dropdown options)
@@ -203,10 +203,12 @@ export const updateListSelection = (e, scroll = true) => {
 
 	if (e.target.closest("li").classList.contains("next")) {
 		active =
-			ul.querySelector(".tns-nav-active").nextElementSibling || ul.firstElementChild;
+			ul.querySelector(".tns-nav-active").nextElementSibling ||
+			ul.firstElementChild;
 	} else {
 		active =
-			ul.querySelector(".tns-nav-active").previousElementSibling || ul.lastElementChild;
+			ul.querySelector(".tns-nav-active").previousElementSibling ||
+			ul.lastElementChild;
 	}
 
 	// scroll thumbnail into view
@@ -234,7 +236,8 @@ export const scaleGrids = () => {
 		for (let i = 0; i < items.length; i++) {
 			if (
 				Math.abs(
-					items[i].getBoundingClientRect().y - items[i + 1].getBoundingClientRect().y
+					items[i].getBoundingClientRect().y -
+						items[i + 1].getBoundingClientRect().y
 				) < 5
 			) {
 				factor += 1;
@@ -260,7 +263,8 @@ export const scaleGrids = () => {
 		}
 
 		// calculate padding to make grid centered
-		const padding = (grid.offsetWidth / factor - longest.offsetWidth) * 0.5 + "px";
+		const padding =
+			(grid.offsetWidth / factor - longest.offsetWidth) * 0.5 + "px";
 		foreach(items, (item) => (item.style.marginLeft = padding));
 	});
 };

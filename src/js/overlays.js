@@ -1,7 +1,8 @@
 import { Fade, showElement, hideElement } from "./animations.js";
-import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
-import { calendar } from "./cal.js";
+import { Calendar } from "./cal.js";
+import { ConstMissingException, DateError } from "./custom-errors.js";
 import { PRICES } from "./data.js";
+import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
 
 // ------------------------------------------------------------------------
 // modal
@@ -12,9 +13,10 @@ import { PRICES } from "./data.js";
  * @returns {void}
  */
 const addModalListeners = () => {
-	document.addEventListener("mousedown", closeModal);
-	document.addEventListener("touchstart", closeModal);
-	document.addEventListener("keyup", closeModal);
+	setTimeout(() => {
+		document.addEventListener("click", closeModal);
+		document.addEventListener("keyup", closeModal);
+	}, 10);
 };
 
 /**
@@ -22,8 +24,7 @@ const addModalListeners = () => {
  * @returns {void}
  */
 const removeModalListeners = () => {
-	document.removeEventListener("mousedown", closeModal);
-	document.removeEventListener("touchstart", closeModal);
+	document.removeEventListener("click", closeModal);
 	document.removeEventListener("keyup", closeModal);
 };
 
@@ -56,7 +57,7 @@ const closeModal = (e) => {
 	if (e.target.closest(".content")) return;
 
 	// actual closing function
-	closeModalManually(e);
+	closeModalManually();
 };
 
 /**
@@ -64,7 +65,7 @@ const closeModal = (e) => {
  * @param {MouseEvent} e event object
  * @returns {void}
  */
-export const closeModalManually = (e) => {
+export const closeModalManually = () => {
 	// do nothing, if modal is not even visible
 	const modal = document.querySelector(".modal.visible");
 	if (!modal) return;
@@ -116,9 +117,10 @@ const closeImgFullscreen = (e) => {
  * @returns {void}
  */
 const addImgFullscreenListeners = () => {
-	document.addEventListener("mousedown", closeImgFullscreen);
-	document.addEventListener("touchstart", closeImgFullscreen);
-	document.addEventListener("keyup", closeImgFullscreen);
+	setTimeout(() => {
+		document.addEventListener("click", closeImgFullscreen);
+		document.addEventListener("keyup", closeImgFullscreen);
+	}, 10);
 };
 
 /**
@@ -126,8 +128,7 @@ const addImgFullscreenListeners = () => {
  * @returns {void}
  */
 const removeImgFullscreenListeners = () => {
-	document.removeEventListener("mousedown", closeImgFullscreen);
-	document.removeEventListener("touchstart", closeImgFullscreen);
+	document.removeEventListener("click", closeImgFullscreen);
 	document.removeEventListener("keyup", closeImgFullscreen);
 };
 
@@ -167,9 +168,8 @@ const createTempCloseButton = () => {
 	const div = document.createElement("div");
 	div.classList.add("icon", "symbol", "l");
 
-	const img = document.createElement("img");
-	img.src = "img/window-close.svg";
-	img.alt = "";
+	const img = document.createElement("div");
+	img.classList.add("cross");
 
 	// append everything to each other
 	// body > div.close-button.fixed > div.icon.symbol.l > img
@@ -210,23 +210,25 @@ export const openBookingModal = () => {
 			},
 			extras: {
 				from: document.querySelector("#select-extras .selection"),
-				dog: document.querySelector("#select-extras [data-name=dog]").dataset.selected,
-				sheets: document.querySelector("#select-extras [data-name=sheets]").dataset
+				dog: document.querySelector("#select-extras [data-name=dog]").dataset
 					.selected,
-				bed: document.querySelector("#select-extras [data-name=bed]").dataset.selected,
+				sheets: document.querySelector("#select-extras [data-name=sheets]")
+					.dataset.selected,
+				bed: document.querySelector("#select-extras [data-name=bed]").dataset
+					.selected,
 				to: document.querySelector("#data-extras .selector"),
 			},
 			date: {
 				arvl: {
 					to: document.querySelector("#data-dates .selector"),
-					value: calendar.arvl.date,
+					value: Calendar.arvl.date,
 				},
 				dprt: {
 					to: document.querySelector("#data-dates .selector"),
-					value: calendar.dprt.date,
+					value: Calendar.dprt.date,
 				},
 				stays: {
-					value: dateDiff(calendar.arvl.date, calendar.dprt.date),
+					value: dateDiff(Calendar.arvl.date, Calendar.dprt.date),
 				},
 			},
 		};
@@ -262,9 +264,9 @@ const bookingFillDate = (data) => {
 		const dprtLocale = dt(data.date.dprt.value).toLocaleDateString();
 
 		// create subject and body of mail
-		const subject = `Buchung ${sanitizeHTML(data.house.value)} vom ${sanitizeHTML(
-			arvlLocale
-		)} bis ${sanitizeHTML(dprtLocale)}`;
+		const subject = `Buchung ${sanitizeHTML(
+			data.house.value
+		)} vom ${sanitizeHTML(arvlLocale)} bis ${sanitizeHTML(dprtLocale)}`;
 		const body = `Sehr geehrte Familie Wolf,
 		
 		...
@@ -427,17 +429,6 @@ const getPriceOfDate = (date, houseID) => {
 
 	throw new DateError("Date not found in price list.", date);
 };
-
-function ConstMissingException(message) {
-	this.message = message;
-	this.name = "ConstMissingException";
-}
-function DateError(message, date) {
-	this.message = message;
-	this.date = date;
-	this.dateStr = new Date(date);
-	this.name = "DateError";
-}
 
 // ------------------------------------------------------------------------
 // helpers

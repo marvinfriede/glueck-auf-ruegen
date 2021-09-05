@@ -3,7 +3,7 @@ import { BOOKED } from "./data.js";
 import { dateDiff, dt, foreach, isInt, isStrEmpty } from "./utils-standard.js";
 import { openDropdown } from "./utils-project.js";
 
-export const calendar = {
+export const Calendar = {
 	cal: document.querySelector(".cal-wrap"),
 	main: document.querySelector(".cal-main"),
 	selectMonth: document.querySelector("#select-month"),
@@ -29,10 +29,10 @@ export const calendar = {
 		this.createMonth();
 		this.createListeners();
 
-		document.querySelector("#select-month .selection").innerText = this.getMonthAsString(
-			this.date.getMonth()
-		);
-		document.querySelector("#select-year .selection").innerText = this.date.getFullYear();
+		document.querySelector("#select-month .selection").innerText =
+			this.getMonthAsString(this.date.getMonth());
+		document.querySelector("#select-year .selection").innerText =
+			this.date.getFullYear();
 
 		this.arvl.input.value = "";
 		this.dprt.input.value = "";
@@ -41,17 +41,25 @@ export const calendar = {
 	createListeners: function () {
 		const _this = this;
 
-		document.querySelector(".cal-header__btn.next").addEventListener("click", (e) => {
-			_this.updateCalendar("month", _this.date.getMonth() + 1);
-		});
-		document.querySelector(".cal-header__btn.prev").addEventListener("click", (e) => {
-			_this.updateCalendar("month", _this.date.getMonth() - 1);
-		});
+		document
+			.querySelector(".cal-header__btn.next")
+			.addEventListener("click", (e) => {
+				_this.updateCalendar("month", _this.date.getMonth() + 1);
+			});
+		document
+			.querySelector(".cal-header__btn.prev")
+			.addEventListener("click", (e) => {
+				_this.updateCalendar("month", _this.date.getMonth() - 1);
+			});
 
-		document.querySelector("#select-month").addEventListener("click", openDropdown);
-		document.querySelector("#select-year").addEventListener("click", openDropdown);
+		document
+			.querySelector("#select-month")
+			.addEventListener("click", openDropdown);
+		document
+			.querySelector("#select-year")
+			.addEventListener("click", openDropdown);
 
-		// opening and closing the calendar
+		// opening and closing the Calendar
 		this.arvl.input.addEventListener("click", (e) => {
 			_this.showCalendar(e);
 		});
@@ -142,7 +150,9 @@ export const calendar = {
 
 		// apply styling
 		if (!applyStyling) return;
-		el.closest(".cal-main__date.cal-main__date--active").classList.add(targetClass);
+		el.closest(".cal-main__date.cal-main__date--active").classList.add(
+			targetClass
+		);
 		el.setAttribute("data-date-for", id2);
 		el.setAttribute("data-has-type", true);
 	},
@@ -333,10 +343,10 @@ export const calendar = {
 		this.date.setMonth(this.date.getMonth() - 1);
 
 		// print current month and year in header
-		document.querySelector("#select-month .selection").innerText = this.getMonthAsString(
-			currMonth
-		);
-		document.querySelector("#select-year .selection").innerText = this.date.getFullYear();
+		document.querySelector("#select-month .selection").innerText =
+			this.getMonthAsString(currMonth);
+		document.querySelector("#select-year .selection").innerText =
+			this.date.getFullYear();
 	},
 
 	createDay: function (day) {
@@ -366,14 +376,15 @@ export const calendar = {
 			div.classList.add("cal-main__date--today");
 
 		if (
-			(this.opts.disablePastDays && this.date.getTime() <= this.today.getTime() - 1) ||
+			(this.opts.disablePastDays &&
+				this.date.getTime() <= this.today.getTime() - 1) ||
 			(BOOKED[year] && BOOKED[year][month].indexOf(dayNum) > -1)
 		) {
 			div.classList.add("cal-main__date--disabled");
 			div.title = "Belegt";
 		} else {
 			div.classList.add("cal-main__date--active");
-			div.setAttribute("data-calendar-status", "active");
+			div.setAttribute("data-Calendar-status", "active");
 			span.setAttribute("data-date", dt(this.date).toISOStringNoTime());
 			span.setAttribute("data-has-type", false);
 		}
@@ -416,25 +427,30 @@ export const calendar = {
 };
 
 /**
- * Attach listeners for closing the calendar. "Click event" would be triggered immediately and thereby closing the modal after opening "click event".
+ * Attach listeners for closing the Calendar. "Click event" would be triggered immediately and thereby closing the modal after opening "click event".
  * @returns {void}
  */
 const addCalListeners = () => {
-	document.addEventListener("mousedown", closeCal);
-	document.addEventListener("touchstart", closeCal);
-	document.addEventListener("keyup", closeCal);
+	setTimeout(() => {
+		document.addEventListener("click", closeCal);
+		document.addEventListener("keyup", closeCal);
+	}, 10);
 };
 
 /**
- * Remove listeners for closing the calendar.
+ * Remove listeners for closing the Calendar.
  * @returns {void}
  */
 const removeCalListeners = () => {
-	document.removeEventListener("mousedown", closeCal);
-	document.removeEventListener("touchstart", closeCal);
+	document.removeEventListener("click", closeCal);
 	document.removeEventListener("keyup", closeCal);
 };
 
+/**
+ * Close calendar and remove listeners.
+ * @param {Event} e
+ * @returns {void}
+ */
 const closeCal = (e) => {
 	// targets
 	if (e.target.closest(".cal-wrap")) return;
@@ -443,6 +459,6 @@ const closeCal = (e) => {
 	// cover ESC press
 	if (e.type === "keyup" && e.key !== "Escape") return;
 
-	calendar.hideCalendar();
+	Calendar.hideCalendar();
 	removeCalListeners();
 };

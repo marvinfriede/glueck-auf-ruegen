@@ -151,7 +151,7 @@ export const dateDiff = (first, second) => {
 export const dt = (initDate) => {
 	// source: https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript
 
-	var utcMidnightDateObj = null;
+	let utcMidnightDateObj = null;
 	// if no date supplied, use Now.
 	if (!initDate) initDate = new Date();
 
