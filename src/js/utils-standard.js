@@ -195,3 +195,45 @@ export const dt = (initDate) => {
 		},
 	};
 };
+
+// --------------------------------------------------------
+// performance
+// --------------------------------------------------------
+
+/**
+ * Create a new function that limits calls to func to once every given timeframe.
+ * @param {Function} func target for debounce
+ * @param {Number} timeFrame collection time in ms
+ * @returns {Function}
+ */
+export function throttle(func, timeFrame) {
+	var lastTime = 0;
+	return function (...args) {
+		var now = new Date();
+		if (now - lastTime >= timeFrame) {
+			func(...args);
+			lastTime = now;
+		}
+	};
+}
+
+/**
+ * Create a new function that calls func with thisArg and args. Debouncing groups multiple sequential calls in a single one.
+ * @param {Function} func target for debounce
+ * @param {Number} wait collection time in ms
+ * @param {Boolean} immediate leading trigger
+ * @returns {Function}
+ */
+export function debounce(func, wait, immediate = false) {
+	var timeout;
+	return function () {
+		var context = this,
+			args = arguments;
+		clearTimeout(timeout);
+		timeout = setTimeout(function () {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		}, wait);
+		if (immediate && !timeout) func.apply(context, args);
+	};
+}

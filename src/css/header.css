@@ -3,7 +3,7 @@
 --------------------------------------------------*/
 
 :root {
-	--header-height: 0;
+	--header-height: 0px;
 }
 @media (min-width: 768px) {
 	:root {

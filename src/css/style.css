@@ -26,7 +26,6 @@
 
 :root {
 	--font-fancy: "Dancing Script", cursive;
-	--header-height: 0px;
 }
 
 /*-------------------------------------------------
@@ -145,27 +144,27 @@ sup {
 --------------------------------------------------*/
 
 section.landing {
-	height: 640px;
+	height: calc(640px + var(--header-height));
 	position: relative;
 }
 @media (min-width: 768px) {
 	section.landing {
-		height: 710px;
+		height: calc(710px + var(--header-height));
 	}
 }
 @media (min-width: 992px) {
 	section.landing {
-		height: 640px;
+		height: calc(640px + var(--header-height));
 	}
 }
 @media (min-width: 1200px) {
 	section.landing {
-		height: 820px;
+		height: calc(820px + var(--header-height));
 	}
 }
 @media (min-width: 1999px) {
 	section.landing {
-		height: 1040px;
+		height: calc(1040px + var(--header-height));
 	}
 }
 

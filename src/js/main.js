@@ -11,7 +11,7 @@ import {
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
-import { foreach } from "./utils-standard.js";
+import { debounce, foreach, throttle } from "./utils-standard.js";
 import { openBookingModal, closeModalManually, openModal } from "./overlays.js";
 import { toggleAccordion } from "./accordion.js";
 import InjectWarning from "./inject-warning.js";
@@ -23,7 +23,7 @@ import "../css/main.css";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 import { Fade } from "./animations.js";
 
-let sliders = { landing: null, duene: null, moewe: null };
+let sliders = { landing: null, duene: null, moewe: null, modal: null };
 let prevScrollPos = window.pageYOffset;
 
 const setEventListeners = () => {
@@ -89,8 +89,8 @@ const setEventListeners = () => {
 	// toggle side nav with button on small screens
 	document.querySelector("header.s").addEventListener("click", toggleSmallMenu);
 
-	window.addEventListener("resize", handleWindowResize);
-	window.addEventListener("scroll", handleWindowScroll);
+	window.addEventListener("resize", debounce(handleWindowResize, 500));
+	window.addEventListener("scroll", throttle(handleWindowScroll, 100));
 };
 
 const removeLoadingMask = () => {
@@ -101,20 +101,17 @@ const toggleNavOnScroll = () => {
 	const currentScrollPos = window.pageYOffset;
 	const headerL = document.querySelector("header.l");
 	const headerS = document.querySelector("header.s");
-	const landing = document.querySelector(".header-placeholder");
 
 	// avoid equal case -> do nothing on init
 	if (prevScrollPos > currentScrollPos) {
-		if (window.innerWidth >= 768) {
+		if (window.innerWidth >= BP.n) {
 			headerL.style.top = 0;
-			landing.style.marginTop = "var(--header-height)";
 		} else {
 			headerS.style.right = "20px";
 		}
 	} else if (prevScrollPos < currentScrollPos) {
-		if (window.innerWidth >= 768) {
+		if (window.innerWidth >= BP.n) {
 			headerL.style.top = "calc(-1 * var(--header-height))";
-			landing.style.marginTop = 0;
 		} else {
 			headerS.style.right = "-60px";
 		}
@@ -145,13 +142,13 @@ const setSliderHeight = () => {
 		if (width < BP.n) {
 			sliders.landing.options = { fixedHeight: 640 };
 		} else if (width >= BP.n && width < BP.l) {
-			sliders.landing.options = { fixedHeight: 710 };
+			sliders.landing.options = { fixedHeight: 764 };
 		} else if (width >= BP.l && width < BP.xl) {
-			sliders.landing.options = { fixedHeight: 600 };
+			sliders.landing.options = { fixedHeight: 704 };
 		} else if (width >= BP.xl && width < BP.xxl) {
-			sliders.landing.options = { fixedHeight: 820 };
+			sliders.landing.options = { fixedHeight: 884 };
 		} else {
-			sliders.landing.options = { fixedHeight: 1040 };
+			sliders.landing.options = { fixedHeight: 1104 };
 		}
 	}
 
@@ -233,27 +230,42 @@ const initSliders = () => {
 	sliders.moewe.sync(moeweThumb).mount();
 
 	// change title below image
-	sliders.duene.on("move", () => {
+	sliders.duene.on("moved", () => {
 		setTitleSlider(sliders.duene);
 	});
-	sliders.moewe.on("move", () => {
+	sliders.moewe.on("moved", () => {
 		setTitleSlider(sliders.moewe);
 	});
 
-	// testing
-	// document
-	// 	.querySelector(".welcome-wrap .text")
-	// 	.addEventListener("click", () => {
-	// 		const index = sliders.duene.index;
+	dueneRoot
+		.querySelector("#splide-duene-track")
+		.addEventListener("dblclick", (e) => {
+			e.preventDefault();
+			e.stopImmediatePropagation();
+			const index = sliders.duene.index;
 
-	// 		const modal = document.querySelector("#modal-splide");
-	// 		openModal(modal);
+			//
 
-	// 		let dueneSlider2 = new Splide(
-	// 			document.querySelector("#splide-duene-2"),
-	// 			Object.assign(optionsFull, { start: index })
-	// 		).mount();
-	// 	});
+			const modal = document.querySelector("#modal-splide");
+			const wrap = modal.querySelector(".slider-wrap");
+			wrap.insertBefore(dueneRoot, wrap.firstChild);
+			openModal(modal);
+			window.s = sliders;
+
+			sliders.duene.options = { cover: false, start: index };
+			sliders.duene.refresh();
+
+			// sliders.modal = new Splide(
+			// 	dupe,
+			// 	Object.assign(optionsFull, { start: index })
+			// ).mount();
+
+			// sliders.modal.on("moved", () => {
+			// 	setTitleSlider(sliders.moewe);
+			// });
+
+			// sliders.modal.refresh();
+		});
 };
 
 const init = async () => {
@@ -274,7 +286,7 @@ window.addEventListener("load", () => {
 window.addEventListener("load", () => {
 	// inject "under construction" warning
 	const warning = new InjectWarning();
-	warning.setParent(document.querySelector("main section.landing"));
+	warning.setParent(document.querySelector("main section.intro"));
 	warning.setMessage(
 		"Buchungskalender nicht aktuell. Seite wird noch minimal überarbeitet. Buchung/Nachfragen trotzdem möglich."
 	);
