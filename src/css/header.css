@@ -76,8 +76,21 @@ header.l::after {
 }
 
 .header-logo {
+	display: flex;
+	height: 100%;
+	margin-right: 30px;
 	position: relative;
 	z-index: 1;
+}
+@media (min-width: 992px) {
+	.header-logo {
+		margin-right: 40px;
+	}
+}
+@media (min-width: 1400px) {
+	.header-logo {
+		margin-right: 50px;
+	}
 }
 
 .header-nav {
@@ -108,7 +121,7 @@ header.l::after {
 	width: auto;
 	z-index: 8;
 }
-.header-nav .nav .nav-item {
+.header-nav .nav-item {
 	flex: 0 0 auto;
 	height: 100%;
 	overflow: hidden;

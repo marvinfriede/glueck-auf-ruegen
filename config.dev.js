@@ -12,7 +12,7 @@ module.exports = {
     main: path.resolve(__dirname, "src/js/main.js"),
   },
   output: {
-    assetModuleFilename: "img/[name].[contenthash].[ext]",
+    assetModuleFilename: "img/[name].[contenthash][ext]",
     path: path.resolve(__dirname, "dist"),
     filename: "[name].js",
   },
@@ -76,19 +76,19 @@ module.exports = {
         {
           from: path.resolve(__dirname, "src/img/duene/*opt*"),
           to({ context, absoluteFilename }) {
-            return "img/duene/[name].[ext]";
+            return "img/duene/[name][ext]";
           },
         },
         {
           from: path.resolve(__dirname, "src/img/moewe/*opt*"),
           to({ context, absoluteFilename }) {
-            return "img/moewe/[name].[ext]";
+            return "img/moewe/[name][ext]";
           },
         },
         {
           from: path.resolve(__dirname, "src/img/sellin/*opt*"),
           to({ context, absoluteFilename }) {
-            return "img/sellin/[name].[ext]";
+            return "img/sellin/[name][ext]";
           },
         },
       ],
