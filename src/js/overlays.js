@@ -58,6 +58,8 @@ const closeModal = (e) => {
 
 	// actual closing function
 	closeModalManually();
+
+	//if (e.target.closest("#modal-splide")) closeModalSplide();
 };
 
 /**

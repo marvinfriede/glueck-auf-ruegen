@@ -133,6 +133,8 @@ const handleWindowResize = () => {
 // ---------------------------------------------------
 
 const setSliderHeight = () => {
+	if (document.body.classList.contains("modal-open")) return;
+
 	const height =
 		window.innerHeight ||
 		document.documentElement.clientHeight ||
@@ -190,12 +192,9 @@ const setSliderHeight = () => {
 	}
 };
 
-const setTitleSlider = (slider) => {
-	const el = slider.root.closest(".slider");
-
-	// get title from picture (by data-id) and place in in container below image
-	const img = el.querySelector("li.is-active img");
-	const cont = el.querySelector(".splide-title span");
+const setTitleSlide = (e) => {
+	const img = e.slide.firstElementChild;
+	const cont = img.closest(".slider").querySelector(".splide-title span");
 	cont.innerText = img.title;
 };
 
@@ -276,43 +275,60 @@ const initSliders = () => {
 	sliders.moewe.sync(moeweThumb).mount();
 
 	// change title below image
-	sliders.duene.on("moved", () => {
-		setTitleSlider(sliders.duene);
-	});
-	sliders.moewe.on("moved", () => {
-		setTitleSlider(sliders.moewe);
-	});
+	sliders.duene.on("active", setTitleSlide);
+	sliders.moewe.on("active", setTitleSlide);
 
-	dueneRoot
-		.querySelector("#splide-duene-track")
-		.addEventListener("dblclick", (e) => {
-			e.preventDefault();
-			e.stopImmediatePropagation();
-			const index = sliders.duene.index;
+	// dueneRoot
+	// 	.querySelector("#splide-duene-track")
+	// 	.addEventListener("dblclick", (e) => {
+	// 		if (document.body.classList.contains("modal-open")) return;
 
-			//
+	// 		e.preventDefault();
+	// 		e.stopImmediatePropagation();
 
-			const modal = document.querySelector("#modal-splide");
-			const wrap = modal.querySelector(".slider-wrap");
-			wrap.insertBefore(dueneRoot, wrap.firstChild);
-			openModal(modal);
-			window.s = sliders;
+	// 		// get index and destroy
+	// 		const index = sliders.duene.index;
+	// 		sliders.duene.destroy(false);
 
-			sliders.duene.options = { cover: false, start: index };
-			sliders.duene.refresh();
+	// 		// move to modal
+	// 		const modal = document.querySelector("#modal-splide");
+	// 		const wrap = modal.querySelector(".slider-wrap");
+	// 		wrap.insertBefore(dueneRoot, wrap.firstChild);
+	// 		openModal(modal);
 
-			// sliders.modal = new Splide(
-			// 	dupe,
-			// 	Object.assign(optionsFull, { start: index })
-			// ).mount();
+	// 		// create new with settings for fullscreen
+	// 		sliders.duene = new Splide(
+	// 			dueneRoot,
+	// 			Object.assign(optionsFull, { start: index })
+	// 		).mount();
 
-			// sliders.modal.on("moved", () => {
-			// 	setTitleSlider(sliders.moewe);
-			// });
+	// 		// set title and add listener
+	// 		setTitleSlider(sliders.duene);
+	// 		sliders.duene.on("moved", () => {
+	// 			setTitleSlider(sliders.duene);
+	// 		});
 
-			// sliders.modal.refresh();
-		});
+	// 		// for identification on close
+	// 		sliders.modal = "duene";
+	// 	});
 };
+
+// const closeModalSplide = () => {
+// 	let sl;
+// 	switch (sliders.modal) {
+// 		case "duene":
+// 			sl = sliders.duene;
+// 			break;
+// 		case "moewe":
+// 			sl = sliders.moewe;
+// 			break;
+// 		default:
+// 			return;
+// 	}
+// 	sliders.modal = null;
+
+// 	sl.destroy();
+// };
 
 const init = async () => {
 	setEventListeners();
