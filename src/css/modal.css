@@ -13,7 +13,7 @@ body.modal-open {
 	left: 0;
 	height: 100%;
 	justify-content: center;
-	overflow: auto;
+	overflow: hidden;
 	padding: 0;
 	position: fixed;
 	width: 100%;
@@ -237,8 +237,8 @@ body.modal-open {
 	height: 40px;
 	justify-content: center;
 	position: absolute;
-	right: 2px;
-	top: 20px;
+	right: -20px;
+	top: -20px;
 	width: 40px;
 	z-index: 999999999;
 }

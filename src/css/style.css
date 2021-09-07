@@ -940,8 +940,14 @@ section.main .info-grid .icon img {
 	height: 20px;
 	width: 20px;
 }
+
 section.main .info-grid .text {
-	padding-left: 15px;
+	padding-left: 10px;
+}
+@media (min-width: 576px) {
+	section.main .info-grid .text {
+		padding-left: 15px;
+	}
 }
 
 section.main .desc-text {
@@ -1004,7 +1010,7 @@ section.main .pricing .card {
 	display: flex;
 	flex-direction: column;
 	flex-wrap: nowrap;
-	flex: 1 0 auto;
+	flex: 1 1 auto;
 	margin-top: 60px;
 	overflow: hidden;
 }
@@ -1029,6 +1035,8 @@ section.main .pricing .card-header .specifier {
 	color: var(--white);
 	letter-spacing: 7px;
 	margin-bottom: 15px;
+	word-break: break-word;
+	text-align: center;
 }
 section.main .pricing .card-header .name {
 	font-size: var(--fs-L);
@@ -1093,6 +1101,7 @@ section.main .pricing .price-wrap > div {
 section.main .pricing .price {
 	font-size: var(--fs-l);
 	position: relative;
+	text-align: right;
 }
 section.main .pricing .price.large {
 	font-size: var(--fs-L);
@@ -1168,6 +1177,7 @@ section.main .map .note {
 section.main .map .note .show {
 	font-size: var(--fs-h);
 	margin-bottom: 20px;
+	text-align: center;
 }
 section.main .map .note .text {
 	font-size: var(--fs-s);
@@ -1392,7 +1402,7 @@ section.footer .contact .title a {
 	align-items: center;
 	background-color: var(--danger-bg);
 	display: flex;
-	height: var(--header-height);
+	height: 64px;
 	justify-content: center;
 	padding: 15px 10px;
 	text-align: center;

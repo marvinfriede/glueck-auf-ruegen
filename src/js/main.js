@@ -133,26 +133,61 @@ const handleWindowResize = () => {
 // ---------------------------------------------------
 
 const setSliderHeight = () => {
-	const width =
-		window.innerWidth ||
-		document.documentElement.clientWidth ||
-		document.body.clientWidth;
+	const height =
+		window.innerHeight ||
+		document.documentElement.clientHeight ||
+		document.body.clientHeight;
 
-	if (sliders.landing) {
-		if (width < BP.n) {
-			sliders.landing.options = { fixedHeight: 640 };
-		} else if (width >= BP.n && width < BP.l) {
-			sliders.landing.options = { fixedHeight: 764 };
-		} else if (width >= BP.l && width < BP.xl) {
-			sliders.landing.options = { fixedHeight: 704 };
-		} else if (width >= BP.xl && width < BP.xxl) {
-			sliders.landing.options = { fixedHeight: 884 };
+	if (sliders.duene && sliders.moewe) {
+		if (height < 300) {
+			sliders.duene.options = { fixedHeight: 150 };
+			sliders.moewe.options = { fixedHeight: 150 };
+		} else if (height >= 300 && height < 400) {
+			sliders.duene.options = { fixedHeight: 200 };
+			sliders.moewe.options = { fixedHeight: 200 };
+		} else if (height >= 400 && height < 500) {
+			sliders.duene.options = { fixedHeight: 250 };
+			sliders.moewe.options = { fixedHeight: 250 };
+		} else if (height >= 500 && height < 600) {
+			sliders.duene.options = { fixedHeight: 350 };
+			sliders.moewe.options = { fixedHeight: 350 };
+		} else if (height >= 600 && height < 700) {
+			sliders.duene.options = { fixedHeight: 450 };
+			sliders.moewe.options = { fixedHeight: 450 };
+		} else if (height >= 700 && height < 800) {
+			sliders.duene.options = { fixedHeight: 550 };
+			sliders.moewe.options = { fixedHeight: 550 };
+		} else if (height >= 800 && height < 900) {
+			sliders.duene.options = { fixedHeight: 600 };
+			sliders.moewe.options = { fixedHeight: 600 };
+		} else if (height >= 900 && height < 1000) {
+			sliders.duene.options = { fixedHeight: 700 };
+			sliders.moewe.options = { fixedHeight: 700 };
+		} else if (height >= 1000 && height < 1100) {
+			sliders.duene.options = { fixedHeight: 800 };
+			sliders.moewe.options = { fixedHeight: 800 };
+		} else if (height >= 1100 && height < 1200) {
+			sliders.duene.options = { fixedHeight: 900 };
+			sliders.moewe.options = { fixedHeight: 900 };
+		} else if (height >= 1200 && height < 1300) {
+			sliders.duene.options = { fixedHeight: 1000 };
+			sliders.moewe.options = { fixedHeight: 1000 };
+		} else if (height >= 1300 && height < 1400) {
+			sliders.duene.options = { fixedHeight: 1100 };
+			sliders.moewe.options = { fixedHeight: 1100 };
+		} else if (height >= 1400 && height < 1600) {
+			sliders.duene.options = { fixedHeight: 1200 };
+			sliders.moewe.options = { fixedHeight: 1200 };
+		} else if (height >= 1600 && height < 1900) {
+			sliders.duene.options = { fixedHeight: 1400 };
+			sliders.moewe.options = { fixedHeight: 1400 };
 		} else {
-			sliders.landing.options = { fixedHeight: 1104 };
+			sliders.duene.options = { fixedHeight: 1600 };
+			sliders.moewe.options = { fixedHeight: 1600 };
 		}
+		sliders.duene.refresh();
+		sliders.moewe.refresh();
 	}
-
-	sliders.landing.refresh();
 };
 
 const setTitleSlider = (slider) => {
@@ -172,7 +207,6 @@ const initSliders = () => {
 
 	const optionsCover = {
 		cover: true,
-		height: "500px",
 		lazyLoad: "nearby",
 		pagination: false,
 		perPage: 1,
@@ -189,6 +223,12 @@ const initSliders = () => {
 		type: "fade",
 	};
 	const optionsThumb = {
+		breakpoints: {
+			700: {
+				fixedHeight: 50,
+				fixedWidth: 70,
+			},
+		},
 		cover: true,
 		classes: {
 			arrow: "splide__arrow transparent",
@@ -207,9 +247,15 @@ const initSliders = () => {
 
 	sliders.landing = new Splide("#splide-landing", {
 		arrows: false,
+		breakpoints: {
+			[BP.n]: { fixedHeight: 640 },
+			[BP.l]: { fixedHeight: 764 },
+			[BP.xl]: { fixedHeight: 694 },
+			[BP.xxl]: { fixedHeight: 884 },
+		},
 		autoplay: true,
 		cover: true,
-		fixedHeight: 640,
+		fixedHeight: 1104,
 		interval: 10000,
 		lazyLoad: "nearby",
 		pagination: true,
