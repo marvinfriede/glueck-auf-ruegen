@@ -11,21 +11,128 @@ import {
 	toggleSmallMenu,
 	updateListSelection,
 } from "./utils-project";
-import { debounce, foreach, throttle } from "./utils-standard.js";
+import { debounce, foreach, isEmpty, throttle } from "./utils-standard.js";
 import { openBookingModal, closeModalManually, openModal } from "./overlays.js";
 import { toggleAccordion } from "./accordion.js";
+import { Fade } from "./animations.js";
 import InjectWarning from "./inject-warning.js";
 import Splide from "@splidejs/splide";
-import { BP } from "./constants.js";
+import { BP, optionsCover, optionsThumb } from "./constants.js";
 
 // import styles
 import "../css/main.css";
 import "@splidejs/splide/dist/css/themes/splide-default.min.css";
-import { Fade } from "./animations.js";
 
-let sliders = { landing: null, duene: null, moewe: null, modal: null };
+let sliders = { landing: {}, duene: {}, moewe: {} };
 let prevScrollPos = window.pageYOffset;
 
+// ---------------------------------------------------
+// intersection observer
+// ---------------------------------------------------
+
+/**
+ * Callback of IntersectionObserver. Initializes sliders and toggles autoplayof landing slider.
+ * @param {object} entries from IntersectionObserver
+ * @returns {void}
+ */
+const onIntersection = (entries) => {
+	entries.forEach((entry) => {
+		const t = entry.target;
+		if (entry.isIntersecting) {
+			if (t.id == "id-0" && isEmpty(sliders.landing)) {
+				console.log("Initialized slider for Landing.");
+				initSliderLanding();
+			} else if (t.id == "id-2") {
+				console.log("Initialized slider for Duene.");
+				initSliderDuene();
+				intersectionObserver.unobserve(t);
+			} else if (t.id == "id-3") {
+				console.log("Initialized slider for Moewe.");
+				initSliderMoewe();
+				intersectionObserver.unobserve(t);
+			}
+		}
+
+		// pause autoplay if out of view
+		if (t.id == "id-0" && !isEmpty(sliders.landing)) {
+			if (entry.isIntersecting) {
+				document.querySelector(".splide__play").click();
+			} else {
+				document.querySelector(".splide__pause").click();
+			}
+		}
+	});
+};
+
+let intersectionObserver = null;
+
+/**
+ * Initializes IntersectionObserver if supported. Otherwise sliders are just initialized.
+ * @returns {void}
+ */
+const initIntersectionObserver = () => {
+	if (typeof IntersectionObserver == "undefined") {
+		initSliderDuene();
+		initSliderMoewe();
+		initSliderLanding();
+	} else {
+		intersectionObserver = new IntersectionObserver(onIntersection, {
+			root: null,
+			threshold: 0.05,
+		});
+		intersectionObserver.observe(document.querySelector("#id-0"));
+		intersectionObserver.observe(document.querySelector("#id-2"));
+		intersectionObserver.observe(document.querySelector("#id-3"));
+	}
+};
+
+// ---------------------------------------------------
+// variois
+// ---------------------------------------------------
+
+/**
+ * Fades out loading mask on ".mask".
+ * @returns {void}
+ * @see Fade
+ */
+const removeLoadingMask = () => {
+	Fade.out(document.querySelector(".mask"), 1500, true);
+};
+
+/**
+ * Toggles visibility of header (small and large) depending on scroll.
+ * @returns {void}
+ */
+const toggleNavOnScroll = () => {
+	const currentScrollPos = window.pageYOffset;
+	const headerL = document.querySelector("header.l");
+	const headerS = document.querySelector("header.s");
+
+	// avoid equal case -> do nothing on init
+	if (prevScrollPos > currentScrollPos) {
+		if (window.innerWidth >= BP.n) {
+			headerL.style.top = 0;
+		} else {
+			headerS.style.right = "20px";
+		}
+	} else if (prevScrollPos < currentScrollPos) {
+		if (window.innerWidth >= BP.n) {
+			headerL.style.top = "calc(-1 * var(--header-height))";
+		} else {
+			headerS.style.right = "-60px";
+		}
+	}
+	prevScrollPos = currentScrollPos;
+};
+
+// ---------------------------------------------------
+// event listeners and handlers
+// ---------------------------------------------------
+
+/**
+ * Initializes all eventListeners except scroll and resize.
+ * @returns {void}
+ */
 const setEventListeners = () => {
 	// // enlarge images in sliders
 	// foreach(document.querySelectorAll(".main .slider"), (slider) =>
@@ -93,45 +200,33 @@ const setEventListeners = () => {
 	window.addEventListener("scroll", throttle(handleWindowScroll, 100));
 };
 
-const removeLoadingMask = () => {
-	Fade.out(document.querySelector(".mask"), 1500, true);
-};
-
-const toggleNavOnScroll = () => {
-	const currentScrollPos = window.pageYOffset;
-	const headerL = document.querySelector("header.l");
-	const headerS = document.querySelector("header.s");
-
-	// avoid equal case -> do nothing on init
-	if (prevScrollPos > currentScrollPos) {
-		if (window.innerWidth >= BP.n) {
-			headerL.style.top = 0;
-		} else {
-			headerS.style.right = "20px";
-		}
-	} else if (prevScrollPos < currentScrollPos) {
-		if (window.innerWidth >= BP.n) {
-			headerL.style.top = "calc(-1 * var(--header-height))";
-		} else {
-			headerS.style.right = "-60px";
-		}
-	}
-	prevScrollPos = currentScrollPos;
-};
-
+/**
+ * Contains all functions related to scroll behaviour. This functions is throttled.
+ * @returns {void}
+ * @see throttle
+ */
 const handleWindowScroll = () => {
 	toggleNavOnScroll();
 };
 
+/**
+ * Contains all functions related to window resizing. This functions is debounced.
+ * @returns {void}
+ * @see debounce
+ */
 const handleWindowResize = () => {
 	scaleGrids();
 	setSliderHeight();
 };
 
 // ---------------------------------------------------
-// init
+// sliders
 // ---------------------------------------------------
 
+/**
+ * Changes height of slider depending on height of viewport.
+ * @returns {void}
+ */
 const setSliderHeight = () => {
 	if (document.body.classList.contains("modal-open")) return;
 
@@ -139,205 +234,137 @@ const setSliderHeight = () => {
 		window.innerHeight ||
 		document.documentElement.clientHeight ||
 		document.body.clientHeight;
+	let fixedHeight = 0;
 
-	if (sliders.duene && sliders.moewe) {
-		if (height < 300) {
-			sliders.duene.options = { fixedHeight: 150 };
-			sliders.moewe.options = { fixedHeight: 150 };
-		} else if (height >= 300 && height < 400) {
-			sliders.duene.options = { fixedHeight: 200 };
-			sliders.moewe.options = { fixedHeight: 200 };
-		} else if (height >= 400 && height < 500) {
-			sliders.duene.options = { fixedHeight: 250 };
-			sliders.moewe.options = { fixedHeight: 250 };
-		} else if (height >= 500 && height < 600) {
-			sliders.duene.options = { fixedHeight: 350 };
-			sliders.moewe.options = { fixedHeight: 350 };
-		} else if (height >= 600 && height < 700) {
-			sliders.duene.options = { fixedHeight: 450 };
-			sliders.moewe.options = { fixedHeight: 450 };
-		} else if (height >= 700 && height < 800) {
-			sliders.duene.options = { fixedHeight: 550 };
-			sliders.moewe.options = { fixedHeight: 550 };
-		} else if (height >= 800 && height < 900) {
-			sliders.duene.options = { fixedHeight: 600 };
-			sliders.moewe.options = { fixedHeight: 600 };
-		} else if (height >= 900 && height < 1000) {
-			sliders.duene.options = { fixedHeight: 700 };
-			sliders.moewe.options = { fixedHeight: 700 };
-		} else if (height >= 1000 && height < 1100) {
-			sliders.duene.options = { fixedHeight: 800 };
-			sliders.moewe.options = { fixedHeight: 800 };
-		} else if (height >= 1100 && height < 1200) {
-			sliders.duene.options = { fixedHeight: 900 };
-			sliders.moewe.options = { fixedHeight: 900 };
-		} else if (height >= 1200 && height < 1300) {
-			sliders.duene.options = { fixedHeight: 1000 };
-			sliders.moewe.options = { fixedHeight: 1000 };
-		} else if (height >= 1300 && height < 1400) {
-			sliders.duene.options = { fixedHeight: 1100 };
-			sliders.moewe.options = { fixedHeight: 1100 };
-		} else if (height >= 1400 && height < 1600) {
-			sliders.duene.options = { fixedHeight: 1200 };
-			sliders.moewe.options = { fixedHeight: 1200 };
-		} else if (height >= 1600 && height < 1900) {
-			sliders.duene.options = { fixedHeight: 1400 };
-			sliders.moewe.options = { fixedHeight: 1400 };
-		} else {
-			sliders.duene.options = { fixedHeight: 1600 };
-			sliders.moewe.options = { fixedHeight: 1600 };
-		}
+	if (height < 300) {
+		fixedHeight = 150;
+	} else if (height >= 300 && height < 400) {
+		fixedHeight = 200;
+	} else if (height >= 400 && height < 500) {
+		fixedHeight = 250;
+	} else if (height >= 500 && height < 600) {
+		fixedHeight = 350;
+	} else if (height >= 600 && height < 700) {
+		fixedHeight = 450;
+	} else if (height >= 700 && height < 800) {
+		fixedHeight = 550;
+	} else if (height >= 800 && height < 900) {
+		fixedHeight = 600;
+	} else if (height >= 900 && height < 1000) {
+		fixedHeight = 700;
+	} else if (height >= 1000 && height < 1100) {
+		fixedHeight = 800;
+	} else if (height >= 1100 && height < 1200) {
+		fixedHeight = 900;
+	} else if (height >= 1200 && height < 1300) {
+		fixedHeight = 1000;
+	} else if (height >= 1300 && height < 1400) {
+		fixedHeight = 110;
+	} else if (height >= 1400 && height < 1600) {
+		fixedHeight = 1200;
+	} else if (height >= 1600 && height < 1900) {
+		fixedHeight = 1400;
+	} else {
+		fixedHeight = 1600;
+	}
+
+	// set height to avoid CLS on load
+	document.querySelector("#splide-duene").style.minHeight = fixedHeight + "px";
+	document.querySelector("#splide-moewe").style.minHeight = fixedHeight + "px";
+
+	// also set height of map
+	document.querySelector(".map").style.height = fixedHeight + "px";
+
+	// change height
+	if (!isEmpty(sliders.duene)) {
+		sliders.duene.options = { fixedHeight: fixedHeight };
 		sliders.duene.refresh();
+	}
+
+	if (!isEmpty(sliders.moewe)) {
+		sliders.moewe.options = { fixedHeight: fixedHeight };
 		sliders.moewe.refresh();
 	}
 };
 
+/**
+ * Changes title of current slide in ".splide-title span".
+ * @param {Event} e active event from Splide
+ * @returns {void}
+ */
 const setTitleSlide = (e) => {
 	const img = e.slide.firstElementChild;
 	const cont = img.closest(".slider").querySelector(".splide-title span");
 	cont.innerText = img.title;
 };
 
-const initSliders = () => {
-	const dueneRoot = document.querySelector("#splide-duene");
-	const moeweRoot = document.querySelector("#splide-moewe");
-	const dueneRootThumb = document.querySelector("#splide-duene-thumb");
-	const moeweRootThumb = document.querySelector("#splide-moewe-thumb");
-
-	const optionsCover = {
-		cover: true,
-		lazyLoad: "nearby",
-		pagination: false,
-		perPage: 1,
-		preloadPages: 0,
-		rewind: true,
-		type: "fade",
-	};
-	const optionsFull = {
-		lazyLoad: "nearby",
-		pagination: false,
-		perPage: 1,
-		preloadPages: 0,
-		rewind: true,
-		type: "fade",
-	};
-	const optionsThumb = {
-		breakpoints: {
-			700: {
-				fixedHeight: 50,
-				fixedWidth: 70,
-			},
-		},
-		cover: true,
-		classes: {
-			arrow: "splide__arrow transparent",
-			next: "splide__arrow--next outside",
-			prev: "splide__arrow--prev outside",
-		},
-		focus: "center",
-		fixedHeight: 64,
-		fixedWidth: 100,
-		gap: 10,
-		isNavigation: true,
-		pagination: false,
-		rewind: true,
-		width: "calc(100% - 5em)",
-	};
-
+/**
+ * Initializes slider for landing and binds it to global "sliders" object.
+ * @returns {void}
+ */
+const initSliderLanding = () => {
 	sliders.landing = new Splide("#splide-landing", {
 		arrows: false,
+		autoplay: true,
 		breakpoints: {
 			[BP.n]: { fixedHeight: 640 },
 			[BP.l]: { fixedHeight: 764 },
 			[BP.xl]: { fixedHeight: 694 },
-			[BP.xxl]: { fixedHeight: 884 },
+			[BP.xxl]: { fixedHeight: 764 },
 		},
-		autoplay: true,
 		cover: true,
-		fixedHeight: 1104,
+		fixedHeight: 764,
 		interval: 10000,
 		lazyLoad: "nearby",
 		pagination: true,
 		perPage: 1,
-		preloadPages: 1,
+		preloadPages: 0, // performance! loads 2 images if set to 1
 		rewind: true,
 		speed: 2000,
 		type: "fade",
 	}).mount();
+};
 
+/**
+ * Initializes slider for duene and binds it to global "sliders" object.
+ * @returns {void}
+ */
+const initSliderDuene = () => {
 	// create slider and thumbnail for cover
-	const dueneThumb = new Splide(dueneRootThumb, optionsThumb).mount();
-	sliders.duene = new Splide(dueneRoot, optionsCover);
-	sliders.duene.sync(dueneThumb).mount();
-
-	const moeweThumb = new Splide(moeweRootThumb, optionsThumb).mount();
-	sliders.moewe = new Splide(moeweRoot, optionsCover);
-	sliders.moewe.sync(moeweThumb).mount();
+	const dueneThumb = new Splide("#splide-duene-thumb", optionsThumb).mount();
+	const duene = new Splide("#splide-duene", optionsCover);
+	sliders.duene = duene.sync(dueneThumb).mount();
 
 	// change title below image
 	sliders.duene.on("active", setTitleSlide);
+
+	setSliderHeight();
+};
+
+/**
+ * Initializes slider for moewe and binds it to global "sliders" object.
+ * @returns {void}
+ */
+const initSliderMoewe = () => {
+	// create slider and thumbnail for cover
+	const moeweThumb = new Splide("#splide-moewe-thumb", optionsThumb).mount();
+	const moewe = new Splide("#splide-moewe", optionsCover);
+	sliders.moewe = moewe.sync(moeweThumb).mount();
+
+	// change title below image
 	sliders.moewe.on("active", setTitleSlide);
 
-	// dueneRoot
-	// 	.querySelector("#splide-duene-track")
-	// 	.addEventListener("dblclick", (e) => {
-	// 		if (document.body.classList.contains("modal-open")) return;
-
-	// 		e.preventDefault();
-	// 		e.stopImmediatePropagation();
-
-	// 		// get index and destroy
-	// 		const index = sliders.duene.index;
-	// 		sliders.duene.destroy(false);
-
-	// 		// move to modal
-	// 		const modal = document.querySelector("#modal-splide");
-	// 		const wrap = modal.querySelector(".slider-wrap");
-	// 		wrap.insertBefore(dueneRoot, wrap.firstChild);
-	// 		openModal(modal);
-
-	// 		// create new with settings for fullscreen
-	// 		sliders.duene = new Splide(
-	// 			dueneRoot,
-	// 			Object.assign(optionsFull, { start: index })
-	// 		).mount();
-
-	// 		// set title and add listener
-	// 		setTitleSlider(sliders.duene);
-	// 		sliders.duene.on("moved", () => {
-	// 			setTitleSlider(sliders.duene);
-	// 		});
-
-	// 		// for identification on close
-	// 		sliders.modal = "duene";
-	// 	});
+	setSliderHeight();
 };
 
-// const closeModalSplide = () => {
-// 	let sl;
-// 	switch (sliders.modal) {
-// 		case "duene":
-// 			sl = sliders.duene;
-// 			break;
-// 		case "moewe":
-// 			sl = sliders.moewe;
-// 			break;
-// 		default:
-// 			return;
-// 	}
-// 	sliders.modal = null;
-
-// 	sl.destroy();
-// };
-
-const init = async () => {
-	setEventListeners();
-	initSliders();
-	Calendar.init({ disablePastDays: true, markToday: true });
-};
+// ---------------------------------------------------
+// init
+// ---------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-	init();
+	setEventListeners();
+	initIntersectionObserver();
+	Calendar.init({ disablePastDays: true, markToday: true });
 	removeLoadingMask();
 });
 window.addEventListener("load", () => {

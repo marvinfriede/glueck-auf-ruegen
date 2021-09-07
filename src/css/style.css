@@ -159,13 +159,24 @@ section.landing {
 }
 @media (min-width: 1200px) {
 	section.landing {
+		height: calc(700px + var(--header-height));
+	}
+}
+/* 
+@media (min-width: 1400px) and (min-height: 1100) {
+	section.landing {
 		height: calc(820px + var(--header-height));
 	}
 }
-@media (min-width: 1999px) {
+@media (min-width: 1700px) and (min-height: 1400) {
 	section.landing {
 		height: calc(1040px + var(--header-height));
 	}
+}
+*/
+
+section.landing > div {
+	height: 100%;
 }
 
 section.landing .content {
@@ -969,6 +980,7 @@ section.main .pricing {
 	flex-wrap: wrap;
 	flex-direction: row;
 	gap: 20px;
+	justify-content: center;
 	width: 100%;
 }
 @media (min-width: 380px) {
@@ -1003,6 +1015,7 @@ section.main .pricing {
 }
 
 section.main .pricing .card {
+	align-items: center;
 	background-color: aliceblue;
 	border-radius: 30px;
 	border: 3px solid var(--blue3);
@@ -1027,8 +1040,9 @@ section.main .pricing .card-header {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	padding: 30px 0;
+	padding: 30px 5px;
 	text-transform: uppercase;
+	width: 100%;
 }
 section.main .pricing .card-header .specifier {
 	font-size: var(--fs-xs);
@@ -1049,6 +1063,7 @@ section.main .pricing .card-main {
 	flex-direction: column;
 	flex-wrap: nowrap;
 	padding: 10px 0;
+	width: 100%;
 }
 section.main .pricing .card-main--row {
 	align-items: center;

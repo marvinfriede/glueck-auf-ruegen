@@ -12,13 +12,23 @@
 	user-select: none;
 	width: auto;
 }
+section.landing .slider-wrap {
+	border: 0;
+}
 
 .splide-thumb-wrap {
 	display: flex;
 	justify-content: center;
+	height: 50px;
 	margin-top: 20px;
 	width: 100%;
 }
+@media (min-width: 700px) {
+	.splide-thumb-wrap {
+		height: 64px;
+	}
+}
+
 .splide-thumb-wrap .splide__slide {
 	cursor: pointer;
 }

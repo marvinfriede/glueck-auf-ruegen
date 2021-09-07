@@ -88,13 +88,13 @@ module.exports = {
       new CopyPlugin({
         patterns: [
           { 
-            from: path.resolve(__dirname, "src/img/duene/*opt*"),
+            from: path.resolve(__dirname, "src/img/duene/*.jpg"),
             to({ context, absoluteFilename }) {
               return "img/duene/[name][ext]";
             },
           },
           { 
-            from: path.resolve(__dirname, "src/img/moewe/*opt*"),
+            from: path.resolve(__dirname, "src/img/moewe/*.jpg"),
             to({ context, absoluteFilename }) {
               return "img/moewe/[name][ext]";
             },

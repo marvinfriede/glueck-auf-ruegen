@@ -81,12 +81,31 @@ export const splitStringBetweenTwoChars = (haystack, char1, char2) => {
 	);
 };
 
+// --------------------------------------------------------
+// Check if empty
+// --------------------------------------------------------
+
 /**
- * Check if a string is contains nothing ("").
+ * Check if a string is empty or contains nothing (""). 0 will return false; "0" won't.
  * @param {string} str target for test
  * @returns {Boolean}
  */
 export const isStrEmpty = (str) => !str || 0 === str.length;
+
+/**
+ * Checks if an object is an empty object.
+ * @param {object} obj target for test
+ * @returns {Boolean}
+ */
+export const isObjEmpty = (obj) =>
+	obj && Object.keys(obj).length === 0 && obj.constructor === Object;
+
+/**
+ * Checks if thing is empty. 0 will also return false; "0" won't.
+ * @param {object|string} thing target for test
+ * @returns {Boolean}
+ */
+export const isEmpty = (thing) => isStrEmpty(thing) || isObjEmpty(thing);
 
 // --------------------------------------------------------
 // DOM manipulation
