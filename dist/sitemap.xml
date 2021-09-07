@@ -7,6 +7,19 @@
 <url>
   <loc>https://marvinfriede.github.io/glueck-auf-ruegen/</loc>
   <lastmod>2021-05-20T21:34:09+00:00</lastmod>
+	<PageMap>
+		<DataObject type="document">
+			<Attribute name="title">Glück auf Rügen - Ferienwohnungen im Ostseebad Sellin</Attribute>
+			<Attribute name="author">Marvin Friede</Attribute>
+			<Attribute name="description">Urlaub im Ostseebad Sellin bei Familie Wolf. Wir bieten Ihnen eine moderne Ferienwohnung für bis zu 6 Personen (+Kind) auf 117m² mit 3 Schlafzimmern, 2 Bädern und Balkon sowie ein komfortables Bungalow für 2 Personen (+Kind) auf 64 m². Es gibt einen gemeinsamen Garten, WLAN und Parkplätze.</Attribute>
+			<Attribute name="page_count">1</Attribute>
+		</DataObject>
+    <DataObject type="thumbnail">
+      <Attribute name="src" value="https://marvinfriede.github.io/glueck-auf-ruegen/img/moewe/garten3.opt.jpg"/>
+      <Attribute name="width" value="1600"/>
+      <Attribute name="height" value="1064"/>
+    </DataObject>
+  </PageMap>
 </url>
 
 
