@@ -36,7 +36,6 @@
     "webpack-dev-server": "^4.1.0"
   },
   "dependencies": {
-    "@splidejs/splide": "^2.4.21",
-    "tiny-slider": "^2.9.3"
+    "@splidejs/splide": "^2.4.21"
   }
 }
