@@ -2,20 +2,20 @@ import { foreach } from "./utils-standard.js";
 import { Fade, hideElement, showElement } from "./animations.js";
 
 export const toggleSmallMenu = () => {
-	if (document.querySelector("header.s").classList.contains("open")) {
+	if (document.querySelector("header .s").classList.contains("open")) {
 		closeSideNav();
 	} else {
 		openSideNav();
 	}
 };
 const openSideNav = () => {
-	document.querySelector("header.s").classList.add("open");
-	document.querySelector("aside").classList.add("open");
+	document.querySelector("header .s").classList.add("open");
+	document.querySelector("aside .nav-collapsed").classList.add("open");
 	document.addEventListener("click", closeSideNavOnClick);
 };
 const closeSideNav = () => {
-	document.querySelector("header.s").classList.remove("open");
-	document.querySelector("aside").classList.remove("open");
+	document.querySelector("header .s").classList.remove("open");
+	document.querySelector("aside .nav-collapsed").classList.remove("open");
 	document.removeEventListener("click", closeSideNavOnClick);
 };
 const closeSideNavOnClick = (e) => {

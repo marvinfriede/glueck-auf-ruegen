@@ -105,8 +105,8 @@ const removeLoadingMask = () => {
  */
 const toggleNavOnScroll = () => {
 	const currentScrollPos = window.pageYOffset;
-	const headerL = document.querySelector("header.l");
-	const headerS = document.querySelector("header.s");
+	const headerL = document.querySelector("header .l");
+	const headerS = document.querySelector("header .s");
 
 	// avoid equal case -> do nothing on init
 	if (prevScrollPos > currentScrollPos) {
@@ -194,7 +194,9 @@ const setEventListeners = () => {
 	document.querySelector(".map .note").addEventListener("click", openGoogleMap);
 
 	// toggle side nav with button on small screens
-	document.querySelector("header.s").addEventListener("click", toggleSmallMenu);
+	document
+		.querySelector("header .s")
+		.addEventListener("click", toggleSmallMenu);
 
 	window.addEventListener("resize", debounce(handleWindowResize, 500));
 	window.addEventListener("scroll", throttle(handleWindowScroll, 100));
@@ -339,6 +341,7 @@ const initSliderDuene = () => {
 	sliders.duene.on("active", setTitleSlide);
 
 	setSliderHeight();
+	window.d = dueneThumb;
 };
 
 /**
@@ -355,6 +358,7 @@ const initSliderMoewe = () => {
 	sliders.moewe.on("active", setTitleSlide);
 
 	setSliderHeight();
+	window.m = moeweThumb;
 };
 
 // ---------------------------------------------------

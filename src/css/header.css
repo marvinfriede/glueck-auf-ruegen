@@ -16,12 +16,6 @@
 	}
 }
 
-.header-placeholder {
-	margin-top: var(--header-height);
-	transition-duration: 300ms;
-	transition-timing-function: ease-in-out;
-	transition-property: margin-top;
-}
 header {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
@@ -31,7 +25,8 @@ header {
 	-ms-user-select: none;
 	user-select: none;
 }
-header.l {
+
+header .l {
 	background-color: var(--white);
 	box-shadow: 0 6px 10px 0 rgba(33, 33, 33, 0.14),
 		0 1px 18px 0 rgba(33, 33, 33, 0.06), 0 3px 10px 0 rgba(33, 33, 33, 0.1);
@@ -46,15 +41,21 @@ header.l {
 	transition-property: top;
 	z-index: 999;
 }
-.header-outer {
-	position: relative;
-	height: var(--header-height);
-	width: 100%;
-}
-header.l::after {
+header .l::after {
 	content: " ";
 	display: block;
 	margin: 0 auto;
+	width: 100%;
+}
+@media (min-width: 768px) {
+	header .l {
+		display: block;
+	}
+}
+
+.header-outer {
+	position: relative;
+	height: var(--header-height);
 	width: 100%;
 }
 
@@ -65,6 +66,7 @@ header.l::after {
 	margin-right: auto;
 	margin-left: auto;
 }
+
 .header-content {
 	-ms-flex-align: center;
 	align-items: center;
@@ -73,6 +75,11 @@ header.l::after {
 	height: var(--header-height);
 	margin: 0 auto;
 	width: 100%;
+}
+@media (min-width: 768px) {
+	.header-content {
+		padding: 0;
+	}
 }
 
 .header-logo {
@@ -161,11 +168,21 @@ header.l::after {
 	background: var(--blue3);
 	color: var(--white) !important;
 }
+
 .header-nav .nav-link > span {
 	display: none;
 }
+@media (min-width: 1200px) {
+	.header-nav .nav-link > span {
+		display: contents;
+	}
+}
 
-header.s {
+/*-------------------------------------------------
+------------------- small header ------------------
+--------------------------------------------------*/
+
+header .s {
 	-ms-flex-align: center;
 	align-items: center;
 	background-color: var(--white);
@@ -191,7 +208,13 @@ header.s {
 	width: 40px;
 	z-index: 999;
 }
-header.s span {
+@media (min-width: 768px) {
+	header .s {
+		display: none !important;
+	}
+}
+
+header .s span {
 	background-color: var(--blue3);
 	border-radius: 3px;
 	display: block;
@@ -200,14 +223,14 @@ header.s span {
 	width: 18px; /* 26px */
 	z-index: 31;
 }
-header.s span.lower {
+header .s span.lower {
 	width: 14px; /* 20px */
 	margin: 4px 0 0 4px; /* 6px 0 0 6px */
 }
-header.s.open span.upper {
+header .s.open span.upper {
 	transform: rotate(45deg) translate(3px, 3px); /* 3px, 4px */
 }
-header.s.open span.lower {
+header .s.open span.lower {
 	margin: 4px 0 0 0; /* 6px 0 0 0 */
 	transform: rotate(-45deg) translate(2px, -1.5px); /* 2px, -2.5px */
 	width: 18px; /* 26px */
@@ -217,7 +240,16 @@ header.s.open span.lower {
 -------------------- side nav ---------------------
 --------------------------------------------------*/
 
-aside.nav-collapsed {
+aside {
+	display: block;
+}
+@media (min-width: 768px) {
+	aside {
+		display: none !important;
+	}
+}
+
+aside .nav-collapsed {
 	background-color: var(--blue3);
 	height: 100vh;
 	overflow: hidden;
@@ -228,10 +260,17 @@ aside.nav-collapsed {
 	width: 0;
 	z-index: 99;
 }
-aside.open.nav-collapsed {
+
+aside .nav-collapsed.open {
 	width: 70%;
 }
-aside.nav-collapsed .side-nav {
+@media (min-width: 576px) {
+	aside .nav-collapsed.open {
+		width: 45%;
+	}
+}
+
+aside .nav-collapsed .side-nav {
 	-ms-flex-align-pack: end;
 	align-items: flex-end;
 	display: -ms-flexbox;
@@ -241,7 +280,7 @@ aside.nav-collapsed .side-nav {
 	height: auto;
 	padding: 120px 20px 0 20px;
 }
-aside.nav-collapsed .nav-link {
+aside .nav-collapsed .nav-link {
 	color: var(--white);
 	cursor: pointer;
 	padding: 20px 0;
@@ -250,7 +289,7 @@ aside.nav-collapsed .nav-link {
 	white-space: nowrap;
 	width: 100%;
 }
-aside.nav-collapsed .nav-link:hover {
+aside .nav-collapsed .nav-link:hover {
 	opacity: 1;
 }
 
@@ -261,27 +300,5 @@ aside.nav-collapsed .nav-link:hover {
 @media (min-width: 380px) {
 	.header-nav .nav-collapsed.open .side-nav {
 		width: 60%;
-	}
-}
-@media (min-width: 576px) {
-	aside.nav-collapsed.open {
-		width: 45%;
-	}
-}
-@media (min-width: 768px) {
-	.header-content {
-		padding: 0;
-	}
-	header.l {
-		display: block;
-	}
-	header.s,
-	aside {
-		display: none !important;
-	}
-}
-@media (min-width: 1200px) {
-	.header-nav .nav-link > span {
-		display: contents;
 	}
 }
