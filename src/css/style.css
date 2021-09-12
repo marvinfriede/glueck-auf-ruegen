@@ -731,10 +731,6 @@ section.main .slider.default {
 	width: 100%;
 }
 
-.modal .slider {
-	border: 1px solid var(--gray3);
-}
-
 .slider-wrap .slider-wrap-inner {
 	border: 1px solid var(--gray2);
 }

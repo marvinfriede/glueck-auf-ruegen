@@ -9,6 +9,7 @@ export const BP = {
 };
 
 export const optionsFull = {
+	cover: false,
 	lazyLoad: "nearby",
 	pagination: false,
 	perPage: 1,
@@ -17,15 +18,7 @@ export const optionsFull = {
 	type: "fade",
 };
 
-export const optionsCover = {
-	cover: true,
-	lazyLoad: "nearby",
-	pagination: false,
-	perPage: 1,
-	preloadPages: 0,
-	rewind: true,
-	type: "fade",
-};
+export const optionsCover = Object.assign({}, optionsFull, { cover: true });
 
 export const optionsThumb = {
 	breakpoints: {

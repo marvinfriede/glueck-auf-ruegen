@@ -18,7 +18,7 @@ module.exports = {
   output: {
     assetModuleFilename: "img/[name].[contenthash][ext]",
     path: path.resolve(__dirname, "dist"),
-    filename: "js/[name].[contenthash].js",
+    filename: "js/[name].[contenthash].min.js",
   },
   module: {
     rules: [
@@ -89,33 +89,23 @@ module.exports = {
         patterns: [
           { 
             from: path.resolve(__dirname, "src/img/duene/*.jpg"),
-            to({ context, absoluteFilename }) {
-              return "img/duene/[name][ext]";
-            },
+            to: "img/duene/[name][ext]",
           },
           { 
             from: path.resolve(__dirname, "src/img/moewe/*.jpg"),
-            to({ context, absoluteFilename }) {
-              return "img/moewe/[name][ext]";
-            },
+            to: "img/moewe/[name][ext]",
           },
           { 
             from: path.resolve(__dirname, "src/img/sellin/*opt*"),
-            to({ context, absoluteFilename }) {
-              return "img/sellin/[name][ext]";
-            },
+            to: "img/sellin/[name][ext]",
           },
           { 
             from: path.resolve(__dirname, "src/sitemap.xml"),
-            to({ context, absoluteFilename }) {
-              return "[name][ext]";
-            },
+            to: "[name][ext]",
           },
           { 
             from: path.resolve(__dirname, "src/robots.txt"),
-            to({ context, absoluteFilename }) {
-              return "[name][ext]";
-            },
+            to: "[name][ext]",
           },
         ],
       }),
@@ -123,7 +113,7 @@ module.exports = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "css/[name].[contenthash].css",
+      filename: "css/[name].[contenthash].min.css",
     }),
     new CleanWebpackPlugin(),
   ],

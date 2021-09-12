@@ -73,23 +73,17 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        {
+        { 
           from: path.resolve(__dirname, "src/img/duene/*.jpg"),
-          to({ context, absoluteFilename }) {
-            return "img/duene/[name][ext]";
-          },
+          to: "img/duene/[name][ext]",
         },
-        {
+        { 
           from: path.resolve(__dirname, "src/img/moewe/*.jpg"),
-          to({ context, absoluteFilename }) {
-            return "img/moewe/[name][ext]";
-          },
+          to: "img/moewe/[name][ext]",
         },
-        {
+        { 
           from: path.resolve(__dirname, "src/img/sellin/*opt*"),
-          to({ context, absoluteFilename }) {
-            return "img/sellin/[name][ext]";
-          },
+          to: "img/sellin/[name][ext]",
         },
       ],
     }),

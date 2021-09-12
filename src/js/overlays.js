@@ -47,7 +47,7 @@ export const openModal = (modal) => {
  * @returns {void}
  */
 const closeModal = (e) => {
-	e.stopImmediatePropagation();
+	// standard for touch events
 	if (e.touches) e.preventDefault();
 
 	// cover ESC press
@@ -58,8 +58,6 @@ const closeModal = (e) => {
 
 	// actual closing function
 	closeModalManually();
-
-	//if (e.target.closest("#modal-splide")) closeModalSplide();
 };
 
 /**
@@ -70,123 +68,11 @@ const closeModal = (e) => {
 export const closeModalManually = () => {
 	// do nothing, if modal is not even visible
 	const modal = document.querySelector(".modal.visible");
-	if (!modal) return;
-
-	Fade.out(modal, 500);
-	enableBackgroundScrollModal();
-	removeModalListeners();
-};
-
-// ------------------------------------------------------------------------
-// image fullscreen
-// ------------------------------------------------------------------------
-
-/**
- * Opens fullscreen view, disables background scroll and sets listeners for closing fullscreen mode.
- * @returns {void}
- */
-export const openImgFullscreen = (e) => {
-	if (e.type !== "click") return;
-
-	const slider = e.target.closest(".slider");
-	if (slider.classList.contains("max")) return;
-
-	addStyleSliderFullscreen(slider);
-	createTempCloseButton();
-	addImgFullscreenListeners();
-};
-
-/**
- * Closes fullscreen view and resets to initial state.
- * @returns {void}
- */
-const closeImgFullscreen = (e) => {
-	if (e.touches) e.preventDefault();
-
-	// cover ESC press
-	if (e.type === "keyup" && e.key !== "Escape") return;
-
-	// targets
-	if (e.target.classList.contains("tns-lazy")) return;
-
-	removeStyleSliderFullscreen();
-	destroyTempCloseButton();
-	removeImgFullscreenListeners();
-};
-
-/**
- * Attach listeners for closing image fullscreen view.
- * @returns {void}
- */
-const addImgFullscreenListeners = () => {
-	setTimeout(() => {
-		document.addEventListener("click", closeImgFullscreen);
-		document.addEventListener("keyup", closeImgFullscreen);
-	}, 10);
-};
-
-/**
- * Remove listeners for closing fullscreen view of images.
- * @returns {void}
- */
-const removeImgFullscreenListeners = () => {
-	document.removeEventListener("click", closeImgFullscreen);
-	document.removeEventListener("keyup", closeImgFullscreen);
-};
-
-/**
- * Adds classes to slider to give container modal character.
- * @param {HTMLDivElement} slider closest to clicked image
- * @returns {void}
- */
-const addStyleSliderFullscreen = (slider) => {
-	slider.classList.add("max");
-	slider.classList.remove("default");
-	slider.title = "Klicken zum Schließen.";
-	slider.removeEventListener("click", openImgFullscreen);
-};
-
-/**
- * Removes class from slider that gives modal character.
- * @returns {void}
- */
-const removeStyleSliderFullscreen = () => {
-	const slider = document.querySelector(".slider.max");
-	slider.classList.remove("max");
-	slider.classList.add("default");
-	slider.removeAttribute("title");
-	slider.addEventListener("click", openImgFullscreen);
-};
-
-/**
- * Create the temporary close button in top right corner.
- * @returns {void}
- */
-const createTempCloseButton = () => {
-	// create all the elements and style them
-	const button = document.createElement("div");
-	button.classList.add("close-button", "fixed");
-
-	const div = document.createElement("div");
-	div.classList.add("icon", "symbol", "l");
-
-	const img = document.createElement("div");
-	img.classList.add("cross");
-
-	// append everything to each other
-	// body > div.close-button.fixed > div.icon.symbol.l > img
-	div.append(img);
-	button.appendChild(div);
-	document.body.append(button);
-};
-
-/**
- * Fade out and remove the temporary close button.
- * @returns {void}
- */
-const destroyTempCloseButton = () => {
-	const btn = document.querySelector("body > div.close-button");
-	if (btn) Fade.out(btn, 500, true);
+	if (modal) {
+		Fade.out(modal, 500);
+		enableBackgroundScrollModal();
+		removeModalListeners();
+	}
 };
 
 // ------------------------------------------------------------------------

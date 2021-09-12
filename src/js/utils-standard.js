@@ -140,6 +140,18 @@ export const clearChildren = (el, removeSelf = false) => {
 	while (el.firstChild) el.removeChild(el.lastChild);
 };
 
+/**
+ * Move node in DOM. Target will be first child of destination
+ * @param {HTMLElement} target object to move
+ * @param {HTMLElement} destination
+ * @returns {void}
+ */
+export const moveHtml = (target, destination) => {
+	if (!target || !destination) return;
+
+	destination.insertBefore(target, destination.firstElementChild);
+};
+
 // --------------------------------------------------------
 // time and dates
 // --------------------------------------------------------
