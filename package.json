@@ -5,7 +5,7 @@
   "scripts": {
     "all": "webpack --config config.prod.js && git add . && git commit -m 'update' && git push -u origin master && gh-pages -d dist",
     "prod": "webpack --config config.prod.js",
-    "dev": "webpack-dev-server --config config.dev.js",
+    "dev": "webpack-dashboard -- webpack-dev-server --config config.dev.js",
     "git": "git add . && git commit -m 'update' && git push -u origin master",
     "deploy": "gh-pages -d dist"
   },
@@ -33,6 +33,7 @@
     "style-loader": "^3.2.1",
     "webpack": "^5.52.0",
     "webpack-cli": "^4.8.0",
+    "webpack-dashboard": "^3.3.6",
     "webpack-dev-server": "^4.1.0"
   },
   "dependencies": {

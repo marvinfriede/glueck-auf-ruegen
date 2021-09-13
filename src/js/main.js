@@ -25,7 +25,6 @@ import InjectWarning from "./inject-warning.js";
 
 // import styles
 import "../css/main.css";
-import "@splidejs/splide/dist/css/themes/splide-default.min.css";
 
 let prevScrollPos = window.pageYOffset;
 

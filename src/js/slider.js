@@ -1,4 +1,6 @@
 import Splide from "@splidejs/splide";
+import "@splidejs/splide/dist/css/splide.min.css";
+
 import { BP, optionsCover, optionsFull, optionsThumb } from "./constants.js";
 import { openModal } from "./overlays.js";
 import { foreach, isEmpty, moveHtml } from "./utils-standard.js";
