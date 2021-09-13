@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "all": "webpack --config config.prod.js && git add . && git commit -m 'update' && git push -u origin master && gh-pages -d dist",
     "prod": "webpack --config config.prod.js",
     "dev": "webpack-dashboard -- webpack-dev-server --config config.dev.js",
     "git": "git add . && git commit -m 'update' && git push -u origin master",
