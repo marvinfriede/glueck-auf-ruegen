@@ -1,32 +1,10 @@
 import { foreach } from "./utils-standard.js";
 import { Fade, hideElement, showElement } from "./animations.js";
+import { Calendar } from "./cal.js";
 
-export const toggleSmallMenu = () => {
-	if (document.querySelector("header .s").classList.contains("open")) {
-		closeSideNav();
-	} else {
-		openSideNav();
-	}
-};
-const openSideNav = () => {
-	document.querySelector("header .s").classList.add("open");
-	document.querySelector("aside .nav-collapsed").classList.add("open");
-	document.addEventListener("click", closeSideNavOnClick);
-};
-const closeSideNav = () => {
-	document.querySelector("header .s").classList.remove("open");
-	document.querySelector("aside .nav-collapsed").classList.remove("open");
-	document.removeEventListener("click", closeSideNavOnClick);
-};
-const closeSideNavOnClick = (e) => {
-	if (
-		e.target.closest("main") ||
-		e.target.closest("footer") ||
-		e.target.closest("a.nav-link")
-	) {
-		closeSideNav();
-	}
-};
+// ---------------------------------------------------
+// drowdowns
+// ---------------------------------------------------
 
 export const openDropdown = (e) => {
 	const drop = e.target.closest(".drop-root").querySelector(".dropdown");
@@ -37,14 +15,11 @@ export const openDropdown = (e) => {
 			caret.classList.add("rotate270deg");
 		}
 		Fade.in(drop, 500);
-		setTimeout(() => {
-			document.addEventListener("click", closeDropdown);
-			document.addEventListener("keyup", closeDropdown);
-		}, 10);
+		addDropdownListeners();
 	}
 };
 const closeDropdown = (e) => {
-	e.preventDefault();
+	if (e.touches) e.preventDefault();
 
 	const drop = document.querySelector(".dropdown.visible");
 	const root = drop.closest(".drop-root");
@@ -60,8 +35,7 @@ const closeDropdown = (e) => {
 		caret.classList.add("rotate90deg");
 	}
 	Fade.out(drop, 500);
-	document.removeEventListener("click", closeDropdown);
-	document.removeEventListener("keyup", closeDropdown);
+	removeDropdownListeners();
 
 	// do extra stuff for certain targets (dropdown options)
 	if (e.target.classList.contains("dropdown-option")) {
@@ -73,6 +47,7 @@ const closeDropdown = (e) => {
 		// change available options
 		if (root.id === "select-house") {
 			updateDropdownGuests(name);
+			Calendar.refresh("month");
 		}
 	}
 };
@@ -97,8 +72,32 @@ const updateDropdownGuests = (name) => {
 	}
 };
 
+/**
+ * Attach listeners for closing dropdown. Without timeout, "click event" would be triggered immediately and thereby closing after opening "click event".
+ * @returns {void}
+ */
+const addDropdownListeners = () => {
+	setTimeout(() => {
+		document.addEventListener("click", closeDropdown);
+		document.addEventListener("keyup", closeDropdown);
+	}, 10);
+};
+
+/**
+ * Remove listeners for closing drowdown.
+ * @returns {void}
+ */
+const removeDropdownListeners = () => {
+	document.removeEventListener("click", closeDropdown);
+	document.removeEventListener("keyup", closeDropdown);
+};
+
+// ---------------------------------------------------
+// selectors
+// ---------------------------------------------------
+
 export const openSelector = (e) => {
-	e.preventDefault();
+	if (e.touches) e.preventDefault();
 
 	const select = e.target.closest(".selector-root").querySelector(".selector");
 	const caret = e.target.closest(".selector-root").querySelector(".caret img");
@@ -109,17 +108,11 @@ export const openSelector = (e) => {
 			caret.classList.add("rotate270deg");
 		}
 		Fade.in(select, 500);
-
-		if (e.touches) {
-			document.addEventListener("touchstart", closeSelector);
-		} else {
-			document.addEventListener("keyup", closeSelector);
-			document.addEventListener("mousedown", closeSelector);
-		}
+		addSelectorListeners();
 	}
 };
 const closeSelector = (e) => {
-	e.preventDefault();
+	if (e.touches) e.preventDefault();
 
 	const select = document.querySelector(".selector.visible");
 	const root = select.closest(".selector-root");
@@ -165,10 +158,32 @@ const closeSelector = (e) => {
 		caret.classList.add("rotate90deg");
 	}
 	Fade.out(select, 500);
-	document.removeEventListener("mousedown", closeSelector);
-	document.removeEventListener("touchstart", closeSelector);
+	removeSelectorListeners();
+};
+
+/**
+ * Attach listeners for closing selector. Without timeout, "click event" would be triggered immediately and thereby closing after opening "click event".
+ * @returns {void}
+ */
+const addSelectorListeners = () => {
+	setTimeout(() => {
+		document.addEventListener("click", closeSelector);
+		document.addEventListener("keyup", closeSelector);
+	}, 10);
+};
+
+/**
+ * Remove listeners for closing selector.
+ * @returns {void}
+ */
+const removeSelectorListeners = () => {
+	document.removeEventListener("click", closeSelector);
 	document.removeEventListener("keyup", closeSelector);
 };
+
+// ---------------------------------------------------
+// map
+// ---------------------------------------------------
 
 export const openGoogleMap = () => {
 	const note = document.querySelector(".map .note");
@@ -179,6 +194,10 @@ export const openGoogleMap = () => {
 		"https://www.google.com/maps/embed/v1/place?key=AIzaSyAPDv1gSmdxeAka2fbuY7oMVUXMnxkTHow&q=place/Buchenweg+4,+18586+Sellin,+Deutschland&zoom=14";
 	Fade.in(iframe);
 };
+
+// ---------------------------------------------------
+// booking
+// ---------------------------------------------------
 
 export const goToBooking = (e) => {
 	document.querySelector("#buchen").scrollIntoView();
@@ -196,35 +215,9 @@ export const goToBooking = (e) => {
 	}
 };
 
-export const updateListSelection = (e, scroll = true) => {
-	const wrap = e.target.closest(".slider-wrap");
-	const ul = wrap.querySelector("ul.thumbnails");
-	let active;
-
-	if (e.target.closest("li").classList.contains("next")) {
-		active =
-			ul.querySelector(".tns-nav-active").nextElementSibling ||
-			ul.firstElementChild;
-	} else {
-		active =
-			ul.querySelector(".tns-nav-active").previousElementSibling ||
-			ul.lastElementChild;
-	}
-
-	// scroll thumbnail into view
-	if (scroll === true) {
-		active.scrollIntoView({
-			behavior: "smooth",
-			block: "nearest",
-			inline: "start",
-		});
-	}
-
-	// get title from picture (by data-id) and place in in container below image
-	const img = wrap.querySelector(`[data-id="${active.dataset.nav}"] img`);
-	const cont = wrap.querySelector(".image-title span");
-	cont.innerText = img.title;
-};
+// ---------------------------------------------------
+// dynamic styling
+// ---------------------------------------------------
 
 export const scaleGrids = () => {
 	const grids = document.querySelectorAll(".info-grid");

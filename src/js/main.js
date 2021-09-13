@@ -2,7 +2,7 @@
 import { toggleAccordion } from "./accordion.js";
 import { Fade } from "./animations.js";
 import { Calendar } from "./cal.js";
-import { BP } from "./constants.js";
+import { toggleNavOnScroll, toggleSmallMenu } from "./nav.js";
 import {
 	closeImgFullscreen,
 	initIntersectionObserver,
@@ -19,14 +19,11 @@ import {
 	openSelector,
 	scaleGrids,
 	showContact,
-	toggleSmallMenu,
 } from "./utils-project";
 import InjectWarning from "./inject-warning.js";
 
 // import styles
 import "../css/main.css";
-
-let prevScrollPos = window.pageYOffset;
 
 // ---------------------------------------------------
 // variois
@@ -39,32 +36,6 @@ let prevScrollPos = window.pageYOffset;
  */
 const removeLoadingMask = () => {
 	Fade.out(document.querySelector(".mask"), 1500, true);
-};
-
-/**
- * Toggles visibility of header (small and large) depending on scroll.
- * @returns {void}
- */
-const toggleNavOnScroll = () => {
-	const currentScrollPos = window.pageYOffset;
-	const headerL = document.querySelector("header .l");
-	const headerS = document.querySelector("header .s");
-
-	// avoid equal case -> do nothing on init
-	if (prevScrollPos > currentScrollPos) {
-		if (window.innerWidth >= BP.n) {
-			headerL.style.top = 0;
-		} else {
-			headerS.style.right = "20px";
-		}
-	} else if (prevScrollPos < currentScrollPos) {
-		if (window.innerWidth >= BP.n) {
-			headerL.style.top = "calc(-1 * var(--header-height))";
-		} else {
-			headerS.style.right = "-60px";
-		}
-	}
-	prevScrollPos = currentScrollPos;
 };
 
 // ---------------------------------------------------
@@ -107,7 +78,7 @@ const setEventListeners = () => {
 		el.addEventListener("click", closeModalManually);
 	});
 
-	// closing button in sldier modals
+	// closing button in slider modals
 	// document
 	// 	.querySelector("#modal-splide .close-button")
 	// 	.addEventListener("click", closeImgFullscreen);
@@ -161,8 +132,8 @@ const handleWindowResize = () => {
 document.addEventListener("DOMContentLoaded", () => {
 	setEventListeners();
 	initIntersectionObserver();
-	Calendar.init({ disablePastDays: true, markToday: true });
 	removeLoadingMask();
+	Calendar.init();
 });
 window.addEventListener("load", () => {
 	handleWindowResize();

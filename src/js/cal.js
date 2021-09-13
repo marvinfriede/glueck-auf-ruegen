@@ -1,5 +1,5 @@
 import { Fade } from "./animations.js";
-import { BOOKED } from "./data.js";
+import { BOOKED_DUENE, BOOKED_MOEWE } from "./data.js";
 import { dateDiff, dt, foreach, isInt, isStrEmpty } from "./utils-standard.js";
 import { openDropdown } from "./utils-project.js";
 
@@ -20,11 +20,13 @@ export const Calendar = {
 	},
 	isCalOpen: false,
 	activeInp: false,
+	booked: false,
 	date: new Date(), // this date is altered
 	today: new Date(), // today's actual date
 
 	init: function (options = { disablePastDays: true, markToday: true }) {
 		this.opts = options;
+		this.booked = BOOKED_DUENE; // duene is standard on init
 		this.date.setDate(1); // set date to first day of month
 		this.createMonth();
 		this.createListeners();
@@ -44,12 +46,12 @@ export const Calendar = {
 		document
 			.querySelector(".cal-header__btn.next")
 			.addEventListener("click", (e) => {
-				_this.updateCalendar("month", _this.date.getMonth() + 1);
+				_this.update("month", _this.date.getMonth() + 1);
 			});
 		document
 			.querySelector(".cal-header__btn.prev")
 			.addEventListener("click", (e) => {
-				_this.updateCalendar("month", _this.date.getMonth() - 1);
+				_this.update("month", _this.date.getMonth() - 1);
 			});
 
 		document
@@ -61,10 +63,10 @@ export const Calendar = {
 
 		// opening and closing the Calendar
 		this.arvl.input.addEventListener("click", (e) => {
-			_this.showCalendar(e);
+			_this.show(e);
 		});
 		this.dprt.input.addEventListener("click", (e) => {
-			_this.showCalendar(e);
+			_this.show(e);
 		});
 
 		// one listener for all clicks in cal
@@ -78,9 +80,9 @@ export const Calendar = {
 		// dropdown selection when jumping to year/month
 		if (el.classList.contains("dropdown-option")) {
 			if (el.closest("#select-year")) {
-				this.updateCalendar("year", el.innerText);
+				this.update("year", el.innerText);
 			} else if (el.closest("#select-month")) {
-				this.updateCalendar("month", el.dataset.id - 1);
+				this.update("month", el.dataset.id - 1);
 			} else {
 				console.warn("Identifier not found.");
 			}
@@ -95,7 +97,7 @@ export const Calendar = {
 				this.clearInput(this.arvl.input, this.arvl.node);
 				this.clearInput(this.dprt.input, this.dprt.node);
 			} else if (el.id == "cal-close") {
-				this.hideCalendar();
+				this.hide();
 			} else {
 				console.warn("Identifier not found.");
 			}
@@ -191,9 +193,8 @@ export const Calendar = {
 		}
 
 		// active set, other empty
-		if (!isStrEmpty(this.activeInp.value) && isStrEmpty(other.value)) {
+		if (!isStrEmpty(this.activeInp.value) && isStrEmpty(other.value))
 			return true;
-		}
 
 		// convert date string to int
 		const arvlDayInt = dt(arvlDate).toInt();
@@ -211,10 +212,10 @@ export const Calendar = {
 			year = date.getFullYear();
 
 			// if this year/month is not even listed, it's surely not booked
-			if (BOOKED.hasOwnProperty(year)) {
-				if (BOOKED[year].hasOwnProperty(month)) {
+			if (this.booked.hasOwnProperty(year)) {
+				if (this.booked[year].hasOwnProperty(month)) {
 					// check if day is included in list of booked days of month
-					if (BOOKED[year][month].includes(day)) return false;
+					if (this.booked[year][month].includes(day)) return false;
 				}
 			}
 
@@ -234,11 +235,11 @@ export const Calendar = {
 		return false;
 	},
 
-	showCalendar: function (e) {
+	show: function (e) {
 		if (this.isCalOpen === true) {
 			// close if input is clicked again
 			if (e.target == this.activeInp) {
-				this.hideCalendar(e);
+				this.hide(e);
 			}
 
 			// if other input is clicked
@@ -266,7 +267,7 @@ export const Calendar = {
 
 		addCalListeners();
 	},
-	hideCalendar: function () {
+	hide: function () {
 		if (this.activeInp) this.clearActiveInput();
 		this.isCalOpen = false;
 
@@ -309,18 +310,27 @@ export const Calendar = {
 		this.cal.removeAttribute("data-date-for");
 	},
 
-	updateCalendar: function (type, value) {
+	update: function (type, value) {
 		if (type == "month") {
 			this.date.setMonth(value);
 		} else if (type == "year") {
 			this.date.setYear(value);
 		}
 
-		this.clearCalendar();
+		this.booked =
+			document.querySelector("#select-house").dataset.value == "Möwe"
+				? BOOKED_MOEWE
+				: BOOKED_DUENE;
+
+		this.clear();
 		this.createMonth();
 	},
 
-	clearCalendar: function () {
+	refresh: function (type) {
+		this.update(type, this.date.getMonth());
+	},
+
+	clear: function () {
 		this.main.innerHTML = "";
 	},
 
@@ -378,7 +388,7 @@ export const Calendar = {
 		if (
 			(this.opts.disablePastDays &&
 				this.date.getTime() <= this.today.getTime() - 1) ||
-			(BOOKED[year] && BOOKED[year][month].indexOf(dayNum) > -1)
+			(this.booked[year] && this.booked[year][month].indexOf(dayNum) > -1)
 		) {
 			div.classList.add("cal-main__date--disabled");
 			div.title = "Belegt";
@@ -459,6 +469,6 @@ const closeCal = (e) => {
 	// cover ESC press
 	if (e.type === "keyup" && e.key !== "Escape") return;
 
-	Calendar.hideCalendar();
+	Calendar.hide();
 	removeCalListeners();
 };
