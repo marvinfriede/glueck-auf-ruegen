@@ -54,7 +54,8 @@ const closeModal = (e) => {
 	if (e.type === "keyup" && e.key !== "Escape") return;
 
 	// targets
-	if (e.target.closest(".content")) return;
+	if (e.target.closest(".content") && !e.target.closest(".close-button"))
+		return;
 
 	// actual closing function
 	closeModalManually();

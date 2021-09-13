@@ -74,9 +74,12 @@ const setEventListeners = () => {
 		.addEventListener("click", openBookingModal);
 
 	// closing button in all modals
-	foreach(document.querySelectorAll(".modal .close-button"), (el) => {
-		el.addEventListener("click", closeModalManually);
-	});
+	foreach(
+		document.querySelectorAll(".modal .container .close-button"),
+		(el) => {
+			el.addEventListener("click", closeModalManually);
+		}
+	);
 
 	// closing button in slider modals
 	// document

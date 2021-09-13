@@ -105,18 +105,20 @@
 --------------------------------------------------*/
 
 div.cross {
-	position: relative;
-	height: 100%; /* this can be anything */
-	width: 100%; /* ...but maintain 1:1 aspect ratio */
+	align-items: center;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	position: relative;
+	height: 100%; /* this can be anything */
+	width: 100%; /* ...but maintain 1:1 aspect ratio */
 }
 div.cross::before,
 div.cross::after {
+	border-radius: 4px;
 	position: absolute;
 	content: "";
-	width: 100%;
+	width: 80%;
 	height: 4px; /* cross thickness */
 	background-color: white;
 }
@@ -125,4 +127,17 @@ div.cross::before {
 }
 div.cross::after {
 	transform: rotate(-45deg);
+}
+@media (min-width: 768px) {
+	div.cross::before,
+	div.cross::after {
+		width: 90%;
+	}
+}
+@media (min-width: 1200px) {
+	div.cross::before,
+	div.cross::after {
+		width: 100%;
+		height: 5px; /* cross thickness */
+	}
 }

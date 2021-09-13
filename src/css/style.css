@@ -419,6 +419,7 @@ section.landing .form .dates-wrap {
 	flex-wrap: nowrap;
 	height: 100%;
 	padding-left: 15px;
+	width: 100%;
 }
 section.landing .form .dates-wrap .date-inp {
 	flex-grow: 1;

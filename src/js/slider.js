@@ -123,7 +123,7 @@ export const setSliderHeight = () => {
 
 	// for fullscreen
 	if (document.body.classList.contains("modal-open")) {
-		fixedHeight = height - 80;
+		fixedHeight = height - 100;
 	}
 
 	// change height
@@ -263,11 +263,12 @@ export const closeImgFullscreen = (e) => {
 	if (e.type === "keyup" && e.key !== "Escape") return;
 
 	// targets
-	if (e.target.closest(".content")) return;
+	if (e.target.closest(".content") && !e.target.closest(".close-button"))
+		return;
 
 	// closing logic
 	const target = document.querySelector("#modal-splide .splide");
-	const id = e.target.querySelector(".splide").id;
+	const id = e.target.closest(".modal").querySelector(".splide").id;
 	let destination, slider;
 	if (id == "splide-duene") {
 		slider = Sliders.duene;
