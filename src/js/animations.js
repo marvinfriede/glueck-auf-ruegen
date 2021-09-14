@@ -33,66 +33,75 @@ export const Fade = {
 	 * @param {Number} duration of fade out animation (1000 = 1s)
 	 * @param {Boolean} enableScroll enable background scroll and remove margin
 	 * @param {Boolean} remove remove element after animation from DOM
-	 * @returns {void}
+	 * @returns {Promise<void>}
 	 */
-	out: (el, duration = 1000, enableScroll = false, remove = false) => {
-		el.classList.add("is-fading-out");
+	out: (el, duration = 1000, enableScroll = false, remove = false) =>
+		new Promise(async (resolve) => {
+			el.classList.add("is-fading-out");
 
-		el.style.opacity = 1;
-		el.style.transition = `opacity ${duration}ms`;
+			el.style.opacity = 1;
+			el.style.transition = `opacity ${duration}ms`;
 
-		el.style.removeProperty("display");
-		let display = window.getComputedStyle(el).display;
-		if (display === "none") display = "block";
-		el.style.display = window.getComputedStyle(el).display;
-
-		el.style.opacity = 0;
-		setTimeout(() => {
-			el.style.removeProperty("opacity");
-			el.style.removeProperty("transition");
 			el.style.removeProperty("display");
-			hideElement(el);
+			let display = window.getComputedStyle(el).display;
+			if (display === "none") display = "block";
+			el.style.display = window.getComputedStyle(el).display;
 
-			el.classList.remove("is-fading-out");
+			el.style.opacity = 0;
 
-			// reenable scroll
-			if (enableScroll) enableBackgroundScrollModal();
+			// wait for fade to end
+			return setTimeout(() => {
+				el.style.removeProperty("opacity");
+				el.style.removeProperty("transition");
+				el.style.removeProperty("display");
+				hideElement(el);
 
-			// remove element from DOM
-			if (remove === true) el.parentNode.removeChild(el);
-		}, duration);
-	},
+				el.classList.remove("is-fading-out");
+
+				// reenable scroll
+				if (enableScroll) enableBackgroundScrollModal();
+
+				// remove element from DOM
+				if (remove === true) el.parentNode.removeChild(el);
+
+				resolve();
+			}, duration);
+		}),
 
 	/**
-	 * Show element with fade in animation
+	 * Show element with fade in animation. Can be "awaited".
 	 * @param {HTMLElement} el element that is removed
 	 * @param {Number} duration of fade out animation (1000 = 1s)
 	 * @param {Boolean} disableScroll disable background scroll and place margin
-	 * @returns {void}
+	 * @returns {Promise<void>}
 	 */
-	in: (el, duration = 1000, disableScroll = false) => {
-		el.classList.add("is-fading-in");
-		if (disableScroll) disableBackgroundScrollModal();
+	in: (el, duration = 1000, disableScroll = false) =>
+		new Promise(async (resolve) => {
+			el.classList.add("is-fading-in");
+			if (disableScroll) disableBackgroundScrollModal();
 
-		el.classList.add("visible");
-		el.classList.remove("hidden");
-		el.setAttribute("aria-hidden", false);
+			el.classList.add("visible");
+			el.classList.remove("hidden");
+			el.setAttribute("aria-hidden", false);
 
-		el.style.opacity = 0;
-		el.style.transition = `opacity ${duration}ms`;
+			el.style.opacity = 0;
+			el.style.transition = `opacity ${duration}ms`;
 
-		el.style.removeProperty("display");
-		let display = window.getComputedStyle(el).display;
-		if (display === "none") display = "block";
-		el.style.display = window.getComputedStyle(el).display;
+			el.style.removeProperty("display");
+			let display = window.getComputedStyle(el).display;
+			if (display === "none") display = "block";
+			el.style.display = window.getComputedStyle(el).display;
 
-		el.style.opacity = 1;
-		setTimeout(() => {
-			el.style.removeProperty("opacity");
-			el.style.removeProperty("transition");
-			el.classList.remove("is-fading-in");
-		}, duration);
-	},
+			el.style.opacity = 1;
+
+			// wait for fade to end
+			return setTimeout(() => {
+				el.style.removeProperty("opacity");
+				el.style.removeProperty("transition");
+				el.classList.remove("is-fading-in");
+				resolve();
+			}, duration);
+		}),
 
 	/**
 	 * Show or hide element with fade in or out animation

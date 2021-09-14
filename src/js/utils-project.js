@@ -6,7 +6,7 @@ import { Calendar } from "./cal.js";
 // drowdowns
 // ---------------------------------------------------
 
-export const openDropdown = (e) => {
+export const openDropdown = async (e) => {
 	const drop = e.target.closest(".drop-root").querySelector(".dropdown");
 	const caret = e.target.closest(".drop-root").querySelector(".caret img");
 	if (window.getComputedStyle(drop).display === "none") {
@@ -14,14 +14,17 @@ export const openDropdown = (e) => {
 			caret.classList.remove("rotate90deg");
 			caret.classList.add("rotate270deg");
 		}
-		Fade.in(drop, 500);
+
+		// this order is important!
 		addDropdownListeners();
+		await Fade.in(drop, 500);
+		drop.classList.add("is-open");
 	}
 };
-const closeDropdown = (e) => {
+const closeDropdown = async (e) => {
 	if (e.touches) e.preventDefault();
 
-	const drop = document.querySelector(".dropdown.visible");
+	const drop = document.querySelector(".dropdown.is-open");
 	const root = drop.closest(".drop-root");
 	if (!drop || !root) return;
 
@@ -34,8 +37,11 @@ const closeDropdown = (e) => {
 		caret.classList.remove("rotate270deg");
 		caret.classList.add("rotate90deg");
 	}
-	Fade.out(drop, 500);
+
+	// this order is important!
 	removeDropdownListeners();
+	await Fade.out(drop, 500);
+	drop.classList.remove("is-open");
 
 	// do extra stuff for certain targets (dropdown options)
 	if (e.target.classList.contains("dropdown-option")) {

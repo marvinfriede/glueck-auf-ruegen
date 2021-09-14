@@ -21,7 +21,7 @@ import {
 } from "./utils-project";
 
 // import styles
-import "../css/main.css";
+import "../css/main.scss";
 
 // ---------------------------------------------------
 // variois
