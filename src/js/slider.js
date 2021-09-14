@@ -75,7 +75,7 @@ export const initIntersectionObserver = () => {
  * Changes height of slider depending on height of viewport.
  * @returns {void}
  */
-export const setSliderHeight = () => {
+export const setHeights = () => {
 	const height =
 		window.innerHeight ||
 		document.documentElement.clientHeight ||
@@ -115,15 +115,21 @@ export const setSliderHeight = () => {
 	}
 
 	// set height to avoid CLS on load
-	foreach(document.querySelectorAll(".slider-container"), (slider) => {
+	foreach(document.querySelectorAll(".main .slider-container"), (slider) => {
 		slider.style.minHeight = fixedHeight + "px";
 	});
+
 	// also set height of map
 	document.querySelector(".map").style.height = fixedHeight + "px";
 
 	// for fullscreen
 	if (document.body.classList.contains("modal-open")) {
-		fixedHeight = height - 100;
+		const modal = document.querySelector("#modal-splide");
+		if (!modal.classList.contains("is-fading-out")) {
+			fixedHeight = height - 100;
+			modal.querySelector(".slider-container").style.minHeight =
+				fixedHeight + "px";
+		}
 	}
 
 	// change height
@@ -191,7 +197,10 @@ export const initSlider = (name, cover = true, start = 0) => {
 
 	if (cover) {
 		// create slider and thumbnail for cover
-		const thumb = new Splide(`#splide-${name}-thumb`, optionsThumb).mount();
+		const thumb = new Splide(
+			`#splide-${name}-thumb`,
+			Object.assign({}, optionsThumb, { start: start })
+		).mount();
 		const splide = new Splide(
 			`#splide-${name}`,
 			Object.assign({}, optionsCover, { start: start })
@@ -207,7 +216,7 @@ export const initSlider = (name, cover = true, start = 0) => {
 
 	// change title below image and init height
 	Sliders[name].on("active", setTitleSlide);
-	setSliderHeight();
+	setHeights();
 };
 
 // ------------------------------------------------------------------------
@@ -225,10 +234,12 @@ export function openImgFullscreen(e) {
 	// avoid triggering when arrows are clicked very fast
 	if (e.target.closest(".splide__arrows")) return;
 
-	// modal before initSlider to change height on init
+	// get html elements
 	const modal = document.querySelector("#modal-splide");
-	const destination = modal.querySelector(".slider-wrap");
-	const target = this.firstElementChild;
+	const destination = modal.querySelector(".slider-container");
+	const target = e.target.closest(".slider").querySelector(".splide");
+
+	// modal before initSlider to change height on init
 	moveHtml(target, destination);
 	openModal(modal);
 	addImgFullscreenListeners();
@@ -268,7 +279,7 @@ export const closeImgFullscreen = (e) => {
 
 	// closing logic
 	const target = document.querySelector("#modal-splide .splide");
-	const id = e.target.closest(".modal").querySelector(".splide").id;
+	const id = document.querySelector("#modal-splide .splide").id;
 	let destination, slider;
 	if (id == "splide-duene") {
 		slider = Sliders.duene;

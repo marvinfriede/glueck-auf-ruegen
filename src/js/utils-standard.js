@@ -268,3 +268,26 @@ export function debounce(func, wait, immediate = false) {
 		if (immediate && !timeout) func.apply(context, args);
 	};
 }
+
+// --------------------------------------------------------
+// CSS and Styling
+// --------------------------------------------------------
+
+export const getScrollbarWidth = (unit) => {
+	// Create the measurement node
+	const scrollDiv = document.createElement("div");
+	scrollDiv.style.position = "absolute";
+	scrollDiv.style.top = "-9999px";
+	scrollDiv.style.width = "100px";
+	scrollDiv.style.height = "100px";
+	scrollDiv.style.overflow = "scroll";
+	document.body.appendChild(scrollDiv);
+
+	// Get the scrollbar width
+	const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+
+	// Delete the DIV
+	document.body.removeChild(scrollDiv);
+
+	return scrollbarWidth + unit;
+};

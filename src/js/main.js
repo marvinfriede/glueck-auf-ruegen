@@ -4,10 +4,9 @@ import { Fade } from "./animations.js";
 import { Calendar } from "./cal.js";
 import { toggleNavOnScroll, toggleSmallMenu } from "./nav.js";
 import {
-	closeImgFullscreen,
 	initIntersectionObserver,
 	openImgFullscreen,
-	setSliderHeight,
+	setHeights,
 } from "./slider.js";
 import { openBookingModal, closeModalManually } from "./overlays.js";
 import { debounce, foreach, throttle } from "./utils-standard.js";
@@ -107,6 +106,10 @@ const setEventListeners = () => {
 	foreach(document.querySelectorAll(".slider-container"), (el) => {
 		el.addEventListener("dblclick", openImgFullscreen);
 	});
+
+	foreach(document.querySelectorAll(".slider-fullscreen"), (el) => {
+		el.addEventListener("click", openImgFullscreen);
+	});
 };
 
 /**
@@ -125,7 +128,7 @@ const handleWindowScroll = () => {
  */
 const handleWindowResize = () => {
 	scaleGrids();
-	setSliderHeight();
+	setHeights();
 };
 
 // ---------------------------------------------------

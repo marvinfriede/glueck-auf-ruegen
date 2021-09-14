@@ -2,7 +2,12 @@ import { Fade, showElement, hideElement } from "./animations.js";
 import { Calendar } from "./cal.js";
 import { ConstMissingException, DateError } from "./custom-errors.js";
 import { PRICES } from "./data.js";
-import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
+import {
+	dateDiff,
+	dt,
+	getScrollbarWidth,
+	sanitizeHTML,
+} from "./utils-standard.js";
 
 // ------------------------------------------------------------------------
 // modal
@@ -36,14 +41,13 @@ const removeModalListeners = () => {
 export const openModal = (modal) => {
 	if (modal) {
 		Fade.in(modal, 500);
-		disableBackgroundScrollModal();
 		addModalListeners();
 	}
 };
 
 /**
  * Closes modal, if users click outside. Handles clicks and presses and dispatches to actual closing function.
- * @param {MouseEvent} e event object
+ * @param {Event} e event object
  * @returns {void}
  */
 const closeModal = (e) => {
@@ -71,7 +75,6 @@ export const closeModalManually = () => {
 	const modal = document.querySelector(".modal.visible");
 	if (modal) {
 		Fade.out(modal, 500);
-		enableBackgroundScrollModal();
 		removeModalListeners();
 	}
 };
@@ -317,24 +320,4 @@ const getPriceOfDate = (date, houseID) => {
 	}
 
 	throw new DateError("Date not found in price list.", date);
-};
-
-// ------------------------------------------------------------------------
-// helpers
-// ------------------------------------------------------------------------
-
-/**
- * Disables scroll on body by adding the "modal-open" class to the body.
- * @returns {void}
- */
-const enableBackgroundScrollModal = () => {
-	document.body.classList.remove("modal-open");
-};
-
-/**
- * Enables scroll on body by removing the "modal-open" class from the body.
- * @returns {void}
- */
-const disableBackgroundScrollModal = () => {
-	document.body.classList.add("modal-open");
 };

@@ -141,3 +141,33 @@ div.cross::after {
 		height: 5px; /* cross thickness */
 	}
 }
+
+/*-------------------------------------------------
+------------------- fullscreen --------------------
+--------------------------------------------------*/
+.fullscreen {
+	vertical-align: middle;
+	display: inline-block;
+	border: 0.1em solid #04233d;
+	width: 1em;
+	height: 1em;
+	position: relative;
+}
+.fullscreen:before,
+.fullscreen:after {
+	content: "";
+	background: #04233d;
+	position: absolute;
+}
+.fullscreen:before {
+	width: 0.333em;
+	height: 1em;
+	left: 0.233em;
+	top: -0.1em;
+}
+.fullscreen:after {
+	width: 1em;
+	height: 0.333em;
+	top: 0.233em;
+	left: -0.1em;
+}
