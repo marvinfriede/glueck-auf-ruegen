@@ -2,12 +2,7 @@ import { Fade, showElement, hideElement } from "./animations.js";
 import { Calendar } from "./cal.js";
 import { ConstMissingException, DateError } from "./custom-errors.js";
 import { PRICES } from "./data.js";
-import {
-	dateDiff,
-	dt,
-	getScrollbarWidth,
-	sanitizeHTML,
-} from "./utils-standard.js";
+import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
 
 // ------------------------------------------------------------------------
 // modal
@@ -40,7 +35,7 @@ const removeModalListeners = () => {
  */
 export const openModal = (modal) => {
 	if (modal) {
-		Fade.in(modal, 500);
+		Fade.in(modal, 500, true);
 		addModalListeners();
 	}
 };
@@ -74,7 +69,7 @@ export const closeModalManually = () => {
 	// do nothing, if modal is not even visible
 	const modal = document.querySelector(".modal.visible");
 	if (modal) {
-		Fade.out(modal, 500);
+		Fade.out(modal, 500, true);
 		removeModalListeners();
 	}
 };

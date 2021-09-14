@@ -35,7 +35,7 @@ export const Fade = {
 	 * @param {Boolean} remove remove element after animation from DOM
 	 * @returns {void}
 	 */
-	out: (el, duration = 1000, enableScroll = true, remove = false) => {
+	out: (el, duration = 1000, enableScroll = false, remove = false) => {
 		el.classList.add("is-fading-out");
 
 		el.style.opacity = 1;
@@ -70,7 +70,7 @@ export const Fade = {
 	 * @param {Boolean} disableScroll disable background scroll and place margin
 	 * @returns {void}
 	 */
-	in: (el, duration = 1000, disableScroll = true) => {
+	in: (el, duration = 1000, disableScroll = false) => {
 		el.classList.add("is-fading-in");
 		if (disableScroll) disableBackgroundScrollModal();
 

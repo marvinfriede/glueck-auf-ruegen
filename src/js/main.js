@@ -19,7 +19,6 @@ import {
 	scaleGrids,
 	showContact,
 } from "./utils-project";
-import InjectWarning from "./inject-warning.js";
 
 // import styles
 import "../css/main.css";
@@ -143,16 +142,4 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 window.addEventListener("load", () => {
 	handleWindowResize();
-});
-
-// temporary
-window.addEventListener("load", () => {
-	// inject "under construction" warning
-	const warning = new InjectWarning();
-	warning.setParent(document.querySelector("main section.intro"));
-	warning.setMessage(
-		"Buchungskalender nicht aktuell. Seite wird noch minimal überarbeitet. Buchung/Nachfragen trotzdem möglich."
-	);
-	warning.addClass("warning");
-	warning.inject();
 });
