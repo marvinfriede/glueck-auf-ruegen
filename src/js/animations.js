@@ -57,6 +57,7 @@ export const Fade = {
 				hideElement(el);
 
 				el.classList.remove("is-fading-out");
+				el.classList.remove("is-open");
 
 				// reenable scroll
 				if (enableScroll) enableBackgroundScrollModal();
@@ -98,25 +99,12 @@ export const Fade = {
 			return setTimeout(() => {
 				el.style.removeProperty("opacity");
 				el.style.removeProperty("transition");
+
 				el.classList.remove("is-fading-in");
+				el.classList.add("is-open");
 				resolve();
 			}, duration);
 		}),
-
-	/**
-	 * Show or hide element with fade in or out animation
-	 * @param {HTMLElement} el element that is removed
-	 * @param {Number} duration of fade out animation (1000 = 1s)
-	 * @returns {void}
-	 */
-	toggle: function (el, duration = 1000) {
-		let display = window.getComputedStyle(el).display;
-		if (display === "none") {
-			this.in(el, duration);
-		} else {
-			this.out(el, duration);
-		}
-	},
 };
 
 // ------------------------------------------------------------------------

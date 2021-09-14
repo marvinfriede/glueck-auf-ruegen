@@ -24,7 +24,7 @@ import {
 import "../css/main.scss";
 
 // ---------------------------------------------------
-// variois
+// various
 // ---------------------------------------------------
 
 /**
@@ -33,7 +33,7 @@ import "../css/main.scss";
  * @see Fade
  */
 const removeLoadingMask = () => {
-	Fade.out(document.querySelector(".mask"), 1500, true);
+	Fade.out(document.querySelector(".mask"), 1500, true, true);
 };
 
 // ---------------------------------------------------
@@ -46,7 +46,7 @@ const removeLoadingMask = () => {
  */
 const setEventListeners = () => {
 	// accordion
-	document.querySelectorAll(".accordion").forEach((el) => {
+	foreach(document.querySelectorAll(".accordion"), (el) => {
 		el.addEventListener("click", toggleAccordion);
 	});
 

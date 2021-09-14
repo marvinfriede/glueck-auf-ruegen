@@ -112,8 +112,6 @@ header {
 							-ms-flex-wrap: wrap;
 							flex-wrap: wrap;
 							flex-grow: 1;
-							top: auto;
-							left: auto;
 							height: 100%;
 							opacity: 1;
 							overflow: auto;
@@ -122,58 +120,58 @@ header {
 							visibility: visible;
 							width: auto;
 							z-index: 8;
+						}
 
-							.nav-item {
-								flex: 0 0 auto;
+						.nav-item {
+							flex: 0 0 auto;
+							height: 100%;
+							overflow: hidden;
+							width: auto;
+
+							& + .nav-item {
+								margin-left: 50px;
+							}
+
+							.nav-link {
+								align-items: center;
+								color: var(--blue3);
+								cursor: pointer;
+								display: flex;
+								font-weight: 400;
+								font-size: var(--fs-xs);
 								height: 100%;
+								letter-spacing: 1px;
 								overflow: hidden;
-								width: auto;
+								text-transform: uppercase;
+								text-align: center;
+								transition: all 0.25s ease-in-out;
+								white-space: nowrap;
 
-								& + .nav-item {
-									margin-left: 50px;
+								&:hover {
+									color: var(--blue2);
 								}
 
-								.nav-link {
-									align-items: center;
-									color: var(--blue3);
-									cursor: pointer;
-									display: flex;
-									font-weight: 400;
-									font-size: var(--fs-xs);
-									height: 100%;
-									letter-spacing: 1px;
-									overflow: hidden;
-									text-transform: uppercase;
-									text-align: center;
-									transition: all 0.25s ease-in-out;
-									white-space: nowrap;
-
-									&:hover {
-										color: var(--blue2);
+								&.special {
+									div {
+										border: 1px solid var(--blue3);
+										border-radius: 10px;
+										padding: 8px 15px;
+										transition: all 0.25s ease-in-out;
 									}
 
-									&.special {
-										div {
-											border: 1px solid var(--blue3);
-											border-radius: 10px;
-											padding: 8px 15px;
-											transition: all 0.25s ease-in-out;
-										}
-
-										&:hover > div,
-										&:active > div,
-										&:focus > div {
-											background: var(--blue3);
-											color: var(--white) !important;
-										}
+									&:hover > div,
+									&:active > div,
+									&:focus > div {
+										background: var(--blue3);
+										color: var(--white) !important;
 									}
+								}
 
-									> span {
-										display: none;
+								> span {
+									display: none;
 
-										@media (min-width: 1200px) {
-											display: contents;
-										}
+									@media (min-width: 1200px) {
+										display: contents;
 									}
 								}
 							}
