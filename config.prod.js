@@ -4,16 +4,17 @@
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
-const path = require('path');
+const path = require("path");
 
 module.exports = {
   mode: "production",
   entry: {
     main: path.resolve(__dirname, "src/js/main.js"),
+    nav: path.resolve(__dirname, "src/js/nav.js"),
   },
   output: {
     assetModuleFilename: "img/[name].[contenthash][ext]",
@@ -70,8 +71,43 @@ module.exports = {
       }),
       new CssMinimizerPlugin(),
       new HtmlWebpackPlugin({
+        chunks: ["main", "nav"],
         filename: "./index.html",
         template: path.resolve(__dirname, "src/index.raw.html"),
+        inject: "head",
+        minify: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          collapseInlineTagWhitespace: false,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          sortAttributes: true,
+          sortClassName: true,
+        },
+        scriptLoading: "defer",
+      }),
+      new HtmlWebpackPlugin({
+        chunks: ["nav"],
+        filename: "./impressum.html",
+        template: path.resolve(__dirname, "src/impressum.raw.html"),
+        inject: "head",
+        minify: {
+          collapseBooleanAttributes: true,
+          collapseWhitespace: true,
+          collapseInlineTagWhitespace: false,
+          removeAttributeQuotes: true,
+          removeComments: true,
+          removeRedundantAttributes: true,
+          sortAttributes: true,
+          sortClassName: true,
+        },
+        scriptLoading: "defer",
+      }),
+      new HtmlWebpackPlugin({
+        chunks: ["nav"],
+        filename: "./datenschutz.html",
+        template: path.resolve(__dirname, "src/datenschutz.raw.html"),
         inject: "head",
         minify: {
           collapseBooleanAttributes: true,
@@ -110,6 +146,9 @@ module.exports = {
         ],
       }),
     ],
+    splitChunks: {
+      chunks: "all",
+    },
   },
   plugins: [
     new MiniCssExtractPlugin({

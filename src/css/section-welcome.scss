@@ -1,3 +1,5 @@
+@import "_breakpoints.scss";
+
 section.main {
 	#id-1 {
 		background-color: var(--gray1);
@@ -43,16 +45,16 @@ section.main {
 						line-height: 25px;
 						text-align: justify;
 
-						@media (min-width: 380px) {
+						@media (min-width: $bp-xs) {
 							line-height: 30px;
 						}
-						@media (min-width: 576px) {
+						@media (min-width: $bp-s) {
 							line-height: 35px;
 						}
-						@media (min-width: 768px) {
+						@media (min-width: $bp-n) {
 							line-height: 40px;
 						}
-						@media (min-width: 1200px) {
+						@media (min-width: $bp-xl) {
 							line-height: 50px;
 						}
 

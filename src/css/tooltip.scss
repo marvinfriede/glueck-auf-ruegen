@@ -3,6 +3,12 @@
 	display: inline-block;
 	position: relative;
 
+	&:focus .tooltiptext,
+	&:hover .tooltiptext {
+		visibility: visible;
+		opacity: 1;
+	}
+
 	.tooltiptext {
 		background-color: var(--gray5);
 		border-radius: 6px;
@@ -30,12 +36,6 @@
 			border-style: solid;
 			border-color: var(--gray5) transparent transparent transparent;
 		}
-	}
-
-	&:focus .tooltiptext,
-	&:hover .tooltiptext {
-		visibility: visible;
-		opacity: 1;
 	}
 }
 

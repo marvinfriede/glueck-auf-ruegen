@@ -1,3 +1,5 @@
+@import "_breakpoints.scss";
+
 section.main #id-4 {
 	/* --------------- changes to text format ----------------- */
 	.desc-text {
@@ -6,22 +8,22 @@ section.main #id-4 {
 		text-align: justify;
 		padding: 40px 0;
 
-		@media (min-width: 380px) {
+		@media (min-width: $bp-xs) {
 			line-height: 30px;
 		}
-		@media (min-width: 576px) {
+		@media (min-width: $bp-s) {
 			line-height: 35px;
 		}
-		@media (min-width: 768px) {
+		@media (min-width: $bp-n) {
 			line-height: 40px;
 		}
-		@media (min-width: 992px) {
+		@media (min-width: $bp-l) {
 			padding: 60px 0;
 		}
-		@media (min-width: 1200px) {
+		@media (min-width: $bp-xl) {
 			line-height: 50px;
 		}
-		@media (min-width: 1400px) {
+		@media (min-width: $bp-xxl) {
 			padding: 80px 0;
 		}
 
@@ -54,10 +56,10 @@ section.main #id-4 {
 		width: 100%;
 		border: 1px solid var(--gray3);
 
-		@media (min-width: 992px) {
+		@media (min-width: $bp-l) {
 			margin-top: 60px;
 		}
-		@media (min-width: 1400px) {
+		@media (min-width: $bp-xxl) {
 			margin-top: 80px;
 		}
 

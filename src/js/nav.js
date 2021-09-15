@@ -1,4 +1,15 @@
 import { BP } from "./constants.js";
+import { throttle } from "./utils-standard.js";
+import { removeLoadingMask } from "./loading-mask.js";
+
+import "../css/reset.css";
+import "../css/loading-mask.scss";
+import "../css/font.scss";
+import "../css/content.scss";
+import "../css/header.scss";
+import "../css/icons.scss";
+import "../css/section-map.scss";
+import "../css/section-footer.scss";
 
 // ---------------------------------------------------
 // navigation
@@ -7,10 +18,11 @@ import { BP } from "./constants.js";
 let prevScrollPos = window.pageYOffset;
 
 /**
- * Toggles visibility of header (small and large) depending on scroll.
+ * Toggles visibility of header (small and large) depending on scroll. This functions is throttled.
  * @returns {void}
+ * @see throttle
  */
-export const toggleNavOnScroll = () => {
+const toggleNavOnScroll = () => {
 	const currentScrollPos = window.pageYOffset;
 	const headerL = document.querySelector("header .l");
 	const headerS = document.querySelector("header .s");
@@ -87,3 +99,28 @@ const removeSideNavListeners = () => {
 	document.removeEventListener("click", closeSideNav);
 	document.removeEventListener("keyup", closeSideNav);
 };
+
+// ---------------------------------------------------
+// set listeners
+// ---------------------------------------------------
+
+export const setEventListenersNavs = () => {
+	// toggle side nav with button on small screens
+	document
+		.querySelector("header .s")
+		.addEventListener("click", toggleSmallMenu);
+
+	window.addEventListener("scroll", throttle(toggleNavOnScroll, 100));
+};
+
+// ---------------------------------------------------
+// init
+// ---------------------------------------------------
+
+document.addEventListener("DOMContentLoaded", () => {
+	setEventListenersNavs();
+});
+
+window.addEventListener("load", () => {
+	removeLoadingMask();
+});

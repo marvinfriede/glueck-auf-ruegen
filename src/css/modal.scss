@@ -1,3 +1,5 @@
+@import "_breakpoints.scss";
+
 .modal {
 	align-items: center;
 	background-color: rgba(0, 0, 0, 0.7);
@@ -25,16 +27,16 @@
 			padding: 10px;
 			width: 100%;
 
-			@media (min-width: 576px) {
+			@media (min-width: $bp-s) {
 				padding: 20px;
 			}
-			@media (min-width: 768px) {
+			@media (min-width: $bp-n) {
 				padding: 30px;
 			}
-			@media (min-width: 992px) {
+			@media (min-width: $bp-l) {
 				padding: 40px;
 			}
-			@media (min-width: 1200px) {
+			@media (min-width: $bp-xl) {
 				padding: 50px;
 			}
 
@@ -46,13 +48,13 @@
 					word-wrap: break-word;
 					text-align: center;
 
-					@media (min-width: 576px) {
+					@media (min-width: $bp-s) {
 						margin-bottom: 20px;
 					}
-					@media (min-width: 768px) {
+					@media (min-width: $bp-n) {
 						padding: 10px 0;
 					}
-					@media (min-width: 992px) {
+					@media (min-width: $bp-l) {
 						margin-bottom: 25px;
 					}
 				}
@@ -70,7 +72,7 @@
 						flex: 1;
 						min-width: 100px;
 
-						@media (min-width: 380px) {
+						@media (min-width: $bp-xs) {
 							&:nth-child(3) {
 								min-width: 240px;
 							}
@@ -78,7 +80,7 @@
 								min-width: 220px;
 							}
 						}
-						@media (min-width: 768px) {
+						@media (min-width: $bp-n) {
 							padding: 10px 0;
 						}
 
@@ -106,23 +108,23 @@
 				margin: 15px 0 20px 0;
 				padding: 5px 5px;
 
-				@media (min-width: 380px) {
+				@media (min-width: $bp-xs) {
 					margin: 20px 0 25px 0;
 					padding: 10px 10px;
 				}
-				@media (min-width: 576px) {
+				@media (min-width: $bp-s) {
 					margin: 25px 0 30px 0;
 					padding: 20px 10px;
 				}
-				@media (min-width: 768px) {
+				@media (min-width: $bp-n) {
 					margin: 30px 0 40px 0;
 				}
-				@media (min-width: 1200px) {
-					margin: 50px 0 60px 0;
-				}
-				@media (min-width: 992px) {
+				@media (min-width: $bp-l) {
 					margin: 40px 0 50px 0;
 					padding: 30px 20px;
+				}
+				@media (min-width: $bp-xl) {
+					margin: 50px 0 60px 0;
 				}
 
 				.title {
@@ -136,7 +138,7 @@
 					justify-content: space-between;
 					padding: 5px 10px;
 
-					@media (min-width: 576px) {
+					@media (min-width: $bp-s) {
 						padding: 10px 10px;
 					}
 
@@ -189,19 +191,19 @@
 						fill: var(--blue2);
 					}
 
-					@media (min-width: 380px) {
+					@media (min-width: $bp-xs) {
 						padding: 10px;
 					}
-					@media (min-width: 576px) {
+					@media (min-width: $bp-s) {
 						padding: 10px 20px;
 					}
-					@media (min-width: 768px) {
+					@media (min-width: $bp-n) {
 						padding: 10px 30px;
 					}
-					@media (min-width: 992px) {
+					@media (min-width: $bp-l) {
 						padding: 10px 40px;
 					}
-					@media (min-width: 1200px) {
+					@media (min-width: $bp-xl) {
 						padding: 10px 50px;
 					}
 
@@ -244,19 +246,19 @@
 			width: 35px;
 			z-index: 999999999;
 
-			@media (min-width: 576px) {
+			@media (min-width: $bp-s) {
 				height: 40px;
 				right: -20px;
 				top: -20px;
 				width: 40px;
 			}
-			@media (min-width: 768px) {
+			@media (min-width: $bp-n) {
 				height: 50px;
 				right: -20px;
 				top: -20px;
 				width: 50px;
 			}
-			@media (min-width: 1200px) {
+			@media (min-width: $bp-xl) {
 				height: 60px;
 				right: -25px;
 				top: -25px;

@@ -1,3 +1,5 @@
+@import "_breakpoints.scss";
+
 .slider {
 	display: flex;
 	flex-direction: column;
@@ -107,7 +109,7 @@ section.landing .slider-wrap {
 	border-radius: 5px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: $bp-s) {
 	.splide__arrow {
 		height: 1.2em;
 		width: 1.2em;
@@ -131,7 +133,7 @@ section.landing .slider-wrap {
 	}
 }
 
-@media (max-width: 768px) {
+@media (max-width: $bp-n) {
 	.splide__arrow {
 		height: 1.6em;
 		width: 1.6em;

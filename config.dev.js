@@ -4,13 +4,14 @@
 
 const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const path = require('path');
+const path = require("path");
 const DashboardPlugin = require("webpack-dashboard/plugin");
 
 module.exports = {
   mode: "development",
   entry: {
     main: path.resolve(__dirname, "src/js/main.js"),
+    nav: path.resolve(__dirname, "src/js/nav.js"),
   },
   output: {
     assetModuleFilename: "img/[name].[contenthash][ext]",
@@ -19,7 +20,7 @@ module.exports = {
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist'),
+      directory: path.join(__dirname, "dist"),
     },
     compress: true,
     open: true,
@@ -67,10 +68,25 @@ module.exports = {
   },
   plugins: [
     new HtmlPlugin({
+      chunks: ["main", "nav"],
       filename: "./index.html",
-      template: path.resolve(__dirname, "src/index.raw.html"),
       inject: "head",
       scriptLoading: "defer",
+      template: path.resolve(__dirname, "src/index.raw.html"),
+    }),
+    new HtmlPlugin({
+      chunks: ["nav"],
+      filename: "./impressum.html",
+      inject: "head",
+      scriptLoading: "defer",
+      template: path.resolve(__dirname, "src/impressum.raw.html"),
+    }),
+    new HtmlPlugin({
+      chunks: ["nav"],
+      filename: "./datenschutz.html",
+      inject: "head",
+      scriptLoading: "defer",
+      template: path.resolve(__dirname, "src/datenschutz.raw.html"),
     }),
     new CopyPlugin({
       patterns: [

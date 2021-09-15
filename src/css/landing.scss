@@ -1,26 +1,18 @@
-/*-------------------------------------------------
--------------------- landing ----------------------
---------------------------------------------------*/
+@import "_breakpoints.scss";
 
 section.landing {
 	height: calc(640px + var(--header-height));
 	position: relative;
 
-	@media (min-width: 768px) {
+	@media (min-width: $bp-n) {
 		height: calc(710px + var(--header-height));
 	}
-	@media (min-width: 992px) {
+	@media (min-width: $bp-l) {
 		height: calc(640px + var(--header-height));
 	}
-	@media (min-width: 1200px) {
+	@media (min-width: $bp-xl) {
 		height: calc(700px + var(--header-height));
 	}
-	// @media (min-width: 1400px) and (min-height: 1100) {
-	// 	height: calc(820px + var(--header-height));
-	// }
-	// @media (min-width: 1700px) and (min-height: 1400) {
-	// 	height: calc(1040px + var(--header-height));
-	// }
 
 	.landing-bg {
 		height: 100%;
@@ -86,10 +78,10 @@ section.landing {
 						text-align: center;
 						text-shadow: 0 0 10px var(--black);
 
-						@media (min-width: 768px) {
+						@media (min-width: $bp-n) {
 							padding-top: 20px;
 						}
-						@media (min-width: 1200px) {
+						@media (min-width: $bp-xl) {
 							padding-top: 30px;
 						}
 
@@ -137,10 +129,10 @@ section.landing {
 					width: 100%;
 					z-index: 60;
 
-					@media (min-width: 992px) {
+					@media (min-width: $bp-l) {
 						flex-direction: row;
 					}
-					@media (min-width: 1200px) {
+					@media (min-width: $bp-xl) {
 						padding: 15px;
 					}
 
@@ -151,17 +143,17 @@ section.landing {
 						& + .form-field-wrap {
 							padding-top: 10px;
 
-							@media (min-width: 992px) {
+							@media (min-width: $bp-l) {
 								padding-top: 0;
 								padding-left: 10px;
 							}
-							@media (min-width: 1200px) {
+							@media (min-width: $bp-xl) {
 								padding-top: 0;
 								padding-left: 15px;
 							}
 						}
 
-						@media (min-width: 992px) {
+						@media (min-width: $bp-l) {
 							&:first-child {
 								width: 20%;
 							}
@@ -202,7 +194,7 @@ section.landing {
 							padding: 0 15px;
 							width: 100%;
 
-							@media (min-width: 992px) {
+							@media (min-width: $bp-l) {
 								height: 80px;
 							}
 
@@ -332,7 +324,7 @@ section.landing {
 										padding: 18px 5px 0 0;
 										width: 100%;
 
-										@media (min-width: 992px) {
+										@media (min-width: $bp-l) {
 											padding-top: 30px;
 										}
 
@@ -347,7 +339,7 @@ section.landing {
 											font-size: var(--fs-xs);
 											top: -10px;
 
-											@media (min-width: 992px) {
+											@media (min-width: $bp-l) {
 												top: -15px;
 											}
 										}
@@ -357,7 +349,7 @@ section.landing {
 										font-size: var(--fs-xs);
 										top: -10px;
 
-										@media (min-width: 992px) {
+										@media (min-width: $bp-l) {
 											top: -15px;
 										}
 									}
@@ -373,7 +365,7 @@ section.landing {
 								margin-top: 1px;
 								padding: 18px 30px 0 5px;
 
-								@media (min-width: 992px) {
+								@media (min-width: $bp-l) {
 									padding-top: 30px;
 								}
 							}
@@ -419,7 +411,7 @@ section.landing {
 								color: var(--white);
 								font-size: var(--fs-L);
 
-								@media (min-width: 992px) {
+								@media (min-width: $bp-l) {
 									display: none;
 								}
 							}
@@ -431,7 +423,7 @@ section.landing {
 								position: relative;
 								width: 30px;
 
-								@media (min-width: 992px) {
+								@media (min-width: $bp-l) {
 									height: 35px;
 									width: 35px;
 									animation: linear infinite alternate;

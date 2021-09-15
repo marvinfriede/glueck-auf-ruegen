@@ -1,18 +1,57 @@
+@import "_breakpoints.scss";
+
 footer section.footer #id-7 {
 	background-color: var(--gray6);
 
 	.footer-wrap {
-		padding: 50px 0;
+		display: flex;
+		flex-wrap: wrap;
+		padding: 60px 0;
+		gap: 100px;
 
-		.contact {
+		@media (min-width: $bp-n) {
+			gap: 0;
+		}
+
+		.container {
 			display: flex;
 			flex-direction: column;
+			flex: 100%;
 			flex-wrap: nowrap;
 
+			@media (min-width: $bp-n) {
+				flex: 50%;
+			}
+
+			.title {
+				cursor: pointer;
+				font-size: var(--fs);
+
+				a {
+					color: var(--gray2);
+					transition: color 250ms ease-in-out;
+
+					&:hover,
+					&:active,
+					&:focus {
+						color: var(--white);
+					}
+				}
+			}
+		}
+
+		.contact {
 			.contact-row {
 				align-items: center;
 				display: flex;
 				padding: 20px 0;
+
+				&:first-of-type {
+					padding-top: 0;
+				}
+				&:last-of-type {
+					padding-bottom: 0;
+				}
 
 				.header {
 					color: var(--white);
@@ -20,13 +59,31 @@ footer section.footer #id-7 {
 				}
 
 				.title {
-					cursor: pointer;
 					font-size: var(--fs-l);
 					margin-left: 20px;
+				}
+			}
+		}
 
-					a {
-						color: var(--white);
-					}
+		.legal {
+			display: flex;
+			flex-direction: column;
+			align-items: flex-start;
+			justify-content: flex-start;
+
+			@media (min-width: $bp-n) {
+				align-items: flex-end;
+				justify-content: flex-end;
+			}
+
+			.title {
+				padding: 10px 0;
+
+				&:first-of-type {
+					padding-top: 0;
+				}
+				&:last-of-type {
+					padding-bottom: 0;
 				}
 			}
 		}

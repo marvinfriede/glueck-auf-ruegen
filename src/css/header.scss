@@ -1,12 +1,14 @@
+@import "_breakpoints.scss";
+
 :root {
 	--header-height: 0px;
 }
-@media (min-width: 768px) {
+@media (min-width: $bp-n) {
 	:root {
 		--header-height: 54px;
 	}
 }
-@media (min-width: 1200px) {
+@media (min-width: $bp-xl) {
 	:root {
 		--header-height: 64px;
 	}
@@ -51,7 +53,7 @@ header {
 			width: 100%;
 		}
 
-		@media (min-width: 768px) {
+		@media (min-width: $bp-n) {
 			display: block;
 		}
 
@@ -76,7 +78,7 @@ header {
 					margin: 0 auto;
 					width: 100%;
 
-					@media (min-width: 768px) {
+					@media (min-width: $bp-n) {
 						padding: 0;
 					}
 
@@ -95,10 +97,10 @@ header {
 							position: relative;
 							z-index: 1;
 
-							@media (min-width: 992px) {
+							@media (min-width: $bp-l) {
 								margin-right: 40px;
 							}
-							@media (min-width: 1400px) {
+							@media (min-width: $bp-xxl) {
 								margin-right: 50px;
 							}
 						}
@@ -170,7 +172,7 @@ header {
 								> span {
 									display: none;
 
-									@media (min-width: 1200px) {
+									@media (min-width: $bp-xl) {
 										display: contents;
 									}
 								}
@@ -212,7 +214,7 @@ header {
 		width: 40px;
 		z-index: 999;
 
-		@media (min-width: 768px) {
+		@media (min-width: $bp-n) {
 			display: none !important;
 		}
 
@@ -251,12 +253,14 @@ header {
 aside {
 	display: block;
 
-	@media (min-width: 768px) {
+	@media (min-width: $bp-n) {
 		display: none !important;
 	}
 
 	.nav-collapsed {
 		background-color: var(--blue3);
+		display: flex;
+		flex-direction: column;
 		height: 100vh;
 		overflow: hidden;
 		position: fixed;
@@ -269,7 +273,7 @@ aside {
 		&.open {
 			width: 70%;
 
-			@media (min-width: 576px) {
+			@media (min-width: $bp-s) {
 				width: 45%;
 			}
 		}
@@ -296,6 +300,19 @@ aside {
 				&:hover {
 					opacity: 1;
 				}
+			}
+		}
+
+		.side-nav--logo {
+			display: flex;
+			justify-content: flex-end;
+			margin-top: auto;
+			padding: 20px;
+
+			a {
+				background-color: white;
+				border-radius: 50%;
+				padding: 15px;
 			}
 		}
 	}

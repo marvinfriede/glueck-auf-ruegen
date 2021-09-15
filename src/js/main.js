@@ -1,15 +1,34 @@
+// import styles
+//import "../css/reset.css";
+import "../css/accordion.scss";
+import "../css/animations.css";
+//import "../css/content.scss";
+//import "../css/header.scss";
+//import "../css/font.scss";
+//import "../css/icons.scss";
+import "../css/landing.scss";
+import "../css/landing-cal.scss";
+//import "../css/loading-mask.scss";
+import "../css/modal.scss";
+import "../css/section-details.scss";
+//import "../css/section-footer.scss";
+import "../css/section-grid.scss";
+//import "../css/section-map.scss";
+import "../css/section-pricing.scss";
+import "../css/section-slider.scss";
+import "../css/section-welcome.scss";
+import "../css/tooltip.scss";
+
 // import javascript
 import { toggleAccordion } from "./accordion.js";
-import { Fade } from "./animations.js";
 import { Calendar } from "./cal.js";
-import { toggleNavOnScroll, toggleSmallMenu } from "./nav.js";
 import {
 	initIntersectionObserver,
 	openImgFullscreen,
 	setHeights,
 } from "./slider.js";
-import { openBookingModal, closeModalManually } from "./overlays.js";
-import { debounce, foreach, throttle } from "./utils-standard.js";
+import { openBookingModal } from "./overlays.js";
+import { debounce, foreach } from "./utils-standard.js";
 import {
 	goToBooking,
 	hideContact,
@@ -19,22 +38,6 @@ import {
 	scaleGrids,
 	showContact,
 } from "./utils-project";
-
-// import styles
-import "../css/main.scss";
-
-// ---------------------------------------------------
-// various
-// ---------------------------------------------------
-
-/**
- * Fades out loading mask on ".mask".
- * @returns {void}
- * @see Fade
- */
-const removeLoadingMask = () => {
-	Fade.out(document.querySelector(".mask"), 1500, true, true);
-};
 
 // ---------------------------------------------------
 // event listeners and handlers
@@ -80,11 +83,6 @@ const setEventListeners = () => {
 	// show google maps
 	document.querySelector(".map .note").addEventListener("click", openGoogleMap);
 
-	// toggle side nav with button on small screens
-	document
-		.querySelector("header .s")
-		.addEventListener("click", toggleSmallMenu);
-
 	// enlarge images in Sliders
 	foreach(document.querySelectorAll(".slider-container"), (el) => {
 		el.addEventListener("dblclick", openImgFullscreen);
@@ -95,16 +93,6 @@ const setEventListeners = () => {
 	});
 
 	window.addEventListener("resize", debounce(handleWindowResize, 500));
-	window.addEventListener("scroll", throttle(handleWindowScroll, 100));
-};
-
-/**
- * Contains all functions related to scroll behaviour. This functions is throttled.
- * @returns {void}
- * @see throttle
- */
-const handleWindowScroll = () => {
-	toggleNavOnScroll();
 };
 
 /**
@@ -124,7 +112,6 @@ const handleWindowResize = () => {
 document.addEventListener("DOMContentLoaded", () => {
 	setEventListeners();
 	initIntersectionObserver();
-	removeLoadingMask();
 	Calendar.init();
 });
 window.addEventListener("load", () => {
