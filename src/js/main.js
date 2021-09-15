@@ -71,19 +71,6 @@ const setEventListeners = () => {
 		.querySelector("#contact")
 		.addEventListener("click", openBookingModal);
 
-	// closing button in all modals
-	foreach(
-		document.querySelectorAll(".modal .container .close-button"),
-		(el) => {
-			el.addEventListener("click", closeModalManually);
-		}
-	);
-
-	// closing button in slider modals
-	// document
-	// 	.querySelector("#modal-splide .close-button")
-	// 	.addEventListener("click", closeImgFullscreen);
-
 	// animation for contact bar in booking modal
 	foreach(document.querySelectorAll(".contact-panel--item"), (el) => {
 		el.addEventListener("mouseenter", showContact);
@@ -98,9 +85,6 @@ const setEventListeners = () => {
 		.querySelector("header .s")
 		.addEventListener("click", toggleSmallMenu);
 
-	window.addEventListener("resize", debounce(handleWindowResize, 500));
-	window.addEventListener("scroll", throttle(handleWindowScroll, 100));
-
 	// enlarge images in Sliders
 	foreach(document.querySelectorAll(".slider-container"), (el) => {
 		el.addEventListener("dblclick", openImgFullscreen);
@@ -109,6 +93,9 @@ const setEventListeners = () => {
 	foreach(document.querySelectorAll(".slider-fullscreen"), (el) => {
 		el.addEventListener("click", openImgFullscreen);
 	});
+
+	window.addEventListener("resize", debounce(handleWindowResize, 500));
+	window.addEventListener("scroll", throttle(handleWindowScroll, 100));
 };
 
 /**

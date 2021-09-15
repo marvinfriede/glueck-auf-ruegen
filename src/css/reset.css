@@ -67,7 +67,7 @@ time,
 mark,
 audio,
 video {
-	background: transparent;
+	background-color: transparent;
 }
 
 body {
@@ -165,4 +165,8 @@ select {
 	box-sizing: border-box;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
+}
+
+:focus {
+	outline: none !important;
 }

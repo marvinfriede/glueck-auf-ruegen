@@ -1,18 +1,29 @@
 @import "reset.css";
+
+// preload and general stuff for content
 @import "load-mask.scss";
+@import "content.scss";
+
+// headers
+@import "header.scss";
+
+// landing page
 @import "landing.scss";
+@import "landing-cal.scss";
+
+// main content
 @import "section-welcome.scss";
+@import "section-grid.scss";
 @import "section-pricing.scss";
 @import "section-map.scss";
 @import "section-details.scss";
 @import "section-footer.scss";
-@import "style.css";
-@import "cal.scss";
-@import "icons.scss";
-@import "font.scss";
-@import "header.scss";
-@import "tooltip.scss";
-@import "modal.css";
-@import "accordion.scss";
+@import "section-slider.scss";
+
+// various stuff
 @import "animations.css";
-@import "slider.scss";
+@import "accordion.scss";
+@import "font.scss";
+@import "icons.scss";
+@import "modal.scss";
+@import "tooltip.scss";

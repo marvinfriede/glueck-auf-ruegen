@@ -123,13 +123,15 @@ export const setHeights = () => {
 	document.querySelector(".map").style.height = fixedHeight + "px";
 
 	// for fullscreen
-	if (document.body.classList.contains("modal-open")) {
-		const modal = document.querySelector("#modal-splide");
-		if (!modal.classList.contains("is-fading-out")) {
-			fixedHeight = height - 100;
-			modal.querySelector(".slider-container").style.minHeight =
-				fixedHeight + "px";
-		}
+	const modal = document.querySelector("#modal-splide");
+	if (
+		(modal.classList.contains("is-open") &&
+			!modal.classList.contains("is-fading-out")) ||
+		modal.classList.contains("is-fading-in")
+	) {
+		fixedHeight = height - 100;
+		modal.querySelector(".slider-container").style.minHeight =
+			fixedHeight + "px";
 	}
 
 	// change height
@@ -279,12 +281,11 @@ export const closeImgFullscreen = (e) => {
 
 	// closing logic
 	const target = document.querySelector("#modal-splide .splide");
-	const id = document.querySelector("#modal-splide .splide").id;
 	let destination, slider;
-	if (id == "splide-duene") {
+	if (target.id == "splide-duene") {
 		slider = Sliders.duene;
 		destination = document.querySelector("#id-2 .slider-container");
-	} else if (id == "splide-moewe") {
+	} else if (target.id == "splide-moewe") {
 		destination = document.querySelector("#id-3 .slider-container");
 		slider = Sliders.moewe;
 	} else {
@@ -296,10 +297,39 @@ export const closeImgFullscreen = (e) => {
 	// init again with cover settings
 	const index = slider.index;
 	slider.destroy();
-	initSlider(id, true, index);
+	initSlider(target.id, true, index);
+
+	window.scrollTo({
+		top:
+			slider.root.closest(".slider").getBoundingClientRect().top +
+			window.pageYOffset -
+			64,
+	});
 
 	removeImgFullscreenListeners();
 };
+
+function getCoords(el) {
+	const elem = document.querySelector(el);
+	// crossbrowser version
+	var box = elem.getBoundingClientRect();
+
+	var body = document.body;
+	var docEl = document.documentElement;
+
+	var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+	var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+
+	var clientTop = docEl.clientTop || body.clientTop || 0;
+	var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+
+	var top = box.top + scrollTop - clientTop;
+	var left = box.left + scrollLeft - clientLeft;
+
+	return Math.round(top);
+
+	// return { top: Math.round(top), left: Math.round(left) };
+}
 
 /**
  * Attach listeners for closing image fullscreen view.

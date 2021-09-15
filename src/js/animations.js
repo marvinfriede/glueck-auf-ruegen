@@ -112,24 +112,25 @@ export const Fade = {
 // ------------------------------------------------------------------------
 
 /**
- * Disables scroll on body by adding the "modal-open" class to the body.
+ * Disables scroll and sets margins/paddings.
  * @returns {void}
  */
 const enableBackgroundScrollModal = () => {
-	document.body.classList.remove("modal-open");
 	document.documentElement.removeAttribute("style");
 	document.querySelector("header .header-outer").removeAttribute("style");
 	document.querySelector("header .s").removeAttribute("style");
 };
 
 /**
- * Enables scroll on body by removing the "modal-open" class from the body.
+ * Enables scroll and sets margins/paddings.
  * @returns {void}
  */
 const disableBackgroundScrollModal = () => {
-	document.body.classList.add("modal-open");
 	const scrollbarWidth = getScrollbarWidth("px");
 	document.documentElement.style.marginRight = scrollbarWidth;
+	document.documentElement.style.scrollBehavior = "auto";
+	document.documentElement.style.overflowY = "hidden";
+
 	document.querySelector("header .header-outer").style.paddingRight =
 		scrollbarWidth;
 	document.querySelector("header .s").style.marginRight = scrollbarWidth;
