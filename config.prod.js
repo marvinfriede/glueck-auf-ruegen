@@ -1,5 +1,3 @@
-// webpack.config.js
-
 "use strict";
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -28,6 +26,10 @@ module.exports = {
         use: ["html-loader"],
       },
       {
+        test: /\.(svgz?|png|jpe?g|gif)$/,
+        type: "asset/resource",
+      },
+      {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader, // 2. extract css into files
@@ -35,30 +37,25 @@ module.exports = {
         ],
       },
       {
-        test: /\.(svgz?|png|jpe?g|gif)$/,
-        type: "asset/resource",
-      },
-      {
-        test: /\.scss$/i,
+        test: /\.s[ac]ss$/i,
         use: [
           MiniCssExtractPlugin.loader, // 3. extract css into files
-          //"style-loader", // 3. inject styles into DOM
           "css-loader", // 2. turn css into commonjs
-          "sass-loader" // 1. turn less into css
+          "sass-loader", // 1. turn sass into css
         ],
       },
       {
         test: /\.less$/i,
         use: [
-          MiniCssExtractPlugin.loader,
-          //"style-loader", // 3. inject styles into DOM
-          "css-loader",
-          "less-loader"
+          MiniCssExtractPlugin.loader, // 3. extract css into files
+          "css-loader", // 2. turn css into commonjs
+          "less-loader", // 1. turn less into css
         ],
       },
     ],
   },
   optimization: {
+    minimize: true,
     minimizer: [
       new TerserJSPlugin({
         terserOptions: {
@@ -123,23 +120,23 @@ module.exports = {
       }),
       new CopyPlugin({
         patterns: [
-          { 
+          {
             from: path.resolve(__dirname, "src/img/duene/*.jpg"),
             to: "img/duene/[name][ext]",
           },
-          { 
+          {
             from: path.resolve(__dirname, "src/img/moewe/*.jpg"),
             to: "img/moewe/[name][ext]",
           },
-          { 
+          {
             from: path.resolve(__dirname, "src/img/sellin/*opt*"),
             to: "img/sellin/[name][ext]",
           },
-          { 
+          {
             from: path.resolve(__dirname, "src/sitemap.xml"),
             to: "[name][ext]",
           },
-          { 
+          {
             from: path.resolve(__dirname, "src/robots.txt"),
             to: "[name][ext]",
           },

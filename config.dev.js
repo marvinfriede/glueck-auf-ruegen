@@ -1,11 +1,9 @@
-// webpack.config.js
-
 "use strict";
 
 const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const path = require("path");
 const DashboardPlugin = require("webpack-dashboard/plugin");
+const path = require("path");
 
 module.exports = {
   mode: "development",
@@ -35,33 +33,30 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        test: /\.(svgz?|png|jpe?g|gif)$/,
+        type: "asset/resource",
+      },
+      {
         test: /\.css$/,
         use: [
-          //MiniCssExtractPlugin.loader, // 2. extract css into files
           "style-loader", // 2. inject styles into DOM
           "css-loader", // 1. translate css into commonjs
         ],
       },
       {
-        test: /\.(svgz?|png|jpe?g|gif)$/,
-        type: "asset/resource",
-      },
-      {
         test: /\.scss$/i,
         use: [
-          // MiniCssExtractPlugin.loader, // 3. extract css into files
           "style-loader", // 3. inject styles into DOM
           "css-loader", // 2. turn css into commonjs
-          "sass-loader" // 1. turn less into css
+          "sass-loader", // 1. turn sass into css
         ],
       },
       {
         test: /\.less$/i,
         use: [
-          // MiniCssExtractPlugin.loader, // 3. extract css into files
           "style-loader", // 3. inject styles into DOM
           "css-loader", // 2. turn css into commonjs
-          "less-loader" // 1. turn less into css
+          "less-loader", // 1. turn less into css
         ],
       },
     ],
@@ -90,15 +85,15 @@ module.exports = {
     }),
     new CopyPlugin({
       patterns: [
-        { 
+        {
           from: path.resolve(__dirname, "src/img/duene/*.jpg"),
           to: "img/duene/[name][ext]",
         },
-        { 
+        {
           from: path.resolve(__dirname, "src/img/moewe/*.jpg"),
           to: "img/moewe/[name][ext]",
         },
-        { 
+        {
           from: path.resolve(__dirname, "src/img/sellin/*opt*"),
           to: "img/sellin/[name][ext]",
         },
@@ -110,6 +105,6 @@ module.exports = {
   performance: { hints: false },
   watch: false,
   watchOptions: {
-    ignored: /node_modules/
+    ignored: /node_modules/,
   },
 };

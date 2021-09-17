@@ -3,25 +3,25 @@
 --------------------------------------------------*/
 
 .accordion {
-	cursor: pointer;
-	transition: background-color 300ms ease-in-out;
+  cursor: pointer;
+  transition: background-color 300ms ease-in-out;
 
-	&:hover,
-	&.active {
-		background-color: var(--blue8);
-	}
+  &:hover,
+  &.active {
+    background-color: var(--blue8);
+  }
 
-	/* --------------- active ----------------- */
-	&.active ~ .panel {
-		margin-bottom: 10px;
-		margin-top: 10px;
-	}
+  /* --------------- active ----------------- */
+  &.active ~ .panel {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 
-	& ~ .panel {
-		max-height: 0;
-		overflow: hidden;
-		padding-left: 10px;
-		padding-right: 10px;
-		transition: all 500ms ease-in-out;
-	}
+  & ~ .panel {
+    max-height: 0;
+    overflow: hidden;
+    padding-left: 10px;
+    padding-right: 10px;
+    transition: all 500ms ease-in-out;
+  }
 }

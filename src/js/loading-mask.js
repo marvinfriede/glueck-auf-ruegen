@@ -6,5 +6,5 @@ import { Fade } from "./animations";
  * @see Fade
  */
 export const removeLoadingMask = () => {
-	Fade.out(document.querySelector(".mask"), 1500, true, true);
+  Fade.out(document.querySelector(".mask"), 1500, true, true);
 };

@@ -20,9 +20,9 @@ export const foreachKey = (list, cb) => Object.keys(list).forEach(cb);
  * @returns {Boolean}
  */
 export const isInt = (value) =>
-	!isNaN(value) &&
-	parseInt(Number(value)) == value &&
-	!isNaN(parseInt(value, 10));
+  !isNaN(value) &&
+  parseInt(Number(value)) == value &&
+  !isNaN(parseInt(value, 10));
 
 /**
  * Set a timeout.
@@ -30,7 +30,7 @@ export const isInt = (value) =>
  * @returns {Promise}
  */
 export const timeout = (ms) =>
-	new Promise((resolve) => setTimeout(resolve, ms));
+  new Promise((resolve) => setTimeout(resolve, ms));
 
 // --------------------------------------------------------
 // string manipulation
@@ -44,11 +44,11 @@ export const timeout = (ms) =>
  * @returns {string|null} desired part of string or null on error
  */
 export const splitStringAtFirstOcc = (haystack, needle, idx = 0) => {
-	const pos = haystack.indexOf(needle);
-	if (pos == -1) return haystack;
-	if (idx == 0) return haystack.substr(0, pos);
-	if (idx == 1) return haystack.substr(pos + 1);
-	return null;
+  const pos = haystack.indexOf(needle);
+  if (pos == -1) return haystack;
+  if (idx == 0) return haystack.substr(0, pos);
+  if (idx == 1) return haystack.substr(pos + 1);
+  return null;
 };
 
 /**
@@ -59,10 +59,10 @@ export const splitStringAtFirstOcc = (haystack, needle, idx = 0) => {
  * @returns {string|null} desired part of string or null on error
  */
 export const splitStringAtLastOcc = (haystack, needle, idx = 1) => {
-	if (haystack.indexOf(needle) == -1) return haystack;
-	if (idx == 0) return haystack.substr(0, haystack.lastIndexOf(needle));
-	if (idx == 1) return haystack.substr(haystack.lastIndexOf(needle) + 1);
-	return null;
+  if (haystack.indexOf(needle) == -1) return haystack;
+  if (idx == 0) return haystack.substr(0, haystack.lastIndexOf(needle));
+  if (idx == 1) return haystack.substr(haystack.lastIndexOf(needle) + 1);
+  return null;
 };
 
 /**
@@ -73,12 +73,12 @@ export const splitStringAtLastOcc = (haystack, needle, idx = 1) => {
  * @returns {string} desired substring or null on error
  */
 export const splitStringBetweenTwoChars = (haystack, char1, char2) => {
-	if (haystack.indexOf(char1) == -1 || haystack.indexOf(char2) == -1)
-		return haystack;
-	return haystack.substring(
-		haystack.indexOf(char1) + char1.length,
-		haystack.lastIndexOf(char2)
-	);
+  if (haystack.indexOf(char1) == -1 || haystack.indexOf(char2) == -1)
+    return haystack;
+  return haystack.substring(
+    haystack.indexOf(char1) + char1.length,
+    haystack.lastIndexOf(char2)
+  );
 };
 
 // --------------------------------------------------------
@@ -98,7 +98,7 @@ export const isStrEmpty = (str) => !str || 0 === str.length;
  * @returns {Boolean}
  */
 export const isObjEmpty = (obj) =>
-	obj && Object.keys(obj).length === 0 && obj.constructor === Object;
+  obj && Object.keys(obj).length === 0 && obj.constructor === Object;
 
 /**
  * Checks if thing is empty. 0 will also return false; "0" won't.
@@ -117,9 +117,9 @@ export const isEmpty = (thing) => isStrEmpty(thing) || isObjEmpty(thing);
  * @returns {String}
  */
 export const sanitizeHTML = (str) => {
-	const temp = document.createElement("div");
-	temp.textContent = str;
-	return temp.innerHTML;
+  const temp = document.createElement("div");
+  temp.textContent = str;
+  return temp.innerHTML;
 };
 
 /**
@@ -136,8 +136,8 @@ export const getNodeIndex = (el) => [...el.parentNode.children].indexOf(el);
  * @returns {void}
  */
 export const clearChildren = (el, removeSelf = false) => {
-	if (removeSelf === true) el.parentNode.removeChild(el);
-	while (el.firstChild) el.removeChild(el.lastChild);
+  if (removeSelf === true) el.parentNode.removeChild(el);
+  while (el.firstChild) el.removeChild(el.lastChild);
 };
 
 /**
@@ -147,9 +147,9 @@ export const clearChildren = (el, removeSelf = false) => {
  * @returns {void}
  */
 export const moveHtml = (target, destination) => {
-	if (!target || !destination) return;
+  if (!target || !destination) return;
 
-	destination.insertBefore(target, destination.firstElementChild);
+  destination.insertBefore(target, destination.firstElementChild);
 };
 
 // --------------------------------------------------------
@@ -170,9 +170,9 @@ export const getTime = (timeStr) => new Date(timeStr).getTime();
  * @returns {Number} date as integer
  */
 export const dateDiff = (first, second) => {
-	if (!isInt(first)) first = dt(first).toInt();
-	if (!isInt(second)) second = dt(second).toInt();
-	return Math.round((second - first) / (1000 * 60 * 60 * 24));
+  if (!isInt(first)) first = dt(first).toInt();
+  if (!isInt(second)) second = dt(second).toInt();
+  return Math.round((second - first) / (1000 * 60 * 60 * 24));
 };
 
 /**
@@ -180,51 +180,51 @@ export const dateDiff = (first, second) => {
  * @param {String|Date} initDate first date
  */
 export const dt = (initDate) => {
-	// source: https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript
+  // source: https://stackoverflow.com/questions/2698725/comparing-date-part-only-without-comparing-time-in-javascript
 
-	let utcMidnightDateObj = null;
-	// if no date supplied, use Now.
-	if (!initDate) initDate = new Date();
+  let utcMidnightDateObj = null;
+  // if no date supplied, use Now.
+  if (!initDate) initDate = new Date();
 
-	// if initDate specifies a timezone offset, or is already UTC,
-	// just keep the date part, reflecting the date _in that timezone_
-	if (
-		typeof initDate === "string" &&
-		initDate.match(/((\+|-)\d{2}:\d{2}|Z)$/gm)
-	) {
-		utcMidnightDateObj = new Date(initDate.substring(0, 10) + "T00:00:00Z");
-	} else {
-		// if initDate is no date object, feed it to the date constructor.
-		if (!(initDate instanceof Date)) initDate = new Date(initDate);
-		// Vital Step! Strip time part. Create UTC midnight dateObj according to local timezone.
-		utcMidnightDateObj = new Date(
-			Date.UTC(initDate.getFullYear(), initDate.getMonth(), initDate.getDate())
-		);
-	}
+  // if initDate specifies a timezone offset, or is already UTC,
+  // just keep the date part, reflecting the date _in that timezone_
+  if (
+    typeof initDate === "string" &&
+    initDate.match(/((\+|-)\d{2}:\d{2}|Z)$/gm)
+  ) {
+    utcMidnightDateObj = new Date(initDate.substring(0, 10) + "T00:00:00Z");
+  } else {
+    // if initDate is no date object, feed it to the date constructor.
+    if (!(initDate instanceof Date)) initDate = new Date(initDate);
+    // Vital Step! Strip time part. Create UTC midnight dateObj according to local timezone.
+    utcMidnightDateObj = new Date(
+      Date.UTC(initDate.getFullYear(), initDate.getMonth(), initDate.getDate())
+    );
+  }
 
-	return {
-		toDate: () => utcMidnightDateObj,
-		toInt: () => utcMidnightDateObj.getTime(),
-		toISOString: () => utcMidnightDateObj.toISOString(),
-		toISOStringNoTime: () => utcMidnightDateObj.toISOString().substring(0, 10),
-		getUTCDate: () => utcMidnightDateObj.getUTCDate(),
-		getUTCDay: () => utcMidnightDateObj.getUTCDay(),
-		getUTCFullYear: () => utcMidnightDateObj.getUTCFullYear(),
-		getUTCMonth: () => utcMidnightDateObj.getUTCMonth(),
-		setUTCDate: (arg) => utcMidnightDateObj.setUTCDate(arg),
-		setUTCFullYear: (arg) => utcMidnightDateObj.setUTCFullYear(arg),
-		setUTCMonth: (arg) => utcMidnightDateObj.setUTCMonth(arg),
-		addDays: (days) => {
-			utcMidnightDateObj.setUTCDate(utcMidnightDateObj.getUTCDate + days);
-		},
-		toString: () => utcMidnightDateObj.toString(),
-		toLocaleDateString: (locale, options) => {
-			options = options || {};
-			options.timeZone = "Europe/Berlin";
-			locale = locale || "de-DE";
-			return utcMidnightDateObj.toLocaleDateString(locale, options);
-		},
-	};
+  return {
+    toDate: () => utcMidnightDateObj,
+    toInt: () => utcMidnightDateObj.getTime(),
+    toISOString: () => utcMidnightDateObj.toISOString(),
+    toISOStringNoTime: () => utcMidnightDateObj.toISOString().substring(0, 10),
+    getUTCDate: () => utcMidnightDateObj.getUTCDate(),
+    getUTCDay: () => utcMidnightDateObj.getUTCDay(),
+    getUTCFullYear: () => utcMidnightDateObj.getUTCFullYear(),
+    getUTCMonth: () => utcMidnightDateObj.getUTCMonth(),
+    setUTCDate: (arg) => utcMidnightDateObj.setUTCDate(arg),
+    setUTCFullYear: (arg) => utcMidnightDateObj.setUTCFullYear(arg),
+    setUTCMonth: (arg) => utcMidnightDateObj.setUTCMonth(arg),
+    addDays: (days) => {
+      utcMidnightDateObj.setUTCDate(utcMidnightDateObj.getUTCDate + days);
+    },
+    toString: () => utcMidnightDateObj.toString(),
+    toLocaleDateString: (locale, options) => {
+      options = options || {};
+      options.timeZone = "Europe/Berlin";
+      locale = locale || "de-DE";
+      return utcMidnightDateObj.toLocaleDateString(locale, options);
+    },
+  };
 };
 
 // --------------------------------------------------------
@@ -238,14 +238,14 @@ export const dt = (initDate) => {
  * @returns {Function}
  */
 export function throttle(func, timeFrame) {
-	var lastTime = 0;
-	return function (...args) {
-		var now = new Date();
-		if (now - lastTime >= timeFrame) {
-			func(...args);
-			lastTime = now;
-		}
-	};
+  var lastTime = 0;
+  return function (...args) {
+    var now = new Date();
+    if (now - lastTime >= timeFrame) {
+      func(...args);
+      lastTime = now;
+    }
+  };
 }
 
 /**
@@ -256,17 +256,17 @@ export function throttle(func, timeFrame) {
  * @returns {Function}
  */
 export function debounce(func, wait, immediate = false) {
-	var timeout;
-	return function () {
-		var context = this,
-			args = arguments;
-		clearTimeout(timeout);
-		timeout = setTimeout(function () {
-			timeout = null;
-			if (!immediate) func.apply(context, args);
-		}, wait);
-		if (immediate && !timeout) func.apply(context, args);
-	};
+  var timeout;
+  return function () {
+    var context = this,
+      args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    }, wait);
+    if (immediate && !timeout) func.apply(context, args);
+  };
 }
 
 // --------------------------------------------------------
@@ -274,20 +274,20 @@ export function debounce(func, wait, immediate = false) {
 // --------------------------------------------------------
 
 export const getScrollbarWidth = (unit) => {
-	// Create the measurement node
-	const scrollDiv = document.createElement("div");
-	scrollDiv.style.position = "absolute";
-	scrollDiv.style.top = "-9999px";
-	scrollDiv.style.width = "100px";
-	scrollDiv.style.height = "100px";
-	scrollDiv.style.overflow = "scroll";
-	document.body.appendChild(scrollDiv);
+  // Create the measurement node
+  const scrollDiv = document.createElement("div");
+  scrollDiv.style.position = "absolute";
+  scrollDiv.style.top = "-9999px";
+  scrollDiv.style.width = "100px";
+  scrollDiv.style.height = "100px";
+  scrollDiv.style.overflow = "scroll";
+  document.body.appendChild(scrollDiv);
 
-	// Get the scrollbar width
-	const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+  // Get the scrollbar width
+  const scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 
-	// Delete the DIV
-	document.body.removeChild(scrollDiv);
+  // Delete the DIV
+  document.body.removeChild(scrollDiv);
 
-	return scrollbarWidth + unit;
+  return scrollbarWidth + unit;
 };

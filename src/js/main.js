@@ -23,20 +23,20 @@ import "../css/tooltip.scss";
 import { toggleAccordion } from "./accordion.js";
 import { Calendar } from "./cal.js";
 import {
-	initIntersectionObserver,
-	openImgFullscreen,
-	setHeights,
+  initIntersectionObserver,
+  openImgFullscreen,
+  setHeights,
 } from "./slider.js";
 import { openBookingModal } from "./overlays.js";
 import { debounce, foreach } from "./utils-standard.js";
 import {
-	goToBooking,
-	hideContact,
-	openDropdown,
-	openGoogleMap,
-	openSelector,
-	scaleGrids,
-	showContact,
+  goToBooking,
+  hideContact,
+  openDropdown,
+  openGoogleMap,
+  openSelector,
+  scaleGrids,
+  showContact,
 } from "./utils-project";
 
 // ---------------------------------------------------
@@ -48,51 +48,51 @@ import {
  * @returns {void}
  */
 const setEventListeners = () => {
-	// accordion
-	foreach(document.querySelectorAll(".accordion"), (el) => {
-		el.addEventListener("click", toggleAccordion);
-	});
+  // accordion
+  foreach(document.querySelectorAll(".accordion"), (el) => {
+    el.addEventListener("click", toggleAccordion);
+  });
 
-	// dropdowns in booking modal
-	document
-		.querySelector("#select-house")
-		.addEventListener("click", openDropdown);
-	document
-		.querySelector("#select-guests")
-		.addEventListener("click", openDropdown);
-	document
-		.querySelector("#select-extras")
-		.addEventListener("click", openSelector);
+  // dropdowns in booking modal
+  document
+    .querySelector("#select-house")
+    .addEventListener("click", openDropdown);
+  document
+    .querySelector("#select-guests")
+    .addEventListener("click", openDropdown);
+  document
+    .querySelector("#select-extras")
+    .addEventListener("click", openSelector);
 
-	// jump to booking through buttons in price cards
-	foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
-		btn.addEventListener("click", goToBooking)
-	);
+  // jump to booking through buttons in price cards
+  foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
+    btn.addEventListener("click", goToBooking)
+  );
 
-	// open booking modal
-	document
-		.querySelector("#contact")
-		.addEventListener("click", openBookingModal);
+  // open booking modal
+  document
+    .querySelector("#contact")
+    .addEventListener("click", openBookingModal);
 
-	// animation for contact bar in booking modal
-	foreach(document.querySelectorAll(".contact-panel--item"), (el) => {
-		el.addEventListener("mouseenter", showContact);
-		el.addEventListener("mouseleave", hideContact);
-	});
+  // animation for contact bar in booking modal
+  foreach(document.querySelectorAll(".contact-panel--item"), (el) => {
+    el.addEventListener("mouseenter", showContact);
+    el.addEventListener("mouseleave", hideContact);
+  });
 
-	// show google maps
-	document.querySelector(".map .note").addEventListener("click", openGoogleMap);
+  // show google maps
+  document.querySelector(".map .note").addEventListener("click", openGoogleMap);
 
-	// enlarge images in Sliders
-	foreach(document.querySelectorAll(".slider-container"), (el) => {
-		el.addEventListener("dblclick", openImgFullscreen);
-	});
+  // enlarge images in Sliders
+  foreach(document.querySelectorAll(".slider-container"), (el) => {
+    el.addEventListener("dblclick", openImgFullscreen);
+  });
 
-	foreach(document.querySelectorAll(".slider-fullscreen"), (el) => {
-		el.addEventListener("click", openImgFullscreen);
-	});
+  foreach(document.querySelectorAll(".slider-fullscreen"), (el) => {
+    el.addEventListener("click", openImgFullscreen);
+  });
 
-	window.addEventListener("resize", debounce(handleWindowResize, 500));
+  window.addEventListener("resize", debounce(handleWindowResize, 500));
 };
 
 /**
@@ -101,8 +101,8 @@ const setEventListeners = () => {
  * @see debounce
  */
 const handleWindowResize = () => {
-	scaleGrids();
-	setHeights();
+  scaleGrids();
+  setHeights();
 };
 
 // ---------------------------------------------------
@@ -110,10 +110,10 @@ const handleWindowResize = () => {
 // ---------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-	setEventListeners();
-	initIntersectionObserver();
-	Calendar.init();
+  setEventListeners();
+  initIntersectionObserver();
+  Calendar.init();
 });
 window.addEventListener("load", () => {
-	handleWindowResize();
+  handleWindowResize();
 });

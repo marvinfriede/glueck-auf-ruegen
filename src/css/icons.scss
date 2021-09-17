@@ -1,107 +1,107 @@
 @import "_breakpoints.scss";
 
 .icon {
-	/*-------------------------------------------------
+  /*-------------------------------------------------
 	--------------------- carets ----------------------
 	--------------------------------------------------*/
-	&.caret > img {
-		height: 10px;
-		width: 10px;
+  &.caret > img {
+    height: 10px;
+    width: 10px;
 
-		@media (min-width: $bp-xs) {
-			height: 12.5px;
-			width: 12.5px;
-		}
-		@media (min-width: $bp-s) {
-			height: 15px;
-			width: 15px;
-		}
-		@media (min-width: $bp-n) {
-			height: 17.5px;
-			width: 17.5px;
-		}
-		@media (min-width: $bp-l) {
-			height: 20px;
-			width: 20px;
-		}
-		@media (min-width: $bp-xl) {
-			height: 22.5px;
-			width: 22.5px;
-		}
-		@media (min-width: $bp-xxl) {
-			height: 25px;
-			width: 25px;
-		}
-	}
+    @media (min-width: $bp-xs) {
+      height: 12.5px;
+      width: 12.5px;
+    }
+    @media (min-width: $bp-s) {
+      height: 15px;
+      width: 15px;
+    }
+    @media (min-width: $bp-n) {
+      height: 17.5px;
+      width: 17.5px;
+    }
+    @media (min-width: $bp-l) {
+      height: 20px;
+      width: 20px;
+    }
+    @media (min-width: $bp-xl) {
+      height: 22.5px;
+      width: 22.5px;
+    }
+    @media (min-width: $bp-xxl) {
+      height: 25px;
+      width: 25px;
+    }
+  }
 
-	/*-------------------------------------------------
+  /*-------------------------------------------------
 	--------------------- icons -----------------------
 	--------------------------------------------------*/
-	&.symbol {
-		height: 15px;
-		width: 15px;
+  &.symbol {
+    height: 15px;
+    width: 15px;
 
-		@media (min-width: $bp-xs) {
-			height: 17.5px;
-			width: 17.5px;
-		}
-		@media (min-width: $bp-s) {
-			height: 20px;
-			width: 20px;
-		}
-		@media (min-width: $bp-n) {
-			height: 22.5px;
-			width: 22.5px;
-		}
-		@media (min-width: $bp-l) {
-			height: 25px;
-			width: 25px;
-		}
-		@media (min-width: $bp-xl) {
-			height: 27.5px;
-			width: 27.5px;
-		}
-		@media (min-width: $bp-xxl) {
-			height: 30px;
-			width: 30px;
-		}
+    @media (min-width: $bp-xs) {
+      height: 17.5px;
+      width: 17.5px;
+    }
+    @media (min-width: $bp-s) {
+      height: 20px;
+      width: 20px;
+    }
+    @media (min-width: $bp-n) {
+      height: 22.5px;
+      width: 22.5px;
+    }
+    @media (min-width: $bp-l) {
+      height: 25px;
+      width: 25px;
+    }
+    @media (min-width: $bp-xl) {
+      height: 27.5px;
+      width: 27.5px;
+    }
+    @media (min-width: $bp-xxl) {
+      height: 30px;
+      width: 30px;
+    }
 
-		&.l {
-			height: 25px;
-			width: 25px;
+    &.l {
+      height: 25px;
+      width: 25px;
 
-			@media (min-width: $bp-xs) {
-				height: 27.5px;
-				width: 27.5px;
-			}
-			@media (min-width: $bp-s) {
-				height: 30px;
-				width: 30px;
-			}
-			@media (min-width: $bp-n) {
-				height: 32.5px;
-				width: 32.5px;
-			}
-			@media (min-width: $bp-l) {
-				height: 35px;
-				width: 35px;
-			}
-			@media (min-width: $bp-xl) {
-				height: 37.5px;
-				width: 37.5px;
-			}
-			@media (min-width: $bp-xxl) {
-				height: 40px;
-				width: 40px;
-			}
-		}
+      @media (min-width: $bp-xs) {
+        height: 27.5px;
+        width: 27.5px;
+      }
+      @media (min-width: $bp-s) {
+        height: 30px;
+        width: 30px;
+      }
+      @media (min-width: $bp-n) {
+        height: 32.5px;
+        width: 32.5px;
+      }
+      @media (min-width: $bp-l) {
+        height: 35px;
+        width: 35px;
+      }
+      @media (min-width: $bp-xl) {
+        height: 37.5px;
+        width: 37.5px;
+      }
+      @media (min-width: $bp-xxl) {
+        height: 40px;
+        width: 40px;
+      }
+    }
 
-		> img,
-		> svg {
-			height: 100%;
-			width: 100%;
-		}
-	}
+    > img,
+    > svg {
+      height: 100%;
+      width: 100%;
+    }
+  }
 }
 
 /*-------------------------------------------------
@@ -109,38 +109,38 @@
 --------------------------------------------------*/
 
 .cross {
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	position: relative;
-	height: 100%; /* this can be anything */
-	width: 100%; /* ...but maintain 1:1 aspect ratio */
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  height: 100%; /* this can be anything */
+  width: 100%; /* ...but maintain 1:1 aspect ratio */
 
-	&::after,
-	&::before {
-		border-radius: 4px;
-		position: absolute;
-		content: "";
-		width: 80%;
-		height: 4px; /* cross thickness */
-		background-color: white;
+  &::after,
+  &::before {
+    border-radius: 4px;
+    position: absolute;
+    content: "";
+    width: 80%;
+    height: 4px; /* cross thickness */
+    background-color: white;
 
-		@media (min-width: $bp-n) {
-			width: 90%;
-		}
-		@media (min-width: $bp-n) {
-			width: 90%;
-		}
-		@media (min-width: $bp-xl) {
-			width: 100%;
-			height: 5px; /* cross thickness */
-		}
-	}
-	&::after {
-		transform: rotate(-45deg);
-	}
-	&::before {
-		transform: rotate(45deg);
-	}
+    @media (min-width: $bp-n) {
+      width: 90%;
+    }
+    @media (min-width: $bp-n) {
+      width: 90%;
+    }
+    @media (min-width: $bp-xl) {
+      width: 100%;
+      height: 5px; /* cross thickness */
+    }
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+  &::before {
+    transform: rotate(45deg);
+  }
 }

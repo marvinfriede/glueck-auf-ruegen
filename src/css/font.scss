@@ -1,80 +1,80 @@
 @import "_breakpoints.scss";
 
 body {
-	font-family: "Nunito", "sans serif";
-	font-size: var(--fs);
+  font-family: "Nunito", "sans serif";
+  font-size: var(--fs);
 }
 
 :root {
-	--fs-xs: 10px !important;
-	--fs-s: 12px !important;
-	--fs: 14px !important;
-	--fs-l: 16px !important;
-	--fs-L: 20px !important;
-	--fs-h: 26px !important;
-	--fs-H: 34px !important;
+  --fs-xs: 10px !important;
+  --fs-s: 12px !important;
+  --fs: 14px !important;
+  --fs-l: 16px !important;
+  --fs-L: 20px !important;
+  --fs-h: 26px !important;
+  --fs-H: 34px !important;
 
-	@media (min-width: $bp-xs) {
-		--fs-xs: 11px !important;
-		--fs-s: 13px !important;
-		--fs: 15px !important;
-		--fs-l: 17px !important;
-		--fs-L: 22px !important;
-		--fs-h: 28px !important;
-		--fs-H: 38px !important;
-	}
-	@media (min-width: $bp-s) {
-		--fs-xs: 12px !important;
-		--fs-s: 14px !important;
-		--fs: 16px !important;
-		--fs-l: 18px !important;
-		--fs-L: 24px !important;
-		--fs-h: 32px !important;
-		--fs-H: 44px !important;
-	}
-	@media (min-width: $bp-n) {
-		--fs-xs: 13px !important;
-		--fs-s: 15px !important;
-		--fs: 17px !important;
-		--fs-l: 20px !important;
-		--fs-L: 26px !important;
-		--fs-h: 36px !important;
-		--fs-H: 50px !important;
-	}
-	@media (min-width: $bp-l) {
-		--fs-xs: 14px !important;
-		--fs-s: 16px !important;
-		--fs: 18px !important;
-		--fs-l: 21px !important;
-		--fs-L: 28px !important;
-		--fs-h: 40px !important;
-		--fs-H: 60px !important;
-	}
-	@media (min-width: $bp-xl) {
-		--fs-xs: 15px !important;
-		--fs-s: 17px !important;
-		--fs: 19px !important;
-		--fs-l: 22px !important;
-		--fs-L: 30px !important;
-		--fs-h: 46px !important;
-		--fs-H: 70px !important;
-	}
-	@media (min-width: $bp-xxl) {
-		--fs-xs: 16px !important;
-		--fs-s: 18px !important;
-		--fs: 20px !important;
-		--fs-l: 24px !important;
-		--fs-L: 34px !important;
-		--fs-h: 50px !important;
-		--fs-H: 80px !important;
-	}
-	@media (min-width: $bp-xxxl) {
-		--fs-xs: 18px !important;
-		--fs-s: 20px !important;
-		--fs: 22px !important;
-		--fs-l: 28px !important;
-		--fs-L: 40px !important;
-		--fs-h: 56px !important;
-		--fs-H: 90px !important;
-	}
+  @media (min-width: $bp-xs) {
+    --fs-xs: 11px !important;
+    --fs-s: 13px !important;
+    --fs: 15px !important;
+    --fs-l: 17px !important;
+    --fs-L: 22px !important;
+    --fs-h: 28px !important;
+    --fs-H: 38px !important;
+  }
+  @media (min-width: $bp-s) {
+    --fs-xs: 12px !important;
+    --fs-s: 14px !important;
+    --fs: 16px !important;
+    --fs-l: 18px !important;
+    --fs-L: 24px !important;
+    --fs-h: 32px !important;
+    --fs-H: 44px !important;
+  }
+  @media (min-width: $bp-n) {
+    --fs-xs: 13px !important;
+    --fs-s: 15px !important;
+    --fs: 17px !important;
+    --fs-l: 20px !important;
+    --fs-L: 26px !important;
+    --fs-h: 36px !important;
+    --fs-H: 50px !important;
+  }
+  @media (min-width: $bp-l) {
+    --fs-xs: 14px !important;
+    --fs-s: 16px !important;
+    --fs: 18px !important;
+    --fs-l: 21px !important;
+    --fs-L: 28px !important;
+    --fs-h: 40px !important;
+    --fs-H: 60px !important;
+  }
+  @media (min-width: $bp-xl) {
+    --fs-xs: 15px !important;
+    --fs-s: 17px !important;
+    --fs: 19px !important;
+    --fs-l: 22px !important;
+    --fs-L: 30px !important;
+    --fs-h: 46px !important;
+    --fs-H: 70px !important;
+  }
+  @media (min-width: $bp-xxl) {
+    --fs-xs: 16px !important;
+    --fs-s: 18px !important;
+    --fs: 20px !important;
+    --fs-l: 24px !important;
+    --fs-L: 34px !important;
+    --fs-h: 50px !important;
+    --fs-H: 80px !important;
+  }
+  @media (min-width: $bp-xxxl) {
+    --fs-xs: 18px !important;
+    --fs-s: 20px !important;
+    --fs: 22px !important;
+    --fs-l: 28px !important;
+    --fs-L: 40px !important;
+    --fs-h: 56px !important;
+    --fs-H: 90px !important;
+  }
 }

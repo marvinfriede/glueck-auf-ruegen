@@ -1,82 +1,82 @@
 @import "_breakpoints.scss";
 
 section.main {
-	#id-1 {
-		background-color: var(--gray1);
+  #id-1 {
+    background-color: var(--gray1);
 
-		.content {
-			margin-top: 80px;
-			padding-bottom: 0;
+    .content {
+      margin-top: 80px;
+      padding-bottom: 0;
 
-			.welcome-wrap {
-				width: 100%;
+      .welcome-wrap {
+        width: 100%;
 
-				.welcome {
-					-ms-flex-align: center;
-					align-items: center;
-					display: -ms-flexbox;
-					display: flex;
-					flex-direction: column;
-					flex-wrap: nowrap;
-					padding: 60px 0;
-					width: 100%;
+        .welcome {
+          -ms-flex-align: center;
+          align-items: center;
+          display: -ms-flexbox;
+          display: flex;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          padding: 60px 0;
+          width: 100%;
 
-					.text {
-						font-family: var(--font-fancy);
-						font-size: var(--fs-h);
-						padding: 0;
-						text-align: center;
-						width: 100%;
-					}
+          .text {
+            font-family: var(--font-fancy);
+            font-size: var(--fs-h);
+            padding: 0;
+            text-align: center;
+            width: 100%;
+          }
 
-					.underline-spacer {
-						background-color: var(--gray5);
-						border: 0;
-						border-radius: 5px;
-						height: 2px;
-						margin-top: 40px;
-						margin-bottom: 40px;
-						width: 50vw;
-					}
+          .underline-spacer {
+            background-color: var(--gray5);
+            border: 0;
+            border-radius: 5px;
+            height: 2px;
+            margin-top: 40px;
+            margin-bottom: 40px;
+            width: 50vw;
+          }
 
-					.desc-main {
-						width: 100%;
-						font-size: var(--fs);
-						line-height: 25px;
-						text-align: justify;
+          .desc-main {
+            width: 100%;
+            font-size: var(--fs);
+            line-height: 25px;
+            text-align: justify;
 
-						@media (min-width: $bp-xs) {
-							line-height: 30px;
-						}
-						@media (min-width: $bp-s) {
-							line-height: 35px;
-						}
-						@media (min-width: $bp-n) {
-							line-height: 40px;
-						}
-						@media (min-width: $bp-xl) {
-							line-height: 50px;
-						}
+            @media (min-width: $bp-xs) {
+              line-height: 30px;
+            }
+            @media (min-width: $bp-s) {
+              line-height: 35px;
+            }
+            @media (min-width: $bp-n) {
+              line-height: 40px;
+            }
+            @media (min-width: $bp-xl) {
+              line-height: 50px;
+            }
 
-						.desc-text {
-							width: 100%;
+            .desc-text {
+              width: 100%;
 
-							&:first-child {
-								margin-bottom: 10px;
-							}
-						}
+              &:first-child {
+                margin-bottom: 10px;
+              }
+            }
 
-						.desc-final {
-							font-size: var(--fs-l);
-							font-family: var(--font-fancy);
-							padding-right: 30px;
-							padding-top: 20px;
-							text-align: right;
-							width: 100%;
-						}
-					}
-				}
-			}
-		}
-	}
+            .desc-final {
+              font-size: var(--fs-l);
+              font-family: var(--font-fancy);
+              padding-right: 30px;
+              padding-top: 20px;
+              text-align: right;
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
 }

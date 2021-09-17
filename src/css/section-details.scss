@@ -1,78 +1,78 @@
 @import "_breakpoints.scss";
 
 section.main #id-6 .details {
-	width: 100%;
-	line-height: 25px;
-	padding: 40px 0;
+  width: 100%;
+  line-height: 25px;
+  padding: 40px 0;
 
-	@media (min-width: $bp-xs) {
-		line-height: 30px;
-	}
-	@media (min-width: $bp-s) {
-		line-height: 35px;
-	}
-	@media (min-width: $bp-n) {
-		line-height: 40px;
-	}
-	@media (min-width: $bp-l) {
-		padding: 60px 0;
-	}
-	@media (min-width: $bp-xl) {
-		line-height: 50px;
-	}
-	@media (min-width: $bp-xxl) {
-		padding: 80px 0;
-	}
+  @media (min-width: $bp-xs) {
+    line-height: 30px;
+  }
+  @media (min-width: $bp-s) {
+    line-height: 35px;
+  }
+  @media (min-width: $bp-n) {
+    line-height: 40px;
+  }
+  @media (min-width: $bp-l) {
+    padding: 60px 0;
+  }
+  @media (min-width: $bp-xl) {
+    line-height: 50px;
+  }
+  @media (min-width: $bp-xxl) {
+    padding: 80px 0;
+  }
 
-	.row {
-		display: flex;
-		flex-direction: column;
-		flex-wrap: nowrap;
+  .row {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
 
-		& + .row {
-			margin-top: 30px;
+    & + .row {
+      margin-top: 30px;
 
-			@media (min-width: $bp-l) {
-				margin-top: 35px;
-			}
-		}
+      @media (min-width: $bp-l) {
+        margin-top: 35px;
+      }
+    }
 
-		.row-title {
-			font-size: var(--fs-l);
-			font-weight: 700;
-			margin-bottom: 10px;
-		}
+    .row-title {
+      font-size: var(--fs-l);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
 
-		.row-content {
-			display: flex;
-			flex-direction: column;
-			padding: 10px 0;
+    .row-content {
+      display: flex;
+      flex-direction: column;
+      padding: 10px 0;
 
-			@media (min-width: $bp-l) {
-				flex-direction: row;
-			}
+      @media (min-width: $bp-l) {
+        flex-direction: row;
+      }
 
-			.row-content--title {
-				font-style: italic;
+      .row-content--title {
+        font-style: italic;
 
-				@media (min-width: $bp-l) {
-					flex-basis: 200px;
-					flex-shrink: 0;
-				}
-			}
-		}
-	}
+        @media (min-width: $bp-l) {
+          flex-basis: 200px;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
 }
 
 @media (min-width: $bp-l) {
-	section.main .details .row-content {
-		flex-direction: row;
-	}
-	section.main .details .row-content--title {
-		flex-basis: 200px;
-		flex-shrink: 0;
-	}
-	section.main .details .row + .row {
-		margin-top: 35px;
-	}
+  section.main .details .row-content {
+    flex-direction: row;
+  }
+  section.main .details .row-content--title {
+    flex-basis: 200px;
+    flex-shrink: 0;
+  }
+  section.main .details .row + .row {
+    margin-top: 35px;
+  }
 }

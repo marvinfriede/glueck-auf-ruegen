@@ -17,32 +17,32 @@ const Sliders = { landing: {}, duene: {}, moewe: {} };
  * @returns {void}
  */
 const onIntersection = (entries) => {
-	entries.forEach((entry) => {
-		const t = entry.target;
-		if (entry.isIntersecting) {
-			if (t.id == "id-0" && isEmpty(Sliders.landing)) {
-				console.log("Initialized slider for Landing.");
-				initSliderLanding();
-			} else if (t.id == "id-2") {
-				console.log("Initialized slider for Duene.");
-				initSlider("duene");
-				intersectionObserver.unobserve(t);
-			} else if (t.id == "id-3") {
-				console.log("Initialized slider for Moewe.");
-				initSlider("moewe");
-				intersectionObserver.unobserve(t);
-			}
-		}
+  entries.forEach((entry) => {
+    const t = entry.target;
+    if (entry.isIntersecting) {
+      if (t.id == "id-0" && isEmpty(Sliders.landing)) {
+        console.log("Initialized slider for Landing.");
+        initSliderLanding();
+      } else if (t.id == "id-2") {
+        console.log("Initialized slider for Duene.");
+        initSlider("duene");
+        intersectionObserver.unobserve(t);
+      } else if (t.id == "id-3") {
+        console.log("Initialized slider for Moewe.");
+        initSlider("moewe");
+        intersectionObserver.unobserve(t);
+      }
+    }
 
-		// pause autoplay if out of view
-		if (t.id == "id-0" && !isEmpty(Sliders.landing)) {
-			if (entry.isIntersecting) {
-				document.querySelector(".splide__play").click();
-			} else {
-				document.querySelector(".splide__pause").click();
-			}
-		}
-	});
+    // pause autoplay if out of view
+    if (t.id == "id-0" && !isEmpty(Sliders.landing)) {
+      if (entry.isIntersecting) {
+        document.querySelector(".splide__play").click();
+      } else {
+        document.querySelector(".splide__pause").click();
+      }
+    }
+  });
 };
 
 let intersectionObserver = null;
@@ -52,19 +52,19 @@ let intersectionObserver = null;
  * @returns {void}
  */
 export const initIntersectionObserver = () => {
-	if ("IntersectionObserver" in window) {
-		intersectionObserver = new IntersectionObserver(onIntersection, {
-			root: null,
-			threshold: 0.05,
-		});
-		intersectionObserver.observe(document.querySelector("#id-0"));
-		intersectionObserver.observe(document.querySelector("#id-2"));
-		intersectionObserver.observe(document.querySelector("#id-3"));
-	} else {
-		initSliderDuene();
-		initSliderMoewe();
-		initSliderLanding();
-	}
+  if ("IntersectionObserver" in window) {
+    intersectionObserver = new IntersectionObserver(onIntersection, {
+      root: null,
+      threshold: 0.05,
+    });
+    intersectionObserver.observe(document.querySelector("#id-0"));
+    intersectionObserver.observe(document.querySelector("#id-2"));
+    intersectionObserver.observe(document.querySelector("#id-3"));
+  } else {
+    initSliderDuene();
+    initSliderMoewe();
+    initSliderLanding();
+  }
 };
 
 // ---------------------------------------------------
@@ -76,73 +76,73 @@ export const initIntersectionObserver = () => {
  * @returns {void}
  */
 export const setHeights = () => {
-	const height =
-		window.innerHeight ||
-		document.documentElement.clientHeight ||
-		document.body.clientHeight;
-	let fixedHeight = 0;
+  const height =
+    window.innerHeight ||
+    document.documentElement.clientHeight ||
+    document.body.clientHeight;
+  let fixedHeight = 0;
 
-	if (height < 300) {
-		fixedHeight = 150;
-	} else if (height >= 300 && height < 400) {
-		fixedHeight = 200;
-	} else if (height >= 400 && height < 500) {
-		fixedHeight = 250;
-	} else if (height >= 500 && height < 600) {
-		fixedHeight = 350;
-	} else if (height >= 600 && height < 700) {
-		fixedHeight = 450;
-	} else if (height >= 700 && height < 800) {
-		fixedHeight = 550;
-	} else if (height >= 800 && height < 900) {
-		fixedHeight = 600;
-	} else if (height >= 900 && height < 1000) {
-		fixedHeight = 700;
-	} else if (height >= 1000 && height < 1100) {
-		fixedHeight = 800;
-	} else if (height >= 1100 && height < 1200) {
-		fixedHeight = 900;
-	} else if (height >= 1200 && height < 1300) {
-		fixedHeight = 1000;
-	} else if (height >= 1300 && height < 1400) {
-		fixedHeight = 110;
-	} else if (height >= 1400 && height < 1600) {
-		fixedHeight = 1200;
-	} else if (height >= 1600 && height < 1900) {
-		fixedHeight = 1400;
-	} else {
-		fixedHeight = 1600;
-	}
+  if (height < 300) {
+    fixedHeight = 150;
+  } else if (height >= 300 && height < 400) {
+    fixedHeight = 200;
+  } else if (height >= 400 && height < 500) {
+    fixedHeight = 250;
+  } else if (height >= 500 && height < 600) {
+    fixedHeight = 350;
+  } else if (height >= 600 && height < 700) {
+    fixedHeight = 450;
+  } else if (height >= 700 && height < 800) {
+    fixedHeight = 550;
+  } else if (height >= 800 && height < 900) {
+    fixedHeight = 600;
+  } else if (height >= 900 && height < 1000) {
+    fixedHeight = 700;
+  } else if (height >= 1000 && height < 1100) {
+    fixedHeight = 800;
+  } else if (height >= 1100 && height < 1200) {
+    fixedHeight = 900;
+  } else if (height >= 1200 && height < 1300) {
+    fixedHeight = 1000;
+  } else if (height >= 1300 && height < 1400) {
+    fixedHeight = 110;
+  } else if (height >= 1400 && height < 1600) {
+    fixedHeight = 1200;
+  } else if (height >= 1600 && height < 1900) {
+    fixedHeight = 1400;
+  } else {
+    fixedHeight = 1600;
+  }
 
-	// set height to avoid CLS on load
-	foreach(document.querySelectorAll(".main .slider-container"), (slider) => {
-		slider.style.minHeight = fixedHeight + "px";
-	});
+  // set height to avoid CLS on load
+  foreach(document.querySelectorAll(".main .slider-container"), (slider) => {
+    slider.style.minHeight = fixedHeight + "px";
+  });
 
-	// also set height of map
-	document.querySelector(".map").style.height = fixedHeight + "px";
+  // also set height of map
+  document.querySelector(".map").style.height = fixedHeight + "px";
 
-	// for fullscreen
-	const modal = document.querySelector("#modal-splide");
-	if (
-		(modal.classList.contains("is-open") &&
-			!modal.classList.contains("is-fading-out")) ||
-		modal.classList.contains("is-fading-in")
-	) {
-		fixedHeight = height - 100;
-		modal.querySelector(".slider-container").style.minHeight =
-			fixedHeight + "px";
-	}
+  // for fullscreen
+  const modal = document.querySelector("#modal-splide");
+  if (
+    (modal.classList.contains("is-open") &&
+      !modal.classList.contains("is-fading-out")) ||
+    modal.classList.contains("is-fading-in")
+  ) {
+    fixedHeight = height - 100;
+    modal.querySelector(".slider-container").style.minHeight =
+      fixedHeight + "px";
+  }
 
-	// change height
-	if (!isEmpty(Sliders.duene)) {
-		Sliders.duene.options = { fixedHeight: fixedHeight };
-		Sliders.duene.refresh();
-	}
-	if (!isEmpty(Sliders.moewe)) {
-		Sliders.moewe.options = { fixedHeight: fixedHeight };
-		Sliders.moewe.refresh();
-	}
+  // change height
+  if (!isEmpty(Sliders.duene)) {
+    Sliders.duene.options = { fixedHeight: fixedHeight };
+    Sliders.duene.refresh();
+  }
+  if (!isEmpty(Sliders.moewe)) {
+    Sliders.moewe.options = { fixedHeight: fixedHeight };
+    Sliders.moewe.refresh();
+  }
 };
 
 /**
@@ -151,9 +151,9 @@ export const setHeights = () => {
  * @returns {void}
  */
 const setTitleSlide = (e) => {
-	const img = e.slide.firstElementChild;
-	const cont = img.closest(".slider").querySelector(".splide-title span");
-	cont.innerText = img.title;
+  const img = e.slide.firstElementChild;
+  const cont = img.closest(".slider").querySelector(".splide-title span");
+  cont.innerText = img.title;
 };
 
 /**
@@ -161,28 +161,28 @@ const setTitleSlide = (e) => {
  * @returns {void}
  */
 export const initSliderLanding = () => {
-	Sliders.landing = new Splide("#splide-landing", {
-		arrows: false,
-		autoplay: true,
-		breakpoints: {
-			[BP.n]: { fixedHeight: 640 },
-			[BP.l]: { fixedHeight: 764 },
-			[BP.xl]: { fixedHeight: 694 },
-			[BP.xxl]: { fixedHeight: 764 },
-		},
-		cover: true,
-		drag: false, // in background anyway
-		fixedHeight: 764,
-		interval: 10000,
-		keyboard: false, // in background anyway
-		lazyLoad: "nearby",
-		pagination: true,
-		perPage: 1,
-		preloadPages: 0, // performance! loads 2 images if set to 1
-		rewind: true,
-		speed: 2000,
-		type: "fade",
-	}).mount();
+  Sliders.landing = new Splide("#splide-landing", {
+    arrows: false,
+    autoplay: true,
+    breakpoints: {
+      [BP.n]: { fixedHeight: 640 },
+      [BP.l]: { fixedHeight: 764 },
+      [BP.xl]: { fixedHeight: 694 },
+      [BP.xxl]: { fixedHeight: 764 },
+    },
+    cover: true,
+    drag: false, // in background anyway
+    fixedHeight: 764,
+    interval: 10000,
+    keyboard: false, // in background anyway
+    lazyLoad: "nearby",
+    pagination: true,
+    perPage: 1,
+    preloadPages: 0, // performance! loads 2 images if set to 1
+    rewind: true,
+    speed: 2000,
+    type: "fade",
+  }).mount();
 };
 
 /**
@@ -193,32 +193,32 @@ export const initSliderLanding = () => {
  * @returns {void}
  */
 export const initSlider = (name, cover = true, start = 0) => {
-	// only allow duene and moewe and replace possible prefix from id
-	if (!name.includes("duene") && !name.includes("moewe")) return;
-	name = name.replace("splide-", "");
+  // only allow duene and moewe and replace possible prefix from id
+  if (!name.includes("duene") && !name.includes("moewe")) return;
+  name = name.replace("splide-", "");
 
-	if (cover) {
-		// create slider and thumbnail for cover
-		const thumb = new Splide(
-			`#splide-${name}-thumb`,
-			Object.assign({}, optionsThumb, { start: start })
-		).mount();
-		const splide = new Splide(
-			`#splide-${name}`,
-			Object.assign({}, optionsCover, { start: start })
-		);
-		Sliders[name] = splide.sync(thumb).mount();
-	} else {
-		// create slider only for full
-		Sliders[name] = new Splide(
-			`#splide-${name}`,
-			Object.assign({}, optionsFull, { start: start })
-		).mount();
-	}
+  if (cover) {
+    // create slider and thumbnail for cover
+    const thumb = new Splide(
+      `#splide-${name}-thumb`,
+      Object.assign({}, optionsThumb, { start: start })
+    ).mount();
+    const splide = new Splide(
+      `#splide-${name}`,
+      Object.assign({}, optionsCover, { start: start })
+    );
+    Sliders[name] = splide.sync(thumb).mount();
+  } else {
+    // create slider only for full
+    Sliders[name] = new Splide(
+      `#splide-${name}`,
+      Object.assign({}, optionsFull, { start: start })
+    ).mount();
+  }
 
-	// change title below image and init height
-	Sliders[name].on("active", setTitleSlide);
-	setHeights();
+  // change title below image and init height
+  Sliders[name].on("active", setTitleSlide);
+  setHeights();
 };
 
 // ------------------------------------------------------------------------
@@ -230,38 +230,38 @@ export const initSlider = (name, cover = true, start = 0) => {
  * @returns {void}
  */
 export function openImgFullscreen(e) {
-	e.preventDefault();
-	e.stopImmediatePropagation();
+  e.preventDefault();
+  e.stopImmediatePropagation();
 
-	// avoid triggering when arrows are clicked very fast
-	if (e.target.closest(".splide__arrows")) return;
+  // avoid triggering when arrows are clicked very fast
+  if (e.target.closest(".splide__arrows")) return;
 
-	// get html elements
-	const modal = document.querySelector("#modal-splide");
-	const destination = modal.querySelector(".slider-container");
-	const target = e.target.closest(".slider").querySelector(".splide");
+  // get html elements
+  const modal = document.querySelector("#modal-splide");
+  const destination = modal.querySelector(".slider-container");
+  const target = e.target.closest(".slider").querySelector(".splide");
 
-	// modal before initSlider to change height on init
-	moveHtml(target, destination);
-	openModal(modal);
-	addImgFullscreenListeners();
+  // modal before initSlider to change height on init
+  moveHtml(target, destination);
+  openModal(modal);
+  addImgFullscreenListeners();
 
-	// get correct slider
-	let slider;
-	if (target.id == "splide-duene") {
-		slider = Sliders.duene;
-	} else if (target.id == "splide-moewe") {
-		slider = Sliders.moewe;
-	} else {
-		throw new TypeError("Slider ID unknown.");
-	}
+  // get correct slider
+  let slider;
+  if (target.id == "splide-duene") {
+    slider = Sliders.duene;
+  } else if (target.id == "splide-moewe") {
+    slider = Sliders.moewe;
+  } else {
+    throw new TypeError("Slider ID unknown.");
+  }
 
-	// reinit slider
-	if (!isEmpty(slider)) {
-		const index = slider.index;
-		slider.destroy();
-		initSlider(target.id, false, index);
-	}
+  // reinit slider
+  if (!isEmpty(slider)) {
+    const index = slider.index;
+    slider.destroy();
+    initSlider(target.id, false, index);
+  }
 }
 
 /**
@@ -269,66 +269,66 @@ export function openImgFullscreen(e) {
  * @returns {void}
  */
 export const closeImgFullscreen = (e) => {
-	// standard for touch events
-	if (e.touches) e.preventDefault();
+  // standard for touch events
+  if (e.touches) e.preventDefault();
 
-	// cover ESC press
-	if (e.type === "keyup" && e.key !== "Escape") return;
+  // cover ESC press
+  if (e.type === "keyup" && e.key !== "Escape") return;
 
-	// targets
-	if (e.target.closest(".content") && !e.target.closest(".close-button"))
-		return;
+  // targets
+  if (e.target.closest(".content") && !e.target.closest(".close-button"))
+    return;
 
-	// closing logic
-	const target = document.querySelector("#modal-splide .splide");
-	let destination, slider;
-	if (target.id == "splide-duene") {
-		slider = Sliders.duene;
-		destination = document.querySelector("#id-2 .slider-container");
-	} else if (target.id == "splide-moewe") {
-		destination = document.querySelector("#id-3 .slider-container");
-		slider = Sliders.moewe;
-	} else {
-		throw new TypeError("Slider ID unknown.");
-	}
+  // closing logic
+  const target = document.querySelector("#modal-splide .splide");
+  let destination, slider;
+  if (target.id == "splide-duene") {
+    slider = Sliders.duene;
+    destination = document.querySelector("#id-2 .slider-container");
+  } else if (target.id == "splide-moewe") {
+    destination = document.querySelector("#id-3 .slider-container");
+    slider = Sliders.moewe;
+  } else {
+    throw new TypeError("Slider ID unknown.");
+  }
 
-	moveHtml(target, destination);
+  moveHtml(target, destination);
 
-	// init again with cover settings
-	const index = slider.index;
-	slider.destroy();
-	initSlider(target.id, true, index);
+  // init again with cover settings
+  const index = slider.index;
+  slider.destroy();
+  initSlider(target.id, true, index);
 
-	window.scrollTo({
-		top:
-			slider.root.closest(".slider").getBoundingClientRect().top +
-			window.pageYOffset -
-			64,
-	});
+  window.scrollTo({
+    top:
+      slider.root.closest(".slider").getBoundingClientRect().top +
+      window.pageYOffset -
+      64,
+  });
 
-	removeImgFullscreenListeners();
+  removeImgFullscreenListeners();
 };
 
 function getCoords(el) {
-	const elem = document.querySelector(el);
-	// crossbrowser version
-	var box = elem.getBoundingClientRect();
+  const elem = document.querySelector(el);
+  // crossbrowser version
+  var box = elem.getBoundingClientRect();
 
-	var body = document.body;
-	var docEl = document.documentElement;
+  var body = document.body;
+  var docEl = document.documentElement;
 
-	var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
-	var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
+  var scrollTop = window.pageYOffset || docEl.scrollTop || body.scrollTop;
+  var scrollLeft = window.pageXOffset || docEl.scrollLeft || body.scrollLeft;
 
-	var clientTop = docEl.clientTop || body.clientTop || 0;
-	var clientLeft = docEl.clientLeft || body.clientLeft || 0;
+  var clientTop = docEl.clientTop || body.clientTop || 0;
+  var clientLeft = docEl.clientLeft || body.clientLeft || 0;
 
-	var top = box.top + scrollTop - clientTop;
-	var left = box.left + scrollLeft - clientLeft;
+  var top = box.top + scrollTop - clientTop;
+  var left = box.left + scrollLeft - clientLeft;
 
-	return Math.round(top);
+  return Math.round(top);
 
-	// return { top: Math.round(top), left: Math.round(left) };
+  // return { top: Math.round(top), left: Math.round(left) };
 }
 
 /**
@@ -336,10 +336,10 @@ function getCoords(el) {
  * @returns {void}
  */
 const addImgFullscreenListeners = () => {
-	setTimeout(() => {
-		document.addEventListener("click", closeImgFullscreen);
-		document.addEventListener("keyup", closeImgFullscreen);
-	}, 10);
+  setTimeout(() => {
+    document.addEventListener("click", closeImgFullscreen);
+    document.addEventListener("keyup", closeImgFullscreen);
+  }, 10);
 };
 
 /**
@@ -347,6 +347,6 @@ const addImgFullscreenListeners = () => {
  * @returns {void}
  */
 const removeImgFullscreenListeners = () => {
-	document.removeEventListener("click", closeImgFullscreen);
-	document.removeEventListener("keyup", closeImgFullscreen);
+  document.removeEventListener("click", closeImgFullscreen);
+  document.removeEventListener("keyup", closeImgFullscreen);
 };

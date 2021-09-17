@@ -9,7 +9,7 @@ import "../css/content.scss";
 import "../css/header.scss";
 import "../css/icons.scss";
 import "../css/section-map.scss";
-import "../css/section-footer.scss";
+import "../css/footer.scss";
 
 // ---------------------------------------------------
 // navigation
@@ -23,28 +23,28 @@ let prevScrollPos = window.pageYOffset;
  * @see throttle
  */
 const toggleNavOnScroll = () => {
-	const currentScrollPos = window.pageYOffset;
-	const headerL = document.querySelector("header .l");
-	const headerS = document.querySelector("header .s");
+  const currentScrollPos = window.pageYOffset;
+  const headerL = document.querySelector("header .l");
+  const headerS = document.querySelector("header .s");
 
-	// avoid closing if side nav is open
-	if (headerS.classList.contains("open")) return;
+  // avoid closing if side nav is open
+  if (headerS.classList.contains("open")) return;
 
-	// avoid equal case -> do nothing on init
-	if (prevScrollPos > currentScrollPos) {
-		if (window.innerWidth >= BP.n) {
-			headerL.style.top = 0;
-		} else {
-			headerS.style.right = "20px";
-		}
-	} else if (prevScrollPos < currentScrollPos) {
-		if (window.innerWidth >= BP.n) {
-			headerL.style.top = "calc(-1 * var(--header-height))";
-		} else {
-			headerS.style.right = "-60px";
-		}
-	}
-	prevScrollPos = currentScrollPos;
+  // avoid equal case -> do nothing on init
+  if (prevScrollPos > currentScrollPos) {
+    if (window.innerWidth >= BP.n) {
+      headerL.style.top = 0;
+    } else {
+      headerS.style.right = "20px";
+    }
+  } else if (prevScrollPos < currentScrollPos) {
+    if (window.innerWidth >= BP.n) {
+      headerL.style.top = "calc(-1 * var(--header-height))";
+    } else {
+      headerS.style.right = "-60px";
+    }
+  }
+  prevScrollPos = currentScrollPos;
 };
 
 // ---------------------------------------------------
@@ -52,32 +52,32 @@ const toggleNavOnScroll = () => {
 // ---------------------------------------------------
 
 export const toggleSmallMenu = () => {
-	const clHeader = document.querySelector("header .s").classList;
-	const clAside = document.querySelector("aside .nav-collapsed").classList;
-	if (clHeader.contains("open")) {
-		clHeader.remove("open");
-		clAside.remove("open");
-		removeSideNavListeners();
-	} else {
-		clHeader.add("open");
-		clAside.add("open");
-		addSideNavListeners();
-	}
+  const clHeader = document.querySelector("header .s").classList;
+  const clAside = document.querySelector("aside .nav-collapsed").classList;
+  if (clHeader.contains("open")) {
+    clHeader.remove("open");
+    clAside.remove("open");
+    removeSideNavListeners();
+  } else {
+    clHeader.add("open");
+    clAside.add("open");
+    addSideNavListeners();
+  }
 };
 
 const closeSideNav = (e) => {
-	if (e.touches) e.preventDefault();
-	const t = e.target;
+  if (e.touches) e.preventDefault();
+  const t = e.target;
 
-	// autoplay of landing slider triggered by click
-	if (t.closest(".splide__autoplay.hidden")) return;
+  // autoplay of landing slider triggered by click
+  if (t.closest(".splide__autoplay.hidden")) return;
 
-	// cover ESC press
-	if (e.type === "keyup" && e.key == "Escape") toggleSmallMenu();
+  // cover ESC press
+  if (e.type === "keyup" && e.key == "Escape") toggleSmallMenu();
 
-	// close if clicked next to nav or on link in nav
-	if (t.closest("main") || t.closest("footer") || t.closest("a.nav-link"))
-		toggleSmallMenu();
+  // close if clicked next to nav or on link in nav
+  if (t.closest("main") || t.closest("footer") || t.closest("a.nav-link"))
+    toggleSmallMenu();
 };
 
 /**
@@ -85,10 +85,10 @@ const closeSideNav = (e) => {
  * @returns {void}
  */
 const addSideNavListeners = () => {
-	setTimeout(() => {
-		document.addEventListener("click", closeSideNav);
-		document.addEventListener("keyup", closeSideNav);
-	}, 10);
+  setTimeout(() => {
+    document.addEventListener("click", closeSideNav);
+    document.addEventListener("keyup", closeSideNav);
+  }, 10);
 };
 
 /**
@@ -96,8 +96,8 @@ const addSideNavListeners = () => {
  * @returns {void}
  */
 const removeSideNavListeners = () => {
-	document.removeEventListener("click", closeSideNav);
-	document.removeEventListener("keyup", closeSideNav);
+  document.removeEventListener("click", closeSideNav);
+  document.removeEventListener("keyup", closeSideNav);
 };
 
 // ---------------------------------------------------
@@ -105,12 +105,12 @@ const removeSideNavListeners = () => {
 // ---------------------------------------------------
 
 export const setEventListenersNavs = () => {
-	// toggle side nav with button on small screens
-	document
-		.querySelector("header .s")
-		.addEventListener("click", toggleSmallMenu);
+  // toggle side nav with button on small screens
+  document
+    .querySelector("header .s")
+    .addEventListener("click", toggleSmallMenu);
 
-	window.addEventListener("scroll", throttle(toggleNavOnScroll, 100));
+  window.addEventListener("scroll", throttle(toggleNavOnScroll, 100));
 };
 
 // ---------------------------------------------------
@@ -118,9 +118,9 @@ export const setEventListenersNavs = () => {
 // ---------------------------------------------------
 
 document.addEventListener("DOMContentLoaded", () => {
-	setEventListenersNavs();
+  setEventListenersNavs();
 });
 
 window.addEventListener("load", () => {
-	removeLoadingMask();
+  removeLoadingMask();
 });

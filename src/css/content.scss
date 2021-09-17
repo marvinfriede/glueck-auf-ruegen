@@ -1,30 +1,30 @@
 @import "_breakpoints.scss";
 
 :root {
-	--white: #fff;
-	--gray1: #f3f3f3;
-	--gray2: #dee0e2;
-	--gray3: #cccccc;
-	--gray4: #c4c4c4;
-	--gray5: #6c757d;
-	--gray6: #343a40;
-	--gray7: #303030;
-	--blue1: #150734;
-	--blue2: #0f2557;
-	--blue3: #28559a;
-	--blue4: #3778c2;
-	--blue5: #4b9fe1;
-	--blue6: #63bce5;
-	--blue7: #7ed5ea;
-	--blue8: #cadbf5;
-	--blue9: #e1edff;
-	--black: #1e1e1e;
-	--danger: #dc3545;
-	--danger-bg: #fcecec;
-	--danger-border: #ebccd1;
+  --white: #fff;
+  --gray1: #f3f3f3;
+  --gray2: #dee0e2;
+  --gray3: #cccccc;
+  --gray4: #c4c4c4;
+  --gray5: #6c757d;
+  --gray6: #343a40;
+  --gray7: #303030;
+  --blue1: #150734;
+  --blue2: #0f2557;
+  --blue3: #28559a;
+  --blue4: #3778c2;
+  --blue5: #4b9fe1;
+  --blue6: #63bce5;
+  --blue7: #7ed5ea;
+  --blue8: #cadbf5;
+  --blue9: #e1edff;
+  --black: #1e1e1e;
+  --danger: #dc3545;
+  --danger-bg: #fcecec;
+  --danger-border: #ebccd1;
 }
 :root {
-	--font-fancy: "Dancing Script", cursive;
+  --font-fancy: "Dancing Script", cursive;
 }
 
 /*-------------------------------------------------
@@ -32,56 +32,56 @@
 --------------------------------------------------*/
 
 html {
-	scroll-behavior: smooth;
-	-ms-overflow-style: none; /* IE and Edge */
+  scroll-behavior: smooth;
+  -ms-overflow-style: none; /* IE and Edge */
 }
 
 .page-wrapper {
-	position: relative;
-	min-height: 100vh;
+  position: relative;
+  min-height: 100vh;
 }
 
 .separator {
-	background: transparent;
-	height: 70px;
-	width: 100%;
+  background: transparent;
+  height: 70px;
+  width: 100%;
 
-	@media (min-width: $bp-l) {
-		height: 90px;
-	}
-	@media (min-width: $bp-xxl) {
-		height: 110px;
-	}
+  @media (min-width: $bp-l) {
+    height: 90px;
+  }
+  @media (min-width: $bp-xxl) {
+    height: 110px;
+  }
 }
 
 sup {
-	font-size: var(--fs-s);
+  font-size: var(--fs-s);
 }
 
 .flex-push-to-right {
-	margin-left: auto !important;
+  margin-left: auto !important;
 }
 
 .hidden {
-	display: none !important;
+  display: none !important;
 }
 .visible {
-	visibility: visible !important;
+  visibility: visible !important;
 }
 .truncate {
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rotate90deg {
-	transform: rotateZ(90deg);
+  transform: rotateZ(90deg);
 }
 .rotate180deg {
-	transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 .rotate270deg {
-	transform: rotateZ(270deg);
+  transform: rotateZ(270deg);
 }
 
 /*-------------------------------------------------
@@ -89,24 +89,24 @@ sup {
 --------------------------------------------------*/
 
 .content {
-	display: -ms-flexbox !important;
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	margin-top: 0;
-	margin-right: auto;
-	margin-left: auto;
-	padding-left: 15px;
-	padding-right: 15px;
-	position: relative;
+  display: -ms-flexbox !important;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  margin-top: 0;
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  position: relative;
 }
 
 section.main .content .title {
-	border-bottom: solid 1px var(--blue3);
-	color: var(--blue2);
-	font-size: var(--fs-h);
-	padding: 1rem;
-	text-align: center;
+  border-bottom: solid 1px var(--blue3);
+  color: var(--blue2);
+  font-size: var(--fs-h);
+  padding: 1rem;
+  text-align: center;
 }
 
 /* ------------------------------------------------
@@ -114,39 +114,39 @@ section.main .content .title {
 ------------------------------------------------ */
 
 .has-max-width {
-	max-width: 90%;
+  max-width: 90%;
 }
 @media (min-width: $bp-s) {
-	.has-max-width {
-		max-width: calc(100% - 50px);
-	}
+  .has-max-width {
+    max-width: calc(100% - 50px);
+  }
 }
 @media (min-width: $bp-n) {
-	.has-max-width {
-		max-width: calc(100% - 70px);
-	}
+  .has-max-width {
+    max-width: calc(100% - 70px);
+  }
 }
 @media (min-width: $bp-l) {
-	.has-max-width {
-		max-width: calc(100% - 90px);
-	}
+  .has-max-width {
+    max-width: calc(100% - 90px);
+  }
 }
 @media (min-width: $bp-xl) {
-	.has-max-width {
-		max-width: 80%;
-	}
+  .has-max-width {
+    max-width: 80%;
+  }
 }
 
 /*-------------------------------------------------
 -------------------- warning ----------------------
 --------------------------------------------------*/
 .warning {
-	align-items: center;
-	background-color: var(--danger-bg);
-	display: flex;
-	height: 64px;
-	justify-content: center;
-	padding: 15px 10px;
-	text-align: center;
-	width: 100%;
+  align-items: center;
+  background-color: var(--danger-bg);
+  display: flex;
+  height: 64px;
+  justify-content: center;
+  padding: 15px 10px;
+  text-align: center;
+  width: 100%;
 }
