@@ -1,5 +1,6 @@
 import { Fade } from "./animations.js";
-import { BOOKED_DUENE, BOOKED_MOEWE } from "./data.js";
+import BOOKED_DUENE from "./data/booking-duene.js";
+import BOOKED_MOEWE from "./data/booking-moewe.js";
 import { dateDiff, dt, foreach, isInt, isStrEmpty } from "./utils-standard.js";
 import { openDropdown } from "./utils-project.js";
 

@@ -37,6 +37,9 @@ html {
 }
 
 .page-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
   position: relative;
   min-height: 100vh;
 }

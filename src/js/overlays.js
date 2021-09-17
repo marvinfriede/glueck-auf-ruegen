@@ -1,7 +1,7 @@
 import { Fade, showElement, hideElement } from "./animations.js";
 import { Calendar } from "./cal.js";
 import { ConstMissingException, DateError } from "./custom-errors.js";
-import { PRICES } from "./data.js";
+import PRICES from "./data/prices.js";
 import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
 
 // ------------------------------------------------------------------------
