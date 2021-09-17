@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "test": "jest",
     "prod": "webpack --config config.prod.js",
     "dev": "webpack-dashboard -- webpack-dev-server --config config.dev.js",
     "git": "git add . && git commit -m 'update' && git push -u origin master",
@@ -23,6 +24,7 @@
     "gh-pages": "^3.2.3",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
+    "jest": "^27.2.0",
     "less-loader": "^10.0.1",
     "mini-css-extract-plugin": "^2.2.2",
     "postcss-loader": "^6.1.1",

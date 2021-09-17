@@ -75,4 +75,4 @@ const BOOKED_DUENE = {
   },
 };
 
-export default BOOKED_DUENE;
+module.exports = BOOKED_DUENE;

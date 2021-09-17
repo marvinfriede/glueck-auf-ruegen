@@ -75,4 +75,4 @@ const BOOKED_MOEWE = {
   },
 };
 
-export default BOOKED_MOEWE;
+module.exports = BOOKED_MOEWE;

@@ -44,4 +44,4 @@ const PRICES = {
   sheets: 15,
 };
 
-export default PRICES;
+module.exports = PRICES;
