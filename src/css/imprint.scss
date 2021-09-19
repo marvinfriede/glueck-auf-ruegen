@@ -1,0 +1,61 @@
+@import "_breakpoints.scss";
+
+main > section.main {
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 0;
+    width: 100%;
+    gap: 40px;
+
+    @media (min-width: $bp-l) {
+      gap: 60px;
+    }
+    @media (min-width: $bp-xxl) {
+      gap: 80px;
+    }
+
+    .item {
+      > div {
+        width: 100%;
+        line-height: 25px;
+        text-align: justify;
+
+        @media (min-width: $bp-xs) {
+          line-height: 30px;
+        }
+        @media (min-width: $bp-s) {
+          line-height: 35px;
+        }
+        @media (min-width: $bp-n) {
+          line-height: 40px;
+        }
+        @media (min-width: $bp-l) {
+          line-height: 45px;
+        }
+        @media (min-width: $bp-xl) {
+          line-height: 50px;
+        }
+        @media (min-width: $bp-xxl) {
+          line-height: 55px;
+        }
+      }
+      > .bold {
+        font-weight: 700;
+      }
+      > .large {
+        font-size: var(--fs-L);
+      }
+      > .space-above {
+        margin-top: 30px;
+      }
+      > .space-below {
+        margin-bottom: 20px;
+      }
+
+      a {
+        margin-left: 5px;
+      }
+    }
+  }
+}

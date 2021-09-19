@@ -4,7 +4,7 @@
  */
 const PRICES = {
   // ------------------------------------------- //
-  // Preise und Zeiträume für FERIEMWOHNUNG DÜNE //
+  // Preise und Zeiträume für FERIENWOHNUNG DÜNE //
   // ------------------------------------------- //
   Düne: {
     2021: [

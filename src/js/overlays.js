@@ -211,8 +211,14 @@ const bookingPrices = (data) => {
   // error message date not in price list
   const house = data.house.value;
   if (
-    !PRICES[house].hasOwnProperty(dt(data.date.arvl.value).getUTCFullYear()) ||
-    !PRICES[house].hasOwnProperty(dt(data.date.arvl.value).getUTCFullYear())
+    !Object.hasOwnProperty.call(
+      PRICES[house],
+      dt(data.date.arvl.value).getUTCFullYear()
+    ) ||
+    !Object.hasOwnProperty.call(
+      PRICES[house],
+      dt(data.date.arvl.value).getUTCFullYear()
+    )
   ) {
     title.innerText =
       "Der Preis konnte nicht ermittelt werden, da wir für das ausgewählte Datum noch keine Preisliste hinterlegt haben. Generell ist davon auszugehen, dass die Preise ähnlich den bereits vorhandenen sein werden. Für Genaueres wenden Sie sich bitte direkt an uns.";
@@ -300,7 +306,7 @@ const bookingPrices = (data) => {
 
 const getPriceOfDate = (date, houseID) => {
   if (!PRICES) throw new ConstMissingException("Price list not defined");
-  if (!PRICES[houseID].hasOwnProperty(dt(date).getUTCFullYear()))
+  if (!Object.hasOwnProperty.call(PRICES[houseID], dt(date).getUTCFullYear()))
     throw new ConstMissingException("Prices for this year not defined.");
 
   const arr = PRICES[houseID][dt(date).getUTCFullYear()];

@@ -39,5 +39,8 @@
   },
   "dependencies": {
     "@splidejs/splide": "^2.4.21"
+  },
+  "jest": {
+    "verbose": true
   }
 }

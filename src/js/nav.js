@@ -9,6 +9,7 @@ import "../css/content.scss";
 import "../css/header.scss";
 import "../css/icons.scss";
 import "../css/section-map.scss";
+import "../css/imprint.scss";
 import "../css/footer.scss";
 
 // ---------------------------------------------------
