@@ -16,6 +16,7 @@
   "author": "marvinfriede",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/jest": "^27.0.2",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.2.0",

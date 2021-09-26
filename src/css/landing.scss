@@ -424,17 +424,13 @@ section.landing {
                 width: 30px;
 
                 @media (min-width: $bp-l) {
-                  height: 35px;
-                  width: 35px;
-                  animation: linear infinite alternate;
-                  animation-name: moving-arrow;
-                  animation-duration: 2s;
+                  -webkit-animation: moving-arrow 2s linear 0s infinite alternate;
+                  animation: moving-arrow 2s linear 0s infinite alternate;
                   display: block;
+                  height: 35px;
                   position: relative;
-                  -webkit-animation: linear infinite alternate;
-                  -webkit-animation-name: moving-arrow;
-                  -webkit-animation-duration: 2s;
                   transition: all 0.3s ease-in-out;
+                  width: 35px;
                 }
               }
             }
