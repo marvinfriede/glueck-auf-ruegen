@@ -28,35 +28,27 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/,
+        test: /\.html$/i,
         use: ["html-loader"],
         exclude: /node_modules/,
       },
       {
-        test: /\.(svgz?|png|jpe?g|gif)$/,
+        test: /\.(svgz?|png|jpe?g|gif)$/i,
         type: "asset/resource",
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
           "style-loader", // 2. inject styles into DOM
           "css-loader", // 1. translate css into commonjs
         ],
       },
       {
-        test: /\.scss$/i,
+        test: /\.s[ac]ss$/i,
         use: [
           "style-loader", // 3. inject styles into DOM
           "css-loader", // 2. turn css into commonjs
           "sass-loader", // 1. turn sass into css
-        ],
-      },
-      {
-        test: /\.less$/i,
-        use: [
-          "style-loader", // 3. inject styles into DOM
-          "css-loader", // 2. turn css into commonjs
-          "less-loader", // 1. turn less into css
         ],
       },
     ],

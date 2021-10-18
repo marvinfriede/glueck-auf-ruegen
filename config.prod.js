@@ -22,15 +22,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.html$/,
+        test: /\.html$/i,
         use: ["html-loader"],
       },
       {
-        test: /\.(svgz?|png|jpe?g|gif)$/,
+        test: /\.(svgz?|png|jpe?g|gif)$/i,
         type: "asset/resource",
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
           MiniCssExtractPlugin.loader, // 2. extract css into files
           "css-loader", // 1. translate css into commonjs
@@ -42,14 +42,6 @@ module.exports = {
           MiniCssExtractPlugin.loader, // 3. extract css into files
           "css-loader", // 2. turn css into commonjs
           "sass-loader", // 1. turn sass into css
-        ],
-      },
-      {
-        test: /\.less$/i,
-        use: [
-          MiniCssExtractPlugin.loader, // 3. extract css into files
-          "css-loader", // 2. turn css into commonjs
-          "less-loader", // 1. turn less into css
         ],
       },
     ],
