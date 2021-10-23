@@ -1,0 +1,89 @@
+{
+    "Düne":{
+        "2021":[
+            {
+                "begin":"2021/01/01", // 1. Januar
+                "end":"2021/01/03", // 3. Januar
+                "price":210
+            },
+            {
+                "begin":"2021/01/04", // 4. Januar
+                "end":"2021/03/31", // 31.März
+                "price":119
+            },
+            {
+                "begin":"2021/04/01", // 1. April
+                "end":"2021/05/31", // 31. Mai
+                "price":155
+            },
+            {
+                "begin":"2021/06/01", // 1. Juni
+                "end":"2021/09/12", // 12. September
+                "price":210
+            },
+            {
+                "begin":"2021/09/13", // 13. September
+                "end":"2021/10/31", // 31. Oktober
+                "price":155
+            },
+            {
+                "begin":"2021/11/01", // 1. November
+                "end":"2021/12/22", // 22. Dezember
+                "price":119
+            },
+            {
+                "begin":"2021/12/23", // 23. Dezember
+                "end":"2021/12/31", // 31. Dezember
+                "price":210
+            }
+        ],
+        "bed":0,
+        "cleaning":90
+    },
+    "Möwe":{
+        "2021":[
+            {
+                "begin":"2021/01/01", // 1. Januar
+                "end":"2021/01/03", // 3. Januar
+                "price":99
+            },
+            {
+                "begin":"2021/01/04", // 4. Januar
+                "end":"2021/03/31", // 31.März
+                "price":65
+            },
+            {
+                "begin":"2021/04/01", // 1. April
+                "end":"2021/05/31", // 31. Mai
+                "price":75
+            },
+            {
+                "begin":"2021/06/01", // 1. Juni
+                "end":"2021/09/12", // 12. September
+                "price":99
+            },
+            {
+                "begin":"2021/09/13", // 13. September
+                "end":"2021/10/31", // 31. Oktober
+                "price":75
+            },
+            {
+                "begin":"2021/11/01", // 1. November
+                "end":"2021/12/22", // 22. Dezember
+                "price":65
+            },
+            {
+                "begin":"2021/12/23", // 23. Dezember
+                "end":"2021/12/31", // 31. Dezember
+                "price":99
+            }
+        ],
+        "cleaning":110,
+        "bed":10
+    },
+    "dog":{
+        "night":10,
+        "cleaning":20
+    },
+    "sheets":15
+}

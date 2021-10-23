@@ -132,6 +132,10 @@ module.exports = {
             from: path.resolve(__dirname, "src/robots.txt"),
             to: "[name][ext]",
           },
+          {
+            from: path.resolve(__dirname, "src/data"),
+            to: "data",
+          },
         ],
       }),
     ],

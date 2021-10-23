@@ -1,7 +1,7 @@
 // import styles
 //import "../css/reset.css";
 import "../css/accordion.scss";
-import "../css/animations.css";
+import "../css/animations.scss";
 //import "../css/content.scss";
 //import "../css/header.scss";
 //import "../css/font.scss";
@@ -22,11 +22,7 @@ import "../css/tooltip.scss";
 // import javascript
 import { toggleAccordion } from "./accordion.js";
 import { Calendar } from "./cal.js";
-import {
-  initIntersectionObserver,
-  openImgFullscreen,
-  setHeights,
-} from "./slider.js";
+import { initIntersectionObserver, openImgFullscreen, setHeights } from "./slider.js";
 import { openBookingModal } from "./overlays.js";
 import { debounce, foreach } from "./utils-standard.js";
 import {
@@ -54,15 +50,9 @@ const setEventListeners = () => {
   });
 
   // dropdowns in booking modal
-  document
-    .querySelector("#select-house")
-    .addEventListener("click", openDropdown);
-  document
-    .querySelector("#select-guests")
-    .addEventListener("click", openDropdown);
-  document
-    .querySelector("#select-extras")
-    .addEventListener("click", openSelector);
+  document.querySelector("#select-house").addEventListener("click", openDropdown);
+  document.querySelector("#select-guests").addEventListener("click", openDropdown);
+  document.querySelector("#select-extras").addEventListener("click", openSelector);
 
   // jump to booking through buttons in price cards
   foreach(document.querySelectorAll("[data-target='booking']"), (btn) =>
@@ -70,9 +60,7 @@ const setEventListeners = () => {
   );
 
   // open booking modal
-  document
-    .querySelector("#contact")
-    .addEventListener("click", openBookingModal);
+  document.querySelector("#contact").addEventListener("click", openBookingModal);
 
   // animation for contact bar in booking modal
   foreach(document.querySelectorAll(".contact-panel--item"), (el) => {

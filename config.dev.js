@@ -89,6 +89,10 @@ module.exports = {
           from: path.resolve(__dirname, "src/img/sellin/*opt*"),
           to: "img/sellin/[name][ext]",
         },
+        {
+          from: path.resolve(__dirname, "src/data"),
+          to: "data",
+        },
       ],
     }),
     new DashboardPlugin(),

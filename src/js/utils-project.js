@@ -1,6 +1,25 @@
 import { foreach } from "./utils-standard.js";
 import { Fade, hideElement, showElement } from "./animations.js";
 import { Calendar } from "./cal.js";
+import stripJsonComments from "strip-json-comments";
+
+export const loadJsonData = (url) =>
+  new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.send();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        try {
+          const json = JSON.parse(stripJsonComments(xhr.responseText));
+          return resolve(json);
+        } catch (err) {
+          return reject(err);
+        }
+      }
+    };
+  });
 
 // ---------------------------------------------------
 // drowdowns
@@ -229,8 +248,7 @@ export const scaleGrids = () => {
     for (let i = 0; i < items.length; i++) {
       if (
         Math.abs(
-          items[i].getBoundingClientRect().y -
-            items[i + 1].getBoundingClientRect().y
+          items[i].getBoundingClientRect().y - items[i + 1].getBoundingClientRect().y
         ) < 5
       ) {
         factor += 1;
@@ -256,8 +274,7 @@ export const scaleGrids = () => {
     }
 
     // calculate padding to make grid centered
-    const padding =
-      (grid.offsetWidth / factor - longest.offsetWidth) * 0.5 + "px";
+    const padding = (grid.offsetWidth / factor - longest.offsetWidth) * 0.5 + "px";
     foreach(items, (item) => (item.style.marginLeft = padding));
   });
 };

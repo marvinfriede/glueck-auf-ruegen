@@ -20,17 +20,14 @@ export const foreachKey = (list, cb) => Object.keys(list).forEach(cb);
  * @returns {Boolean}
  */
 export const isInt = (value) =>
-  !isNaN(value) &&
-  parseInt(Number(value)) == value &&
-  !isNaN(parseInt(value, 10));
+  !isNaN(value) && parseInt(Number(value)) == value && !isNaN(parseInt(value, 10));
 
 /**
  * Set a timeout.
  * @param {Number} ms length of timeout in milliseconds
  * @returns {Promise}
  */
-export const timeout = (ms) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+export const timeout = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // --------------------------------------------------------
 // string manipulation
@@ -73,8 +70,7 @@ export const splitStringAtLastOcc = (haystack, needle, idx = 1) => {
  * @returns {string} desired substring or null on error
  */
 export const splitStringBetweenTwoChars = (haystack, char1, char2) => {
-  if (haystack.indexOf(char1) == -1 || haystack.indexOf(char2) == -1)
-    return haystack;
+  if (haystack.indexOf(char1) == -1 || haystack.indexOf(char2) == -1) return haystack;
   return haystack.substring(
     haystack.indexOf(char1) + char1.length,
     haystack.lastIndexOf(char2)
@@ -188,10 +184,7 @@ export const dt = (initDate) => {
 
   // if initDate specifies a timezone offset, or is already UTC,
   // just keep the date part, reflecting the date _in that timezone_
-  if (
-    typeof initDate === "string" &&
-    initDate.match(/((\+|-)\d{2}:\d{2}|Z)$/gm)
-  ) {
+  if (typeof initDate === "string" && initDate.match(/((\+|-)\d{2}:\d{2}|Z)$/gm)) {
     utcMidnightDateObj = new Date(initDate.substring(0, 10) + "T00:00:00Z");
   } else {
     // if initDate is no date object, feed it to the date constructor.

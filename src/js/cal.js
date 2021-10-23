@@ -1,8 +1,6 @@
 import { Fade } from "./animations.js";
-import BOOKED_DUENE from "./data/booking-duene.js";
-import BOOKED_MOEWE from "./data/booking-moewe.js";
 import { dateDiff, dt, foreach, isInt, isStrEmpty } from "./utils-standard.js";
-import { openDropdown } from "./utils-project.js";
+import { loadJsonData, openDropdown } from "./utils-project.js";
 
 export const Calendar = {
   cal: document.querySelector(".cal-wrap"),
@@ -25,17 +23,23 @@ export const Calendar = {
   date: new Date(), // this date is altered
   today: new Date(), // today's actual date
 
-  init: function (options = { disablePastDays: true, markToday: true }) {
+  init: async function (options = { disablePastDays: true, markToday: true }) {
+    try {
+      this.BOOKED_MOEWE = await loadJsonData("data/booking-moewe.txt");
+      this.BOOKED_DUENE = await loadJsonData("data/booking-duene.txt");
+    } catch (err) {
+      console.error(`Loading booking data failed with: ${err}.`);
+    }
     this.opts = options;
-    this.booked = BOOKED_DUENE; // duene is standard on init
+    this.booked = this.BOOKED_DUENE; // duene is standard on init
     this.date.setDate(1); // set date to first day of month
     this.createMonth();
     this.createListeners();
 
-    document.querySelector("#select-month .selection").innerText =
-      this.getMonthAsString(this.date.getMonth());
-    document.querySelector("#select-year .selection").innerText =
-      this.date.getFullYear();
+    document.querySelector("#select-month .selection").innerText = this.getMonthAsString(
+      this.date.getMonth()
+    );
+    document.querySelector("#select-year .selection").innerText = this.date.getFullYear();
 
     this.arvl.input.value = "";
     this.dprt.input.value = "";
@@ -44,23 +48,15 @@ export const Calendar = {
   createListeners: function () {
     const _this = this;
 
-    document
-      .querySelector(".cal-header__btn.next")
-      .addEventListener("click", (e) => {
-        _this.update("month", _this.date.getMonth() + 1);
-      });
-    document
-      .querySelector(".cal-header__btn.prev")
-      .addEventListener("click", (e) => {
-        _this.update("month", _this.date.getMonth() - 1);
-      });
+    document.querySelector(".cal-header__btn.next").addEventListener("click", (e) => {
+      _this.update("month", _this.date.getMonth() + 1);
+    });
+    document.querySelector(".cal-header__btn.prev").addEventListener("click", (e) => {
+      _this.update("month", _this.date.getMonth() - 1);
+    });
 
-    document
-      .querySelector("#select-month")
-      .addEventListener("click", openDropdown);
-    document
-      .querySelector("#select-year")
-      .addEventListener("click", openDropdown);
+    document.querySelector("#select-month").addEventListener("click", openDropdown);
+    document.querySelector("#select-year").addEventListener("click", openDropdown);
 
     // opening and closing the Calendar
     this.arvl.input.addEventListener("click", (e) => {
@@ -153,9 +149,7 @@ export const Calendar = {
 
     // apply styling
     if (!applyStyling) return;
-    el.closest(".cal-main__date.cal-main__date--active").classList.add(
-      targetClass
-    );
+    el.closest(".cal-main__date.cal-main__date--active").classList.add(targetClass);
     el.setAttribute("data-date-for", id2);
     el.setAttribute("data-has-type", true);
   },
@@ -194,8 +188,7 @@ export const Calendar = {
     }
 
     // active set, other empty
-    if (!isStrEmpty(this.activeInp.value) && isStrEmpty(other.value))
-      return true;
+    if (!isStrEmpty(this.activeInp.value) && isStrEmpty(other.value)) return true;
 
     // convert date string to int
     const arvlDayInt = dt(arvlDate).toInt();
@@ -320,8 +313,8 @@ export const Calendar = {
 
     this.booked =
       document.querySelector("#select-house").dataset.value == "Möwe"
-        ? BOOKED_MOEWE
-        : BOOKED_DUENE;
+        ? this.BOOKED_MOEWE
+        : this.BOOKED_DUENE;
 
     this.clear();
     this.createMonth();
@@ -356,8 +349,7 @@ export const Calendar = {
     // print current month and year in header
     document.querySelector("#select-month .selection").innerText =
       this.getMonthAsString(currMonth);
-    document.querySelector("#select-year .selection").innerText =
-      this.date.getFullYear();
+    document.querySelector("#select-year .selection").innerText = this.date.getFullYear();
   },
 
   createDay: function (day) {
@@ -387,8 +379,7 @@ export const Calendar = {
       div.classList.add("cal-main__date--today");
 
     if (
-      (this.opts.disablePastDays &&
-        this.date.getTime() <= this.today.getTime() - 1) ||
+      (this.opts.disablePastDays && this.date.getTime() <= this.today.getTime() - 1) ||
       (this.booked[year] && this.booked[year][month].indexOf(dayNum) > -1)
     ) {
       div.classList.add("cal-main__date--disabled");

@@ -1,8 +1,8 @@
 import { Fade, showElement, hideElement } from "./animations.js";
 import { Calendar } from "./cal.js";
 import { ConstMissingException, DateError } from "./custom-errors.js";
-import PRICES from "./data/prices.js";
 import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
+import { loadJsonData } from "./utils-project.js";
 
 // ------------------------------------------------------------------------
 // modal
@@ -53,8 +53,7 @@ const closeModal = (e) => {
   if (e.type === "keyup" && e.key !== "Escape") return;
 
   // targets
-  if (e.target.closest(".content") && !e.target.closest(".close-button"))
-    return;
+  if (e.target.closest(".content") && !e.target.closest(".close-button")) return;
 
   // actual closing function
   closeModalManually();
@@ -97,12 +96,10 @@ export const openBookingModal = () => {
       },
       extras: {
         from: document.querySelector("#select-extras .selection"),
-        dog: document.querySelector("#select-extras [data-name=dog]").dataset
+        dog: document.querySelector("#select-extras [data-name=dog]").dataset.selected,
+        sheets: document.querySelector("#select-extras [data-name=sheets]").dataset
           .selected,
-        sheets: document.querySelector("#select-extras [data-name=sheets]")
-          .dataset.selected,
-        bed: document.querySelector("#select-extras [data-name=bed]").dataset
-          .selected,
+        bed: document.querySelector("#select-extras [data-name=bed]").dataset.selected,
         to: document.querySelector("#data-extras .selector"),
       },
       date: {
@@ -151,9 +148,9 @@ const bookingFillDate = (data) => {
     const dprtLocale = dt(data.date.dprt.value).toLocaleDateString();
 
     // create subject and body of mail
-    const subject = `Buchung ${sanitizeHTML(
-      data.house.value
-    )} vom ${sanitizeHTML(arvlLocale)} bis ${sanitizeHTML(dprtLocale)}`;
+    const subject = `Buchung ${sanitizeHTML(data.house.value)} vom ${sanitizeHTML(
+      arvlLocale
+    )} bis ${sanitizeHTML(dprtLocale)}`;
     const body = `Sehr geehrte Familie Wolf,
 		
 		...
@@ -182,7 +179,7 @@ const bookingFillDate = (data) => {
     data.date.arvl.to.innerText = "Nichts ausgewählt.";
   }
 };
-const bookingPrices = (data) => {
+const bookingPrices = async (data) => {
   const title = document.querySelector(".modal .pricing .title");
   const stays = document.querySelector(".pricing [data-id='stays']");
   const cleaning = document.querySelector(".pricing [data-id='cleaning']");
@@ -190,6 +187,27 @@ const bookingPrices = (data) => {
   const extra2 = document.querySelector(".pricing [data-id='extra-2']");
   const extra3 = document.querySelector(".pricing [data-id='extra-3']");
   const sum = document.querySelector(".pricing [data-id='sum']");
+
+  let PRICES;
+  try {
+    PRICES = await loadJsonData("data/prices.txt");
+    console.log("loaded");
+  } catch (err) {
+    console.error(`Loading booking data failed with: ${err}.`);
+    title.innerText =
+      "Preise konnten aufgrund eines internen Fehlers nicht ermittelt werden.";
+
+    // hide all elements for pricing
+    hideElement(stays);
+    hideElement(cleaning);
+    hideElement(extra1);
+    hideElement(extra2);
+    hideElement(extra3);
+    hideElement(sum);
+
+    // do nothing further
+    return;
+  }
 
   // error message if no date is set
   if (!data.date.arvl.value || !data.date.dprt.value) {
@@ -215,10 +233,7 @@ const bookingPrices = (data) => {
       PRICES[house],
       dt(data.date.arvl.value).getUTCFullYear()
     ) ||
-    !Object.hasOwnProperty.call(
-      PRICES[house],
-      dt(data.date.arvl.value).getUTCFullYear()
-    )
+    !Object.hasOwnProperty.call(PRICES[house], dt(data.date.arvl.value).getUTCFullYear())
   ) {
     title.innerText =
       "Der Preis konnte nicht ermittelt werden, da wir für das ausgewählte Datum noch keine Preisliste hinterlegt haben. Generell ist davon auszugehen, dass die Preise ähnlich den bereits vorhandenen sein werden. Für Genaueres wenden Sie sich bitte direkt an uns.";
@@ -248,7 +263,7 @@ const bookingPrices = (data) => {
     priceNights = 0;
   let i;
   for (i = 0; i < numStays; i++) {
-    priceOfDay = getPriceOfDate(date, house);
+    priceOfDay = getPriceOfDate(date, house, PRICES);
     priceNights += priceOfDay;
 
     // set date to next day
@@ -304,12 +319,12 @@ const bookingPrices = (data) => {
   showElement(sum);
 };
 
-const getPriceOfDate = (date, houseID) => {
-  if (!PRICES) throw new ConstMissingException("Price list not defined");
-  if (!Object.hasOwnProperty.call(PRICES[houseID], dt(date).getUTCFullYear()))
+const getPriceOfDate = (date, houseID, prices) => {
+  if (!prices) throw new ConstMissingException("Price list not defined");
+  if (!Object.hasOwnProperty.call(prices[houseID], dt(date).getUTCFullYear()))
     throw new ConstMissingException("Prices for this year not defined.");
 
-  const arr = PRICES[houseID][dt(date).getUTCFullYear()];
+  const arr = prices[houseID][dt(date).getUTCFullYear()];
   date = dt(date).toInt();
 
   let begin, end, i;

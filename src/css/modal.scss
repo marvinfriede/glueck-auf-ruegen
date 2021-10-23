@@ -151,7 +151,7 @@
           .price {
             padding-left: 10px;
 
-            &total {
+            &.total {
               border-top: 1px solid var(--blue3);
               font-size: var(--fs-l);
               padding-top: 15px;
@@ -233,8 +233,8 @@
       align-items: center;
       background-color: var(--danger);
       border: 2px solid var(--black);
-      box-shadow: 0 6px 10px 0 rgba(33, 33, 33, 0.14),
-        0 1px 18px 0 rgba(33, 33, 33, 0.06), 0 3px 10px 0 rgba(33, 33, 33, 0.1);
+      box-shadow: 0 6px 10px 0 rgba(33, 33, 33, 0.14), 0 1px 18px 0 rgba(33, 33, 33, 0.06),
+        0 3px 10px 0 rgba(33, 33, 33, 0.1);
       border-radius: 50%;
       cursor: pointer;
       display: flex;
