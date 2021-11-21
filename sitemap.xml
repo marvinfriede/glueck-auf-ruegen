@@ -2,26 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:content="http://www.google.com/schemas/sitemap-content/1.0">
   <url>
-    <loc>https://marvinfriede.github.io/glueck-auf-ruegen/</loc>
-    <lastmod>2021-09-17</lastmod>
+    <loc>https://www.glueck-auf-ruegen.de</loc>
+    <lastmod>2021-11-21</lastmod>
     <priority>1.0</priority>
     <PageMap xmlns="http://www.google.com/schemas/sitemap-pagemap/1.0">
       <DataObject type="document">
         <Attribute name="title">Glück auf Rügen - Ferienwohnungen im Ostseebad Sellin</Attribute>
         <Attribute name="author">Marvin Friede</Attribute>
-        <Attribute name="description">Urlaub im Ostseebad Sellin bei Familie Wolf. Wir bieten Ihnen eine moderne Ferienwohnung für bis zu 6 Personen (+Kind) auf 117m² mit 3 Schlafzimmern, 2 Bädern und Balkon sowie ein komfortables Bungalow für 2 Personen (+Kind) auf 64 m². Es gibt einen gemeinsamen Garten, WLAN und Parkplätze.</Attribute>
+        <Attribute name="description">Urlaub im Ostseebad Sellin bei Familie Wolf. Wir bieten Ihnen eine moderne Ferienwohnung (117m²) für bis zu 6 Personen (+Kind) mit 3 Schlafzimmern, 2 Bädern und Balkon sowie ein komfortables Bungalow (64 m²) für 2 Personen (+Kind). Es gibt einen gemeinsamen Garten, WLAN und Parkplätze.</Attribute>
         <Attribute name="page_count">3</Attribute>
       </DataObject>
     </PageMap>
   </url>
   <url>
-    <loc>https://marvinfriede.github.io/glueck-auf-ruegen/impressum.html</loc>
-    <lastmod>2021-09-17</lastmod>
+    <loc>https://www.glueck-auf-ruegen.de/impressum.html</loc>
+    <lastmod>2021-11-21</lastmod>
     <priority>0.0</priority>
   </url>
   <url>
-    <loc>https://marvinfriede.github.io/glueck-auf-ruegen/datenschutz.html</loc>
-    <lastmod>2021-09-17</lastmod>
+    <loc>https://www.glueck-auf-ruegen.de/datenschutz.html</loc>
+    <lastmod>2021-11-21</lastmod>
     <priority>0.0</priority>
   </url>
 </urlset>
