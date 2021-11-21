@@ -34,6 +34,7 @@ import {
   scaleGrids,
   showContact,
 } from "./utils-project";
+import Pricelist from "./pricelist";
 
 // ---------------------------------------------------
 // event listeners and handlers
@@ -93,6 +94,24 @@ const handleWindowResize = () => {
   setHeights();
 };
 
+const initPrices = async () => {
+  try {
+    const p = new Pricelist();
+    await p.loadData();
+
+    const moewe = p;
+    const duene = p;
+
+    // print stuff in price cards
+    duene.hookPriceCard("duene");
+    duene.run();
+    moewe.hookPriceCard("moewe");
+    moewe.run();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 // ---------------------------------------------------
 // init
 // ---------------------------------------------------
@@ -100,6 +119,7 @@ const handleWindowResize = () => {
 document.addEventListener("DOMContentLoaded", () => {
   setEventListeners();
   initIntersectionObserver();
+  initPrices();
   Calendar.init();
 });
 window.addEventListener("load", () => {

@@ -77,6 +77,13 @@ export const splitStringBetweenTwoChars = (haystack, char1, char2) => {
   );
 };
 
+/**
+ * Capitalize first letter of word.
+ * @param {string} str
+ * @returns {string}
+ */
+export const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
 // --------------------------------------------------------
 // Check if empty
 // --------------------------------------------------------

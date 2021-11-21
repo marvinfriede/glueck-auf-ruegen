@@ -17,6 +17,8 @@ export const loadJsonData = (url) =>
         } catch (err) {
           return reject(err);
         }
+      } else if (xhr.status == 404) {
+        return reject(xhr);
       }
     };
   });
