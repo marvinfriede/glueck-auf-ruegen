@@ -15,6 +15,103 @@
     user-select: none;
     width: auto;
 
+    .splide__arrows {
+      .splide__arrow {
+        height: 1.5em;
+        width: 1.5em;
+
+        @media (min-width: $bp-xs) {
+          height: 1.6em;
+          width: 1.6em;
+        }
+        @media (min-width: $bp-s) {
+          height: 1.7em;
+          width: 1.7em;
+        }
+        @media (min-width: $bp-n) {
+          height: 1.9em;
+          width: 1.9em;
+        }
+        @media (min-width: $bp-l) {
+          height: 2.1em;
+          width: 2.1em;
+        }
+        @media (min-width: $bp-xl) {
+          height: 2.3em;
+          width: 2.3em;
+        }
+        @media (min-width: $bp-xl) {
+          height: 2.5em;
+          width: 2.5em;
+        }
+
+        &.splide__arrow--prev {
+          left: 0.5em;
+
+          @media (min-width: $bp-xs) {
+            left: 0.6em;
+          }
+          @media (min-width: $bp-s) {
+            left: 0.8em;
+          }
+          @media (min-width: $bp-n) {
+            left: 0.9em;
+          }
+          @media (min-width: $bp-xl) {
+            left: 1.2em;
+          }
+          @media (min-width: $bp-xxl) {
+            left: 1.4em;
+          }
+        }
+        &.splide__arrow--next {
+          right: 0.5em;
+
+          @media (min-width: $bp-xs) {
+            right: 0.6em;
+          }
+          @media (min-width: $bp-s) {
+            right: 0.8em;
+          }
+          @media (min-width: $bp-n) {
+            right: 0.9em;
+          }
+          @media (min-width: $bp-xl) {
+            right: 1.2em;
+          }
+          @media (min-width: $bp-xxl) {
+            right: 1.4em;
+          }
+        }
+
+        svg {
+          width: 0.7em;
+          height: 0.7em;
+
+          @media (min-width: $bp-xs) {
+            height: 0.8em;
+            width: 0.8em;
+          }
+          @media (min-width: $bp-s) {
+            height: 0.9em;
+            width: 0.9em;
+          }
+          @media (min-width: $bp-n) {
+            height: 1em;
+            width: 1em;
+          }
+          @media (min-width: $bp-xl) {
+            height: 1.2em;
+            width: 1.2em;
+          }
+          @media (min-width: $bp-xl) {
+            height: 1.4em;
+            width: 1.4em;
+          }
+        }
+      }
+    }
+
     .splide__slide {
       img {
         height: 100%;
@@ -50,14 +147,56 @@
       cursor: pointer;
     }
 
-    .splide__arrow--next.outside {
-      right: -2.5em;
-    }
-    .splide__arrow--prev.outside {
-      left: -2.5em;
-    }
-    .splide__arrow.transparent {
-      background-color: transparent;
+    .splide__arrow {
+      height: 1.5em;
+      width: 1.5em;
+
+      @media (min-width: $bp-s) {
+        height: 1.7em;
+        width: 1.7em;
+      }
+      @media (min-width: $bp-n) {
+        height: 2em;
+        width: 2em;
+      }
+
+      svg {
+        height: 1em;
+        width: 1em;
+
+        @media (min-width: $bp-s) {
+          height: 1.2em;
+          width: 1.2em;
+        }
+        @media (min-width: $bp-n) {
+          height: 1.4em;
+          width: 1.4em;
+        }
+      }
+
+      &.splide__arrow--next.outside {
+        right: -2.3em;
+
+        @media (min-width: $bp-s) {
+          right: -2.5em;
+        }
+        @media (min-width: $bp-n) {
+          right: -2.7em;
+        }
+      }
+      &.splide__arrow--prev.outside {
+        left: -2.3em;
+
+        @media (min-width: $bp-s) {
+          left: -2.5em;
+        }
+        @media (min-width: $bp-n) {
+          left: -2.7em;
+        }
+      }
+      &.splide__arrow.transparent {
+        background-color: transparent;
+      }
     }
   }
 
@@ -107,52 +246,4 @@ section.landing .slider-wrap {
 
 .splide--nav > .splide__track > .splide__list > .splide__slide.is-active {
   border-radius: 5px;
-}
-
-@media (max-width: $bp-s) {
-  .splide__arrow {
-    height: 1.2em;
-    width: 1.2em;
-  }
-  .splide__arrow--next {
-    right: 0.6em;
-  }
-  .splide__arrow--prev {
-    left: 0.6em;
-  }
-  .splide__arrow svg {
-    height: 0.7em;
-    width: 0.7em;
-  }
-
-  .splide__arrow--next.outside {
-    right: -2em;
-  }
-  .splide__arrow--prev.outside {
-    left: -2em;
-  }
-}
-
-@media (max-width: $bp-n) {
-  .splide__arrow {
-    height: 1.6em;
-    width: 1.6em;
-  }
-  .splide__arrow--next {
-    right: 0.8em;
-  }
-  .splide__arrow--prev {
-    left: 0.8em;
-  }
-  .splide__arrow svg {
-    height: 0.9em;
-    width: 0.9em;
-  }
-
-  .splide__arrow--next.outside {
-    right: -2.2em;
-  }
-  .splide__arrow--prev.outside {
-    left: -2.2em;
-  }
 }
