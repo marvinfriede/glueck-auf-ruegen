@@ -186,7 +186,7 @@
             }
         ],
         "bed":0,
-        "cleaning":90
+        "cleaning":159
     },
     "Möwe":{
         "2021":[
@@ -374,12 +374,12 @@
                 "price":99
             }
         ],
-        "cleaning":110,
+        "cleaning":90,
         "bed":10
     },
     "dog":{
         "night":10,
         "cleaning":20
     },
-    "sheets":15
+    "sheets":20
 }
