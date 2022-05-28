@@ -1,4 +1,8 @@
 // import styles
+
+// first import (hidden required) 
+import "../css/content.scss";
+
 //import "../css/reset.css";
 import "../css/accordion.scss";
 import "../css/animations.scss";
@@ -18,6 +22,9 @@ import "../css/section-pricing.scss";
 import "../css/section-slider.scss";
 import "../css/section-welcome.scss";
 import "../css/tooltip.scss";
+
+// last import
+import "../css/html.scss"
 
 // import javascript
 import { toggleAccordion } from "./accordion.js";

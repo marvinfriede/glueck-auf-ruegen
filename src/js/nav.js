@@ -3,9 +3,9 @@ import { throttle } from "./utils-standard.js";
 import { removeLoadingMask } from "./loading-mask.js";
 
 import "../css/reset.css";
+import "../css/content.scss";
 import "../css/loading-mask.scss";
 import "../css/font.scss";
-import "../css/content.scss";
 import "../css/header.scss";
 import "../css/icons.scss";
 import "../css/section-map.scss";

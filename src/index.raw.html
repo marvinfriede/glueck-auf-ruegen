@@ -56,9 +56,22 @@
       content="Urlaub im Ostseebad Sellin bei Familie Wolf. Wir bieten Ihnen eine moderne Ferienwohnung (117m²) für bis zu 6 Personen (+Kind) mit 3 Schlafzimmern, 2 Bädern und Balkon sowie ein komfortables Bungalow (64 m²) für 2 Personen (+Kind). Es gibt einen gemeinsamen Garten, WLAN und Parkplätze."
     />
 
+    <!-- Hide HTML to avoid FOUC -->
+    <style>
+      html {
+        visibility: hidden;
+        opacity: 0;
+      }
+    </style>
+
     <noscript>
       Diese Website benötigt JavaScript, um fehlerfrei zu funktionieren.
       <style>
+        html {
+          visibility: visible;
+          opacity: 1;
+        }
+
         body {
           align-items: center;
           display: flex;
@@ -223,7 +236,7 @@
           <div class="side-nav--logo">
             <a href="./">
               <div class="icon l symbol">
-                <img src="img/favicon/favicon.png" alt="Home" loading="lazy" />
+                <img src="img/favicon/favicon.128.png" alt="Home" loading="lazy" />
               </div>
             </a>
           </div>
@@ -245,7 +258,7 @@
                     <div class="nav-item">
                       <a class="nav-link" href="./">
                         <div class="icon symbol">
-                          <img src="img/favicon/favicon.png" alt="Home" loading="lazy" />
+                          <img src="img/favicon/favicon.128.png" alt="Home" loading="lazy" />
                         </div>
                       </a>
                     </div>
