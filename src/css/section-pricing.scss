@@ -196,7 +196,7 @@ section.main #id-5 {
             outline: 0;
             overflow: hidden;
             padding: 15px 25px;
-            width: 50%;
+            min-width: 50%;
             text-transform: uppercase;
             transition: all 0.5s ease-in-out;
             z-index: 40;
