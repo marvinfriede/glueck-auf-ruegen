@@ -39,7 +39,8 @@
   },
   "dependencies": {
     "@splidejs/splide": "^3.6.12",
-    "strip-json-comments": "^4.0.0"
+    "strip-json-comments": "^4.0.0",
+    "xmlhttprequest": "^1.8.0"
   },
   "jest": {
     "verbose": true

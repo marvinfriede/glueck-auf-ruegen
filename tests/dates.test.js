@@ -1,67 +1,95 @@
-const BOOKED_DUENE = require("../src/js/data/booking-duene.js");
-const BOOKED_MOEWE = require("../src/js/data/booking-moewe.js");
+const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+const loadJsonData = (url) =>
+  new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.send();
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        try {
+          const json = JSON.parse(stripJsonComments(xhr.responseText));
+          return resolve(json);
+        } catch (err) {
+          return reject(err);
+        }
+      } else if (xhr.status == 404) {
+        return reject(xhr);
+      }
+    };
+  });
+
 let counter, i;
 
 describe("Testing booking dates for DÜNE", () => {
-  // loop through years
-  for (const year in BOOKED_DUENE) {
-    if (Object.hasOwnProperty.call(BOOKED_DUENE, year)) {
-      const yearObj = BOOKED_DUENE[year];
+  it("async parent", async () => {
+    const BOOKED_DUENE = await loadJsonData("../data/booking-duene.txt");
 
-      // test each year
-      test(`Test year ${year}`, () => {
-        // loop through months to get days
+    // loop through years
+    for (const year in BOOKED_DUENE) {
+      if (Object.hasOwnProperty.call(BOOKED_DUENE, year)) {
+        const yearObj = BOOKED_DUENE[year];
 
-        counter = 1;
-        for (const month in yearObj) {
-          // check if all 12 months present
-          expect(parseInt(month)).toBe(counter);
+        // test each year
+        test(`Test year ${year}`, () => {
+          // loop through months to get days
 
-          if (Object.hasOwnProperty.call(yearObj, month)) {
-            const days = yearObj[month];
-            const numDays = days.length;
-            if (numDays !== 0) {
-              for (i = 0; i < numDays; i++) {
-                // check if largest day is 31
-                expect(days[i]).toBeLessThan(32);
+          counter = 1;
+          for (const month in yearObj) {
+            // check if all 12 months present
+            expect(parseInt(month)).toBe(counter);
+
+            if (Object.hasOwnProperty.call(yearObj, month)) {
+              const days = yearObj[month];
+              const numDays = days.length;
+              if (numDays !== 0) {
+                for (i = 0; i < numDays; i++) {
+                  // check if largest day is 31
+                  expect(days[i]).toBeLessThan(32);
+                }
               }
             }
+            counter += 1;
           }
-          counter += 1;
-        }
-      });
+        });
+      }
     }
-  }
+  });
 });
 
 describe("Testing booking dates for MÖWE", () => {
-  // loop through years
-  for (const year in BOOKED_MOEWE) {
-    if (Object.hasOwnProperty.call(BOOKED_MOEWE, year)) {
-      const yearObj = BOOKED_MOEWE[year];
+  it("async parent", async () => {
+    const BOOKED_MOEWE = await loadJsonData("../data/booking-moewe.txt");
 
-      // test each year
-      test(`Test year ${year}`, () => {
-        // loop through months to get days
+    // loop through years
+    for (const year in BOOKED_MOEWE) {
+      if (Object.hasOwnProperty.call(BOOKED_MOEWE, year)) {
+        const yearObj = BOOKED_MOEWE[year];
 
-        counter = 1;
-        for (const month in yearObj) {
-          // check if all 12 months present
-          expect(parseInt(month)).toBe(counter);
+        // test each year
+        test(`Test year ${year}`, () => {
+          // loop through months to get days
 
-          if (Object.hasOwnProperty.call(yearObj, month)) {
-            const days = yearObj[month];
-            const numDays = days.length;
-            if (numDays !== 0) {
-              for (i = 0; i < numDays; i++) {
-                // check if largest day is 31
-                expect(days[i]).toBeLessThan(32);
+          counter = 1;
+          for (const month in yearObj) {
+            // check if all 12 months present
+            expect(parseInt(month)).toBe(counter);
+
+            if (Object.hasOwnProperty.call(yearObj, month)) {
+              const days = yearObj[month];
+              const numDays = days.length;
+              if (numDays !== 0) {
+                for (i = 0; i < numDays; i++) {
+                  // check if largest day is 31
+                  expect(days[i]).toBeLessThan(32);
+                }
               }
             }
+            counter += 1;
           }
-          counter += 1;
-        }
-      });
+        });
+      }
     }
-  }
+  });
 });
