@@ -89,10 +89,7 @@ export const Calendar = {
     // buttons in footer
     if (el.classList.contains("cal-footer--button")) {
       if (el.id == "cal-clear") {
-        this.calDayStyling(this.arvl.node, "cal-main__date--arrival", false);
-        this.calDayStyling(this.dprt.node, "cal-main__date--departure", false);
-        this.clearInput(this.arvl.input, this.arvl.node);
-        this.clearInput(this.dprt.input, this.dprt.node);
+        this.clearSelectedDates();
       } else if (el.id == "cal-close") {
         this.hide();
       } else {
@@ -196,22 +193,11 @@ export const Calendar = {
 
     // check if any booked day is between selection
     const daysStayed = dateDiff(arvlDayInt, dprtDayInt);
-    let i, day, month, year;
 
     // start with dprt since selection of arvl is prohibited
-    let date = dt(dprtDate).toDate();
-    for (i = 0; i < daysStayed; i++) {
-      month = date.getMonth() + 1;
-      day = date.getDate();
-      year = date.getFullYear();
-
-      // if this year/month is not even listed, it's surely not booked
-      if (Object.hasOwnProperty.call(this.booked, year)) {
-        if (Object.hasOwnProperty.call(this.booked[year], month)) {
-          // check if day is included in list of booked days of month
-          if (this.booked[year][month].includes(day)) return false;
-        }
-      }
+    const date = dt(dprtDate).toDate();
+    for (let i = 0; i < daysStayed; i++) {
+      if (this.isDateBooked(date)) return false;
 
       // set date to previous day
       date.setDate(date.getDate() - 1);
@@ -304,6 +290,13 @@ export const Calendar = {
     this.cal.removeAttribute("data-date-for");
   },
 
+  clearSelectedDates: function () {
+    this.calDayStyling(this.arvl.node, "cal-main__date--arrival", false);
+    this.calDayStyling(this.dprt.node, "cal-main__date--departure", false);
+    this.clearInput(this.arvl.input, this.arvl.node);
+    this.clearInput(this.dprt.input, this.dprt.node);
+  },
+
   update: function (type, value) {
     if (type == "month") {
       this.date.setMonth(value);
@@ -321,6 +314,37 @@ export const Calendar = {
   },
 
   refresh: function (type) {
+    // update data
+    this.booked =
+      document.querySelector("#select-house").dataset.value == "Möwe"
+        ? this.BOOKED_MOEWE
+        : this.BOOKED_DUENE;
+
+    // clear selection if arrival or departure date are in new data
+    if (this.isDateBooked(this.arvl.date) || this.isDateBooked(this.dprt.date)) {
+      this.clearSelectedDates();
+    }
+
+    // if arrival and departure are both set, we must check the range
+    if (this.arvl.date != null && this.dprt.date != null) {
+      const date = dt(this.dprt.date).toDate();
+
+      const arvlDayInt = dt(this.arvl.date).toInt();
+      const dprtDayInt = date.toInt();
+      const daysStayed = dateDiff(arvlDayInt, dprtDayInt);
+
+      // starts with departure date
+      for (let i = 0; i < daysStayed; i++) {
+        if (this.isDateBooked(date)) {
+          this.clearSelectedDates();
+          break;
+        }
+
+        // set date to previous day
+        date.setDate(date.getDate() - 1);
+      }
+    }
+
     this.update(type, this.date.getMonth());
   },
 
@@ -425,6 +449,26 @@ export const Calendar = {
       "November",
       "Dezember",
     ][idx];
+  },
+
+  isDateBooked: function (date) {
+    if (date == null) return false;
+
+    date = dt(date).toDate();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    // if this year/month is not even listed, it's surely not booked
+    if (Object.hasOwnProperty.call(this.booked, year)) {
+      if (Object.hasOwnProperty.call(this.booked[year], month)) {
+        // check if day is included in list of booked days of month
+        if (this.booked[year][month].includes(day)) {
+          return true;
+        }
+      }
+    }
+    return false;
   },
 };
 
