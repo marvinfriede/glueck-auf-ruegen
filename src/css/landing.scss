@@ -1,16 +1,16 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 section.landing {
   height: calc(640px + var(--header-height));
   position: relative;
 
-  @media (min-width: $bp-n) {
+  @media (min-width: breakpoints.$bp-n) {
     height: calc(710px + var(--header-height));
   }
-  @media (min-width: $bp-l) {
+  @media (min-width: breakpoints.$bp-l) {
     height: calc(640px + var(--header-height));
   }
-  @media (min-width: $bp-xl) {
+  @media (min-width: breakpoints.$bp-xl) {
     height: calc(700px + var(--header-height));
   }
 
@@ -78,10 +78,10 @@ section.landing {
             text-align: center;
             text-shadow: 0 0 10px var(--black);
 
-            @media (min-width: $bp-n) {
+            @media (min-width: breakpoints.$bp-n) {
               padding-top: 20px;
             }
-            @media (min-width: $bp-xl) {
+            @media (min-width: breakpoints.$bp-xl) {
               padding-top: 30px;
             }
 
@@ -129,10 +129,10 @@ section.landing {
           width: 100%;
           z-index: 60;
 
-          @media (min-width: $bp-l) {
+          @media (min-width: breakpoints.$bp-l) {
             flex-direction: row;
           }
-          @media (min-width: $bp-xl) {
+          @media (min-width: breakpoints.$bp-xl) {
             padding: 15px;
           }
 
@@ -143,17 +143,17 @@ section.landing {
             & + .form-field-wrap {
               padding-top: 10px;
 
-              @media (min-width: $bp-l) {
+              @media (min-width: breakpoints.$bp-l) {
                 padding-top: 0;
                 padding-left: 10px;
               }
-              @media (min-width: $bp-xl) {
+              @media (min-width: breakpoints.$bp-xl) {
                 padding-top: 0;
                 padding-left: 15px;
               }
             }
 
-            @media (min-width: $bp-l) {
+            @media (min-width: breakpoints.$bp-l) {
               &:first-child {
                 width: 20%;
               }
@@ -194,7 +194,7 @@ section.landing {
               padding: 0 15px;
               width: 100%;
 
-              @media (min-width: $bp-l) {
+              @media (min-width: breakpoints.$bp-l) {
                 height: 80px;
               }
 
@@ -324,7 +324,7 @@ section.landing {
                     padding: 18px 5px 0 0;
                     width: 100%;
 
-                    @media (min-width: $bp-l) {
+                    @media (min-width: breakpoints.$bp-l) {
                       padding-top: 30px;
                     }
 
@@ -339,7 +339,7 @@ section.landing {
                       font-size: var(--fs-xs);
                       top: -10px;
 
-                      @media (min-width: $bp-l) {
+                      @media (min-width: breakpoints.$bp-l) {
                         top: -15px;
                       }
                     }
@@ -349,7 +349,7 @@ section.landing {
                     font-size: var(--fs-xs);
                     top: -10px;
 
-                    @media (min-width: $bp-l) {
+                    @media (min-width: breakpoints.$bp-l) {
                       top: -15px;
                     }
                   }
@@ -365,7 +365,7 @@ section.landing {
                 margin-top: 1px;
                 padding: 18px 30px 0 5px;
 
-                @media (min-width: $bp-l) {
+                @media (min-width: breakpoints.$bp-l) {
                   padding-top: 30px;
                 }
               }
@@ -411,7 +411,7 @@ section.landing {
                 color: var(--white);
                 font-size: var(--fs-L);
 
-                @media (min-width: $bp-l) {
+                @media (min-width: breakpoints.$bp-l) {
                   display: none;
                 }
               }
@@ -423,7 +423,7 @@ section.landing {
                 position: relative;
                 width: 30px;
 
-                @media (min-width: $bp-l) {
+                @media (min-width: breakpoints.$bp-l) {
                   -webkit-animation: moving-arrow 2s linear 0s infinite alternate;
                   animation: moving-arrow 2s linear 0s infinite alternate;
                   display: block;

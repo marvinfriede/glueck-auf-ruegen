@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 .cal-wrap {
   min-width: 40vw;
@@ -24,10 +24,10 @@
       flex-wrap: nowrap;
       padding: 10px 10px;
 
-      @media (min-width: $bp-n) {
+      @media (min-width: breakpoints.$bp-n) {
         padding: 15px;
       }
-      @media (min-width: $bp-l) {
+      @media (min-width: breakpoints.$bp-l) {
         padding: 20px;
       }
 
@@ -45,7 +45,7 @@
         transition-timing-function: ease-in-out;
         transition-duration: 300ms;
 
-        @media (min-width: $bp-l) {
+        @media (min-width: breakpoints.$bp-l) {
           padding: 20px;
         }
 
@@ -190,27 +190,27 @@
           padding: 0;
           text-align: center;
 
-          @media (min-width: $bp-xs) {
+          @media (min-width: breakpoints.$bp-xs) {
             height: 35px;
             width: 35px;
           }
-          @media (min-width: $bp-s) {
+          @media (min-width: breakpoints.$bp-s) {
             height: 40px;
             width: 40px;
           }
-          @media (min-width: $bp-n) {
+          @media (min-width: breakpoints.$bp-n) {
             height: 45px;
             width: 45px;
           }
-          @media (min-width: $bp-l) {
+          @media (min-width: breakpoints.$bp-l) {
             height: 50px;
             width: 50px;
           }
-          @media (min-width: $bp-xl) {
+          @media (min-width: breakpoints.$bp-xl) {
             height: 55px;
             width: 55px;
           }
-          @media (min-width: $bp-xxl) {
+          @media (min-width: breakpoints.$bp-xxl) {
             height: 60px;
             width: 60px;
           }

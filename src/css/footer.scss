@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 footer {
   margin-top: auto;
@@ -10,7 +10,7 @@ footer {
     padding: 60px 0;
     gap: 100px;
 
-    @media (min-width: $bp-n) {
+    @media (min-width: breakpoints.$bp-n) {
       gap: 0;
     }
 
@@ -20,7 +20,7 @@ footer {
       flex: 100%;
       flex-wrap: nowrap;
 
-      @media (min-width: $bp-n) {
+      @media (min-width: breakpoints.$bp-n) {
         flex: 50%;
       }
 
@@ -72,7 +72,7 @@ footer {
       align-items: flex-start;
       justify-content: flex-start;
 
-      @media (min-width: $bp-n) {
+      @media (min-width: breakpoints.$bp-n) {
         align-items: flex-end;
         justify-content: flex-end;
       }

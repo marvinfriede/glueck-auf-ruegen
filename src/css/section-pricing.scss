@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 section.main #id-5 {
   .pricing {
@@ -9,22 +9,22 @@ section.main #id-5 {
     justify-content: center;
     width: 100%;
 
-    @media (min-width: $bp-xs) {
+    @media (min-width: breakpoints.$bp-xs) {
       gap: 30px;
     }
-    @media (min-width: $bp-s) {
+    @media (min-width: breakpoints.$bp-s) {
       gap: 40px;
     }
-    @media (min-width: $bp-n) {
+    @media (min-width: breakpoints.$bp-n) {
       gap: 60px;
     }
-    @media (min-width: $bp-l) {
+    @media (min-width: breakpoints.$bp-l) {
       gap: 80px;
     }
-    @media (min-width: $bp-xl) {
+    @media (min-width: breakpoints.$bp-xl) {
       gap: 100px;
     }
-    @media (min-width: $bp-xxl) {
+    @media (min-width: breakpoints.$bp-xxl) {
       gap: 150px;
     }
 
@@ -41,16 +41,16 @@ section.main #id-5 {
       margin-top: 60px;
       overflow: hidden;
 
-      @media (min-width: $bp-xs) {
+      @media (min-width: breakpoints.$bp-xs) {
         flex: 1 0 300px;
       }
-      @media (min-width: $bp-s) {
+      @media (min-width: breakpoints.$bp-s) {
         flex: 1 0 350px;
       }
-      @media (min-width: $bp-l) {
+      @media (min-width: breakpoints.$bp-l) {
         margin-top: 80px;
       }
-      @media (min-width: $bp-xxl) {
+      @media (min-width: breakpoints.$bp-xxl) {
         margin-top: 100px;
       }
 
@@ -102,13 +102,13 @@ section.main #id-5 {
           justify-content: space-between;
           padding: 20px 20px;
 
-          @media (min-width: $bp-s) {
+          @media (min-width: breakpoints.$bp-s) {
             padding: 20px 25px;
           }
-          @media (min-width: $bp-n) {
+          @media (min-width: breakpoints.$bp-n) {
             padding: 20px 30px;
           }
-          @media (min-width: $bp-l) {
+          @media (min-width: breakpoints.$bp-l) {
             padding: 30px 30px;
           }
 
@@ -124,7 +124,7 @@ section.main #id-5 {
             margin-top: calc(-1 * var(--gap));
             height: calc(100% + var(--gap));
 
-            @media (min-width: $bp-l) {
+            @media (min-width: breakpoints.$bp-l) {
               --gap: 25px;
             }
 

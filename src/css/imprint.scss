@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 main > section.main {
   .container {
@@ -8,10 +8,10 @@ main > section.main {
     width: 100%;
     gap: 40px;
 
-    @media (min-width: $bp-l) {
+    @media (min-width: breakpoints.$bp-l) {
       gap: 60px;
     }
-    @media (min-width: $bp-xxl) {
+    @media (min-width: breakpoints.$bp-xxl) {
       gap: 80px;
     }
 
@@ -21,22 +21,22 @@ main > section.main {
         line-height: 25px;
         text-align: justify;
 
-        @media (min-width: $bp-xs) {
+        @media (min-width: breakpoints.$bp-xs) {
           line-height: 30px;
         }
-        @media (min-width: $bp-s) {
+        @media (min-width: breakpoints.$bp-s) {
           line-height: 35px;
         }
-        @media (min-width: $bp-n) {
+        @media (min-width: breakpoints.$bp-n) {
           line-height: 40px;
         }
-        @media (min-width: $bp-l) {
+        @media (min-width: breakpoints.$bp-l) {
           line-height: 45px;
         }
-        @media (min-width: $bp-xl) {
+        @media (min-width: breakpoints.$bp-xl) {
           line-height: 50px;
         }
-        @media (min-width: $bp-xxl) {
+        @media (min-width: breakpoints.$bp-xxl) {
           line-height: 55px;
         }
       }

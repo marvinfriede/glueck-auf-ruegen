@@ -1,26 +1,26 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 section.main #id-6 .details {
   width: 100%;
   line-height: 25px;
   padding: 40px 0;
 
-  @media (min-width: $bp-xs) {
+  @media (min-width: breakpoints.$bp-xs) {
     line-height: 30px;
   }
-  @media (min-width: $bp-s) {
+  @media (min-width: breakpoints.$bp-s) {
     line-height: 35px;
   }
-  @media (min-width: $bp-n) {
+  @media (min-width: breakpoints.$bp-n) {
     line-height: 40px;
   }
-  @media (min-width: $bp-l) {
+  @media (min-width: breakpoints.$bp-l) {
     padding: 60px 0;
   }
-  @media (min-width: $bp-xl) {
+  @media (min-width: breakpoints.$bp-xl) {
     line-height: 50px;
   }
-  @media (min-width: $bp-xxl) {
+  @media (min-width: breakpoints.$bp-xxl) {
     padding: 80px 0;
   }
 
@@ -32,7 +32,7 @@ section.main #id-6 .details {
     & + .row {
       margin-top: 30px;
 
-      @media (min-width: $bp-l) {
+      @media (min-width: breakpoints.$bp-l) {
         margin-top: 35px;
       }
     }
@@ -48,14 +48,14 @@ section.main #id-6 .details {
       flex-direction: column;
       padding: 10px 0;
 
-      @media (min-width: $bp-l) {
+      @media (min-width: breakpoints.$bp-l) {
         flex-direction: row;
       }
 
       .row-content--title {
         font-style: italic;
 
-        @media (min-width: $bp-l) {
+        @media (min-width: breakpoints.$bp-l) {
           flex-basis: 200px;
           flex-shrink: 0;
         }
@@ -64,7 +64,7 @@ section.main #id-6 .details {
   }
 }
 
-@media (min-width: $bp-l) {
+@media (min-width: breakpoints.$bp-l) {
   section.main .details .row-content {
     flex-direction: row;
   }
