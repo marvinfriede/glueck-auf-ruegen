@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 .slider {
   display: flex;
@@ -20,27 +20,27 @@
         height: 1.5em;
         width: 1.5em;
 
-        @media (min-width: $bp-xs) {
+        @media (min-width: breakpoints.$bp-xs) {
           height: 1.6em;
           width: 1.6em;
         }
-        @media (min-width: $bp-s) {
+        @media (min-width: breakpoints.$bp-s) {
           height: 1.7em;
           width: 1.7em;
         }
-        @media (min-width: $bp-n) {
+        @media (min-width: breakpoints.$bp-n) {
           height: 1.9em;
           width: 1.9em;
         }
-        @media (min-width: $bp-l) {
+        @media (min-width: breakpoints.$bp-l) {
           height: 2.1em;
           width: 2.1em;
         }
-        @media (min-width: $bp-xl) {
+        @media (min-width: breakpoints.$bp-xl) {
           height: 2.3em;
           width: 2.3em;
         }
-        @media (min-width: $bp-xl) {
+        @media (min-width: breakpoints.$bp-xl) {
           height: 2.5em;
           width: 2.5em;
         }
@@ -48,38 +48,38 @@
         &.splide__arrow--prev {
           left: 0.5em;
 
-          @media (min-width: $bp-xs) {
+          @media (min-width: breakpoints.$bp-xs) {
             left: 0.6em;
           }
-          @media (min-width: $bp-s) {
+          @media (min-width: breakpoints.$bp-s) {
             left: 0.8em;
           }
-          @media (min-width: $bp-n) {
+          @media (min-width: breakpoints.$bp-n) {
             left: 0.9em;
           }
-          @media (min-width: $bp-xl) {
+          @media (min-width: breakpoints.$bp-xl) {
             left: 1.2em;
           }
-          @media (min-width: $bp-xxl) {
+          @media (min-width: breakpoints.$bp-xxl) {
             left: 1.4em;
           }
         }
         &.splide__arrow--next {
           right: 0.5em;
 
-          @media (min-width: $bp-xs) {
+          @media (min-width: breakpoints.$bp-xs) {
             right: 0.6em;
           }
-          @media (min-width: $bp-s) {
+          @media (min-width: breakpoints.$bp-s) {
             right: 0.8em;
           }
-          @media (min-width: $bp-n) {
+          @media (min-width: breakpoints.$bp-n) {
             right: 0.9em;
           }
-          @media (min-width: $bp-xl) {
+          @media (min-width: breakpoints.$bp-xl) {
             right: 1.2em;
           }
-          @media (min-width: $bp-xxl) {
+          @media (min-width: breakpoints.$bp-xxl) {
             right: 1.4em;
           }
         }
@@ -88,23 +88,23 @@
           width: 0.7em;
           height: 0.7em;
 
-          @media (min-width: $bp-xs) {
+          @media (min-width: breakpoints.$bp-xs) {
             height: 0.8em;
             width: 0.8em;
           }
-          @media (min-width: $bp-s) {
+          @media (min-width: breakpoints.$bp-s) {
             height: 0.9em;
             width: 0.9em;
           }
-          @media (min-width: $bp-n) {
+          @media (min-width: breakpoints.$bp-n) {
             height: 1em;
             width: 1em;
           }
-          @media (min-width: $bp-xl) {
+          @media (min-width: breakpoints.$bp-xl) {
             height: 1.2em;
             width: 1.2em;
           }
-          @media (min-width: $bp-xl) {
+          @media (min-width: breakpoints.$bp-xl) {
             height: 1.4em;
             width: 1.4em;
           }
@@ -151,11 +151,11 @@
       height: 1.5em;
       width: 1.5em;
 
-      @media (min-width: $bp-s) {
+      @media (min-width: breakpoints.$bp-s) {
         height: 1.7em;
         width: 1.7em;
       }
-      @media (min-width: $bp-n) {
+      @media (min-width: breakpoints.$bp-n) {
         height: 2em;
         width: 2em;
       }
@@ -164,11 +164,11 @@
         height: 1em;
         width: 1em;
 
-        @media (min-width: $bp-s) {
+        @media (min-width: breakpoints.$bp-s) {
           height: 1.2em;
           width: 1.2em;
         }
-        @media (min-width: $bp-n) {
+        @media (min-width: breakpoints.$bp-n) {
           height: 1.4em;
           width: 1.4em;
         }
@@ -177,20 +177,20 @@
       &.splide__arrow--next.outside {
         right: -2.3em;
 
-        @media (min-width: $bp-s) {
+        @media (min-width: breakpoints.$bp-s) {
           right: -2.5em;
         }
-        @media (min-width: $bp-n) {
+        @media (min-width: breakpoints.$bp-n) {
           right: -2.7em;
         }
       }
       &.splide__arrow--prev.outside {
         left: -2.3em;
 
-        @media (min-width: $bp-s) {
+        @media (min-width: breakpoints.$bp-s) {
           left: -2.5em;
         }
-        @media (min-width: $bp-n) {
+        @media (min-width: breakpoints.$bp-n) {
           left: -2.7em;
         }
       }

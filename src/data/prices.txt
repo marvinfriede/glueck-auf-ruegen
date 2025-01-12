@@ -18,11 +18,11 @@
             },
             {
                 "begin":"2021/06/01", // 1. Juni
-                "end":"2021/09/12", // 12. September
+                "end":"2021/09/12", // 30. September
                 "price":210
             },
             {
-                "begin":"2021/09/13", // 13. September
+                "begin":"2021/09/13", // 1. Oktober
                 "end":"2021/10/31", // 31. Oktober
                 "price":155
             },
@@ -55,11 +55,11 @@
             },
             {
                 "begin":"2022/06/01", // 1. Juni
-                "end":"2022/09/12", // 12. September
+                "end":"2022/09/30", // 30. September
                 "price":210
             },
             {
-                "begin":"2022/09/13", // 13. September
+                "begin":"2022/10/01", // 1. Oktober
                 "end":"2022/10/31", // 31. Oktober
                 "price":155
             },
@@ -83,7 +83,7 @@
             {
                 "begin":"2023/01/04", // 4. Januar
                 "end":"2023/03/31", // 31.März
-                "price":119
+                "price":109
             },
             {
                 "begin":"2023/04/01", // 1. April
@@ -92,18 +92,18 @@
             },
             {
                 "begin":"2023/06/01", // 1. Juni
-                "end":"2023/09/12", // 12. September
+                "end":"2023/09/30", // 30. September
                 "price":210
             },
             {
-                "begin":"2023/09/13", // 13. September
+                "begin":"2023/10/01", // 1. Oktober
                 "end":"2023/10/31", // 31. Oktober
                 "price":155
             },
             {
                 "begin":"2023/11/01", // 1. November
                 "end":"2023/12/22", // 22. Dezember
-                "price":119
+                "price":109
             },
             {
                 "begin":"2023/12/23", // 23. Dezember
@@ -120,7 +120,7 @@
             {
                 "begin":"2024/01/04", // 4. Januar
                 "end":"2024/03/31", // 31.März
-                "price":119
+                "price":109
             },
             {
                 "begin":"2024/04/01", // 1. April
@@ -129,18 +129,18 @@
             },
             {
                 "begin":"2024/06/01", // 1. Juni
-                "end":"2024/09/12", // 12. September
+                "end":"2024/09/30", // 30. September
                 "price":210
             },
             {
-                "begin":"2024/09/13", // 13. September
+                "begin":"2024/10/01", // 1. Oktober
                 "end":"2024/10/31", // 31. Oktober
                 "price":155
             },
             {
                 "begin":"2024/11/01", // 1. November
                 "end":"2024/12/22", // 22. Dezember
-                "price":119
+                "price":109
             },
             {
                 "begin":"2024/12/23", // 23. Dezember
@@ -157,7 +157,7 @@
             {
                 "begin":"2025/01/04", // 4. Januar
                 "end":"2025/03/31", // 31.März
-                "price":119
+                "price":109
             },
             {
                 "begin":"2025/04/01", // 1. April
@@ -166,18 +166,18 @@
             },
             {
                 "begin":"2025/06/01", // 1. Juni
-                "end":"2025/09/12", // 12. September
+                "end":"2025/09/30", // 30. September
                 "price":210
             },
             {
-                "begin":"2025/09/13", // 13. September
+                "begin":"2025/10/01", // 1. Oktober
                 "end":"2025/10/31", // 31. Oktober
                 "price":155
             },
             {
                 "begin":"2025/11/01", // 1. November
                 "end":"2025/12/22", // 22. Dezember
-                "price":119
+                "price":109
             },
             {
                 "begin":"2025/12/23", // 23. Dezember
@@ -185,8 +185,45 @@
                 "price":210
             }
         ],
+        "2026":[
+            {
+                "begin":"2026/01/01", // 1. Januar
+                "end":"2026/01/03", // 3. Januar
+                "price":210
+            },
+            {
+                "begin":"2026/01/04", // 4. Januar
+                "end":"2026/03/31", // 31.März
+                "price":109
+            },
+            {
+                "begin":"2026/04/01", // 1. April
+                "end":"2026/05/31", // 31. Mai
+                "price":155
+            },
+            {
+                "begin":"2026/06/01", // 1. Juni
+                "end":"2026/09/30", // 30. September
+                "price":210
+            },
+            {
+                "begin":"2026/10/01", // 1. Oktober
+                "end":"2026/10/31", // 31. Oktober
+                "price":155
+            },
+            {
+                "begin":"2026/11/01", // 1. November
+                "end":"2026/12/22", // 22. Dezember
+                "price":109
+            },
+            {
+                "begin":"2026/12/23", // 23. Dezember
+                "end":"2026/12/31", // 31. Dezember
+                "price":210
+            }
+        ],
         "bed":0,
-        "cleaning":159
+        "cleaning":160
     },
     "Möwe":{
         "2021":[
@@ -230,44 +267,44 @@
             {
                 "begin":"2022/01/01", // 1. Januar
                 "end":"2022/01/03", // 3. Januar
-                "price":99
+                "price":109
             },
             {
                 "begin":"2022/01/04", // 4. Januar
                 "end":"2022/03/31", // 31.März
-                "price":65
+                "price":75
             },
             {
                 "begin":"2022/04/01", // 1. April
                 "end":"2022/05/31", // 31. Mai
-                "price":75
+                "price":85
             },
             {
                 "begin":"2022/06/01", // 1. Juni
                 "end":"2022/09/12", // 12. September
-                "price":99
+                "price":109
             },
             {
                 "begin":"2022/09/13", // 13. September
                 "end":"2022/10/31", // 31. Oktober
-                "price":75
+                "price":85
             },
             {
                 "begin":"2022/11/01", // 1. November
                 "end":"2022/12/22", // 22. Dezember
-                "price":65
+                "price":75
             },
             {
                 "begin":"2022/12/23", // 23. Dezember
                 "end":"2022/12/31", // 31. Dezember
-                "price":99
+                "price":109
             }
         ],
         "2023":[
             {
                 "begin":"2023/01/01", // 1. Januar
                 "end":"2023/01/03", // 3. Januar
-                "price":99
+                "price":109
             },
             {
                 "begin":"2023/01/04", // 4. Januar
@@ -277,17 +314,17 @@
             {
                 "begin":"2023/04/01", // 1. April
                 "end":"2023/05/31", // 31. Mai
-                "price":75
+                "price":79
             },
             {
                 "begin":"2023/06/01", // 1. Juni
-                "end":"2023/09/12", // 12. September
-                "price":99
+                "end":"2023/09/30", // 30. September
+                "price":109
             },
             {
-                "begin":"2023/09/13", // 13. September
+                "begin":"2023/10/01", // 1. Oktober
                 "end":"2023/10/31", // 31. Oktober
-                "price":75
+                "price":79
             },
             {
                 "begin":"2023/11/01", // 1. November
@@ -297,14 +334,14 @@
             {
                 "begin":"2023/12/23", // 23. Dezember
                 "end":"2023/12/31", // 31. Dezember
-                "price":99
+                "price":109
             }
         ],
         "2024":[
             {
                 "begin":"2024/01/01", // 1. Januar
                 "end":"2024/01/03", // 3. Januar
-                "price":99
+                "price":109
             },
             {
                 "begin":"2024/01/04", // 4. Januar
@@ -314,17 +351,17 @@
             {
                 "begin":"2024/04/01", // 1. April
                 "end":"2024/05/31", // 31. Mai
-                "price":75
+                "price":79
             },
             {
                 "begin":"2024/06/01", // 1. Juni
-                "end":"2024/09/12", // 12. September
-                "price":99
+                "end":"2024/09/30", // 30. September
+                "price":109
             },
             {
-                "begin":"2024/09/13", // 13. September
+                "begin":"2024/10/01", // 1. Oktober
                 "end":"2024/10/31", // 31. Oktober
-                "price":75
+                "price":85
             },
             {
                 "begin":"2024/11/01", // 1. November
@@ -334,14 +371,14 @@
             {
                 "begin":"2024/12/23", // 23. Dezember
                 "end":"2024/12/31", // 31. Dezember
-                "price":99
+                "price":109
             }
         ],
         "2025":[
             {
                 "begin":"2025/01/01", // 1. Januar
                 "end":"2025/01/03", // 3. Januar
-                "price":99
+                "price":109
             },
             {
                 "begin":"2025/01/04", // 4. Januar
@@ -351,17 +388,17 @@
             {
                 "begin":"2025/04/01", // 1. April
                 "end":"2025/05/31", // 31. Mai
-                "price":75
+                "price":79
             },
             {
                 "begin":"2025/06/01", // 1. Juni
-                "end":"2025/09/12", // 12. September
-                "price":99
+                "end":"2025/09/30", // 30. September
+                "price":109
             },
             {
-                "begin":"2025/09/13", // 13. September
+                "begin":"2025/10/01", // 1. Oktober
                 "end":"2025/10/31", // 31. Oktober
-                "price":75
+                "price":85
             },
             {
                 "begin":"2025/11/01", // 1. November
@@ -371,15 +408,53 @@
             {
                 "begin":"2025/12/23", // 23. Dezember
                 "end":"2025/12/31", // 31. Dezember
-                "price":99
+                "price":109
             }
         ],
-        "cleaning":90,
-        "bed":10
+        "2026":[
+            {
+                "begin":"2026/01/01", // 1. Januar
+                "end":"2026/01/03", // 3. Januar
+                "price":109
+            },
+            {
+                "begin":"2026/01/04", // 4. Januar
+                "end":"2026/03/31", // 31.März
+                "price":65
+            },
+            {
+                "begin":"2026/04/01", // 1. April
+                "end":"2026/05/31", // 31. Mai
+                "price":79
+            },
+            {
+                "begin":"2026/06/01", // 1. Juni
+                "end":"2026/09/30", // 30. September
+                "price":109
+            },
+            {
+                "begin":"2026/10/01", // 1. Oktober
+                "end":"2026/10/31", // 31. Oktober
+                "price":85
+            },
+            {
+                "begin":"2026/11/01", // 1. November
+                "end":"2026/12/22", // 22. Dezember
+                "price":65
+            },
+            {
+                "begin":"2026/12/23", // 23. Dezember
+                "end":"2026/12/31", // 31. Dezember
+                "price":109
+            }
+        ],
+        "cleaning":129,
+        "bed":20
     },
     "dog":{
-        "night":10,
+        "night":15,
         "cleaning":20
     },
-    "sheets":20
+    "parking":5,
+    "sheets":22
 }

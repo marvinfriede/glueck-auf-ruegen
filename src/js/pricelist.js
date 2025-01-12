@@ -34,6 +34,7 @@ export default class Pricelist {
     this.runDog();
     this.runDogCleaning();
     this.runSheets();
+    this.runParking();
     this.runList();
   }
 
@@ -64,6 +65,12 @@ export default class Pricelist {
   runSheets() {
     const price = this.prices.sheets;
     const el = this.root.querySelector(".value.sheets");
+    this.style(el, price);
+  }
+
+  runParking() {
+    const price = this.prices.parking;
+    const el = this.root.querySelector(".value.parking");
     this.style(el, price);
   }
 

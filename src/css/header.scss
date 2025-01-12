@@ -1,14 +1,14 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 :root {
   --header-height: 0px;
 }
-@media (min-width: $bp-n) {
+@media (min-width: breakpoints.$bp-n) {
   :root {
     --header-height: 54px;
   }
 }
-@media (min-width: $bp-xl) {
+@media (min-width: breakpoints.$bp-xl) {
   :root {
     --header-height: 64px;
   }
@@ -53,7 +53,7 @@ header {
       width: 100%;
     }
 
-    @media (min-width: $bp-n) {
+    @media (min-width: breakpoints.$bp-n) {
       display: block;
     }
 
@@ -78,7 +78,7 @@ header {
           margin: 0 auto;
           width: 100%;
 
-          @media (min-width: $bp-n) {
+          @media (min-width: breakpoints.$bp-n) {
             padding: 0;
           }
 
@@ -97,10 +97,10 @@ header {
               position: relative;
               z-index: 1;
 
-              @media (min-width: $bp-l) {
+              @media (min-width: breakpoints.$bp-l) {
                 margin-right: 40px;
               }
-              @media (min-width: $bp-xxl) {
+              @media (min-width: breakpoints.$bp-xxl) {
                 margin-right: 50px;
               }
             }
@@ -172,7 +172,7 @@ header {
                 > span {
                   display: none;
 
-                  @media (min-width: $bp-xl) {
+                  @media (min-width: breakpoints.$bp-xl) {
                     display: contents;
                   }
                 }
@@ -214,7 +214,7 @@ header {
     width: 40px;
     z-index: 999;
 
-    @media (min-width: $bp-n) {
+    @media (min-width: breakpoints.$bp-n) {
       display: none !important;
     }
 
@@ -253,7 +253,7 @@ header {
 aside {
   display: block;
 
-  @media (min-width: $bp-n) {
+  @media (min-width: breakpoints.$bp-n) {
     display: none !important;
   }
 
@@ -273,7 +273,7 @@ aside {
     &.open {
       width: 70%;
 
-      @media (min-width: $bp-s) {
+      @media (min-width: breakpoints.$bp-s) {
         width: 45%;
       }
     }

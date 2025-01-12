@@ -191,7 +191,7 @@ const bookingPrices = async (data) => {
   let PRICES;
   try {
     PRICES = await loadJsonData("data/prices.txt");
-    console.log("loaded");
+    console.log("Loaded prices.");
   } catch (err) {
     console.error(`Loading booking data failed with: ${err}.`);
     title.innerText =

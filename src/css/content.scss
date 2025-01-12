@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 :root {
   --white: #fff;
@@ -46,10 +46,10 @@
   height: 70px;
   width: 100%;
 
-  @media (min-width: $bp-l) {
+  @media (min-width: breakpoints.$bp-l) {
     height: 90px;
   }
-  @media (min-width: $bp-xxl) {
+  @media (min-width: breakpoints.$bp-xxl) {
     height: 110px;
   }
 }
@@ -116,22 +116,22 @@ section.main .content .title {
 .has-max-width {
   max-width: 90%;
 }
-@media (min-width: $bp-s) {
+@media (min-width: breakpoints.$bp-s) {
   .has-max-width {
     max-width: calc(100% - 50px);
   }
 }
-@media (min-width: $bp-n) {
+@media (min-width: breakpoints.$bp-n) {
   .has-max-width {
     max-width: calc(100% - 70px);
   }
 }
-@media (min-width: $bp-l) {
+@media (min-width: breakpoints.$bp-l) {
   .has-max-width {
     max-width: calc(100% - 90px);
   }
 }
-@media (min-width: $bp-xl) {
+@media (min-width: breakpoints.$bp-xl) {
   .has-max-width {
     max-width: 80%;
   }

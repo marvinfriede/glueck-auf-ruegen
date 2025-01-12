@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 section.main {
   #id-1 {
@@ -45,16 +45,16 @@ section.main {
             line-height: 25px;
             text-align: justify;
 
-            @media (min-width: $bp-xs) {
+            @media (min-width: breakpoints.$bp-xs) {
               line-height: 30px;
             }
-            @media (min-width: $bp-s) {
+            @media (min-width: breakpoints.$bp-s) {
               line-height: 35px;
             }
-            @media (min-width: $bp-n) {
+            @media (min-width: breakpoints.$bp-n) {
               line-height: 40px;
             }
-            @media (min-width: $bp-xl) {
+            @media (min-width: breakpoints.$bp-xl) {
               line-height: 50px;
             }
 

@@ -1,4 +1,4 @@
-@import "_breakpoints.scss";
+@use "_breakpoints.scss";
 
 section.main .content {
   align-items: center;
@@ -11,11 +11,11 @@ section.main .content {
     padding: 40px 0;
     width: 100%;
 
-    @media (min-width: $bp-l) {
+    @media (min-width: breakpoints.$bp-l) {
       padding: 60px 0;
     }
 
-    @media (min-width: $bp-xxl) {
+    @media (min-width: breakpoints.$bp-xxl) {
       padding: 80px 0;
     }
 
@@ -28,13 +28,13 @@ section.main .content {
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       width: 100%;
 
-      @media (min-width: $bp-l) {
+      @media (min-width: breakpoints.$bp-l) {
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       }
-      @media (min-width: $bp-xl) {
+      @media (min-width: breakpoints.$bp-xl) {
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
       }
-      @media (min-width: $bp-xxxl) {
+      @media (min-width: breakpoints.$bp-xxxl) {
         grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
       }
 
@@ -61,7 +61,7 @@ section.main .content {
         .text {
           padding-left: 10px;
 
-          @media (min-width: $bp-s) {
+          @media (min-width: breakpoints.$bp-s) {
             padding-left: 15px;
           }
         }
