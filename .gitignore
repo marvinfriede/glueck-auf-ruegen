@@ -2,5 +2,6 @@ node_modules/
 misc/
 dist/
 
-scripts/**/*.jpg
+scripts/notes/
 scripts/**/*.pdf
+scripts/**/*.jpg

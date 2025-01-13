@@ -23,7 +23,6 @@ const loadJsonData = (url) =>
 describe("Testing structure of PRICES", () => {
   it("async parent", async () => {
     const PRICES = await loadJsonData("../data/prices.txt");
-    console.log("AFTER\n\n");
 
     it("Should have property named 'Düne'", () => {
       expect(PRICES).toHaveProperty("Düne");

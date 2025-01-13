@@ -110,7 +110,6 @@ export default class Pricelist {
     }
 
     const el = this.root.querySelector(".card-main--row.accordion .price > .value");
-    console.log(listForMinMax);
     
     el.innerText = `${Math.min(...listForMinMax)}€ - ${Math.max(...listForMinMax)}€`;
   }
