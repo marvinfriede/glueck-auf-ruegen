@@ -302,7 +302,7 @@ export const closeImgFullscreen = (e) => {
   window.scrollTo({
     top:
       slider.root.closest(".slider").getBoundingClientRect().top +
-      window.pageYOffset -
+      window.scrollY -
       64,
   });
 
