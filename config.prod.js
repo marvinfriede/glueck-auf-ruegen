@@ -2,7 +2,6 @@
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const TerserJSPlugin = require("terser-webpack-plugin");
@@ -18,6 +17,7 @@ module.exports = {
     assetModuleFilename: "img/[name].[contenthash][ext]",
     path: path.resolve(__dirname, "dist"),
     filename: "js/[name].[contenthash].min.js",
+    clean: true,
   },
   module: {
     rules: [
@@ -144,7 +144,6 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "css/[name].[contenthash].min.css",
     }),
-    new CleanWebpackPlugin(),
   ],
   // By default webpack logs warnings if the bundle is bigger than 200kb.
   performance: { hints: false },

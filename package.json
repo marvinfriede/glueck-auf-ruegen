@@ -16,33 +16,36 @@
   "author": "marvinfriede",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@types/jest": "^29.5.14",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^12.0.2",
+    "@types/jest": "^30.0.0",
+    "copy-webpack-plugin": "^13.0.0",
     "css-loader": "^7.1.2",
-    "css-minimizer-webpack-plugin": "^7.0.0",
+    "css-minimizer-webpack-plugin": "^7.0.2",
     "file-loader": "^6.2.0",
     "gh-pages": "^6.3.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
-    "jest": "^29.7.0",
+    "jest": "^30.0.4",
     "mini-css-extract-plugin": "~2.9.2",
     "postcss-loader": "^8.1.1",
     "raw-loader": "^4.0.2",
-    "sass": "^1.83.1",
-    "sass-loader": "^16.0.4",
+    "sass": "^1.89.2",
+    "sass-loader": "^16.0.5",
     "style-loader": "^4.0.0",
-    "webpack": "^5.97.1",
+    "webpack": "^5.100.1",
     "webpack-cli": "^6.0.1",
     "webpack-dashboard": "^3.3.8",
-    "webpack-dev-server": "^5.2.1"
+    "webpack-dev-server": "^5.2.2"
   },
   "dependencies": {
     "@splidejs/splide": "^4.1.4",
-    "strip-json-comments": "^5.0.1",
+    "strip-json-comments": "^5.0.2",
     "xmlhttprequest": "^1.8.0"
   },
+  "overrides": {
+    "test-exclude": "^7.0.1"
+  },
   "jest": {
-    "verbose": true
+    "verbose": true,
+    "coverageProvider": "v8"
   }
 }
