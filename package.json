@@ -5,7 +5,7 @@
   "scripts": {
     "test": "jest",
     "prod": "webpack --config config.prod.js",
-    "dev": "webpack-dashboard -- webpack-dev-server --config config.dev.js",
+    "dev": "webpack-dev-server --config config.dev.js",
     "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm install",
     "deploy": "gh-pages -d dist"
   },
@@ -25,7 +25,7 @@
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.3",
     "jest": "^30.0.4",
-    "mini-css-extract-plugin": "~2.9.2",
+    "mini-css-extract-plugin": "^2.10.2",
     "postcss-loader": "^8.1.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.89.2",
@@ -33,7 +33,6 @@
     "style-loader": "^4.0.0",
     "webpack": "^5.105.0",
     "webpack-cli": "^6.0.1",
-    "webpack-dashboard": "^3.3.8",
     "webpack-dev-server": "^6.0.0"
   },
   "dependencies": {
@@ -42,10 +41,15 @@
     "xmlhttprequest": "^1.8.0"
   },
   "overrides": {
-    "test-exclude": "^7.0.1"
+    "test-exclude": "^7.0.1",
+    "glob": "^13.0.0"
   },
   "jest": {
     "verbose": true,
     "coverageProvider": "v8"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "unrs-resolver@1.12.2": true
   }
 }

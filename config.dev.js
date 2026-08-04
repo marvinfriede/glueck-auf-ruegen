@@ -2,7 +2,6 @@
 
 const HtmlPlugin = require("html-webpack-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const DashboardPlugin = require("webpack-dashboard/plugin");
 const path = require("path");
 
 module.exports = {
@@ -95,11 +94,9 @@ module.exports = {
         },
       ],
     }),
-    new DashboardPlugin(),
   ],
   // By default webpack logs warnings if the bundle is bigger than 200kb.
   performance: { hints: false },
-  watch: false,
   watchOptions: {
     ignored: /node_modules/,
   },
