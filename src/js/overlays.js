@@ -2,7 +2,7 @@ import { Fade, showElement, hideElement } from "./animations.js";
 import { Calendar } from "./cal.js";
 import { ConstMissingException, DateError } from "./custom-errors.js";
 import { dateDiff, dt, sanitizeHTML } from "./utils-standard.js";
-import { loadJsonData } from "./utils-project.js";
+import { getPricePeriods, loadJsonData } from "./utils-project.js";
 
 // ------------------------------------------------------------------------
 // modal
@@ -226,29 +226,7 @@ const bookingPrices = async (data) => {
     return;
   }
 
-  // error message date not in price list
   const house = data.house.value;
-  if (
-    !Object.hasOwnProperty.call(
-      PRICES[house],
-      dt(data.date.arvl.value).getUTCFullYear()
-    ) ||
-    !Object.hasOwnProperty.call(PRICES[house], dt(data.date.arvl.value).getUTCFullYear())
-  ) {
-    title.innerText =
-      "Der Preis konnte nicht ermittelt werden, da wir für das ausgewählte Datum noch keine Preisliste hinterlegt haben. Generell ist davon auszugehen, dass die Preise ähnlich den bereits vorhandenen sein werden. Für Genaueres wenden Sie sich bitte direkt an uns.";
-
-    // hide all elements for pricing
-    hideElement(stays);
-    hideElement(cleaning);
-    hideElement(extra1);
-    hideElement(extra2);
-    hideElement(extra3);
-    hideElement(sum);
-
-    // do nothing further
-    return;
-  }
 
   const numStays = data.date.stays.value;
 
@@ -305,7 +283,7 @@ const bookingPrices = async (data) => {
     showElement(extra3);
 
     // add cost
-    price += data.guests.value * PRICES[house].bed;
+    price += numStays * PRICES[house].bed;
   } else {
     hideElement(extra3);
   }
@@ -321,10 +299,8 @@ const bookingPrices = async (data) => {
 
 const getPriceOfDate = (date, houseID, prices) => {
   if (!prices) throw new ConstMissingException("Price list not defined");
-  if (!Object.hasOwnProperty.call(prices[houseID], dt(date).getUTCFullYear()))
-    throw new ConstMissingException("Prices for this year not defined.");
-
-  const arr = prices[houseID][dt(date).getUTCFullYear()];
+  // years without prices fall back to the latest known price list
+  const arr = getPricePeriods(prices[houseID], dt(date).getUTCFullYear());
   date = dt(date).toInt();
 
   let begin, end, i;

@@ -301,7 +301,7 @@ export const Calendar = {
     if (type == "month") {
       this.date.setMonth(value);
     } else if (type == "year") {
-      this.date.setYear(value);
+      this.date.setFullYear(value);
     }
 
     this.booked =
@@ -399,11 +399,11 @@ export const Calendar = {
     }
 
     // additional css for today's date
-    if (this.opts.markToday && this.today.getTime() == this.date.getTime())
+    if (this.opts.markToday && dt(this.today).toInt() === dt(this.date).toInt())
       div.classList.add("cal-main__date--today");
 
     if (
-      (this.opts.disablePastDays && this.date.getTime() <= this.today.getTime() - 1) ||
+      (this.opts.disablePastDays && dt(this.date).toInt() < dt(this.today).toInt()) ||
       (this.booked[year] && this.booked[year][month].indexOf(dayNum) > -1)
     ) {
       div.classList.add("cal-main__date--disabled");

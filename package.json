@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "prod": "webpack --config config.prod.js",
     "dev": "webpack-dev-server --config config.dev.js",
     "reinstall": "rm -f package-lock.json && rm -rf node_modules && npm install",
@@ -29,11 +29,11 @@
     "postcss-loader": "^8.1.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.89.2",
-    "sass-loader": "^16.0.5",
+    "sass-loader": "^17.0.1",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.6.1",
     "webpack": "^5.105.0",
-    "webpack-cli": "^6.0.1",
+    "webpack-cli": "^7.2.3",
     "webpack-dev-server": "^6.0.0"
   },
   "dependencies": {

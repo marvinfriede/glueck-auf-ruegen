@@ -1,6 +1,6 @@
 import { FileNotFoundError } from "./custom-errors";
-import { loadJsonData } from "./utils-project";
-import { capitalizeFirstLetter, dateDiff, isInt } from "./utils-standard";
+import { getPricePeriods, loadJsonData } from "./utils-project";
+import { capitalizeFirstLetter, dateDiff } from "./utils-standard";
 
 export default class Pricelist {
   constructor() {
@@ -92,25 +92,18 @@ export default class Pricelist {
       const currentYear = i == 0 ? this.year - 1 : this.year;
       const date = new Date(currentYear, month, day);
 
-      // iterate over all years in prices
-      for (const year in p) {
-        if (Object.hasOwnProperty.call(p, year)) {
-          if (!isInt(year)) continue;
-
-          // iterate over { start, end, prices }
-          for (const times of p[year]) {
-            const begin = times.begin;
-            if (dateDiff(begin, date) === 0) {
-              this.style(textPrice, times.price);
-              listForMinMax.push(times.price);
-            }
-          }
+      // iterate over { start, end, prices } of the year (latest known prices if year is missing)
+      for (const times of getPricePeriods(p, currentYear)) {
+        if (dateDiff(times.begin, date) === 0) {
+          this.style(textPrice, times.price);
+          listForMinMax.push(times.price);
         }
       }
     }
 
+    if (listForMinMax.length === 0) return;
+
     const el = this.root.querySelector(".card-main--row.accordion .price > .value");
-    
     el.innerText = `${Math.min(...listForMinMax)}€ - ${Math.max(...listForMinMax)}€`;
   }
 
