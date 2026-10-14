@@ -17,11 +17,33 @@ export const loadJsonData = (url) =>
         } catch (err) {
           return reject(err);
         }
-      } else if (xhr.status == 404) {
+      } else if (xhr.readyState == 4) {
+        // any non-200 result (404, 500, network error) must not leave the promise pending
         return reject(xhr);
       }
     };
   });
+
+/**
+ * Get the price periods of a house for a year. If the price list has no entry for that
+ * year, the periods of the latest available year are used, shifted to the requested year.
+ * @param {Object} housePrices prices of one house, e.g. PRICES["Düne"]
+ * @param {Number|String} year
+ * @returns {Object[]} list of { begin, end, price }; empty if there are no yearly prices at all
+ */
+export const getPricePeriods = (housePrices, year) => {
+  if (Object.hasOwnProperty.call(housePrices, year)) return housePrices[year];
+
+  const years = Object.keys(housePrices).filter((k) => /^\d{4}$/.test(k));
+  if (years.length === 0) return [];
+
+  const latest = Math.max(...years);
+  return housePrices[latest].map((p) => ({
+    ...p,
+    begin: String(year) + p.begin.substring(4),
+    end: String(year) + p.end.substring(4),
+  }));
+};
 
 // ---------------------------------------------------
 // drowdowns
@@ -43,7 +65,7 @@ const closeDropdown = async (e) => {
   if (e.touches) e.preventDefault();
 
   const drop = document.querySelector(".dropdown.is-open");
-  const root = drop.closest(".drop-root");
+  const root = drop?.closest(".drop-root");
   if (!drop || !root) return;
 
   // cover ESC press
@@ -136,7 +158,7 @@ const closeSelector = (e) => {
   if (e.touches) e.preventDefault();
 
   const select = document.querySelector(".selector.visible");
-  const root = select.closest(".selector-root");
+  const root = select?.closest(".selector-root");
   if (!select || !root) return;
 
   // cover ESC press
@@ -247,7 +269,7 @@ export const scaleGrids = () => {
 
     // calculate how many items are in one row
     let factor = 1;
-    for (let i = 0; i < items.length; i++) {
+    for (let i = 0; i < items.length - 1; i++) {
       if (
         Math.abs(
           items[i].getBoundingClientRect().y - items[i + 1].getBoundingClientRect().y

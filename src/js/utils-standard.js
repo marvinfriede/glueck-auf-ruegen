@@ -215,7 +215,7 @@ export const dt = (initDate) => {
     setUTCFullYear: (arg) => utcMidnightDateObj.setUTCFullYear(arg),
     setUTCMonth: (arg) => utcMidnightDateObj.setUTCMonth(arg),
     addDays: (days) => {
-      utcMidnightDateObj.setUTCDate(utcMidnightDateObj.getUTCDate + days);
+      utcMidnightDateObj.setUTCDate(utcMidnightDateObj.getUTCDate() + days);
     },
     toString: () => utcMidnightDateObj.toString(),
     toLocaleDateString: (locale, options) => {

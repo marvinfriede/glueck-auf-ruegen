@@ -1,94 +1,40 @@
-const XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+const { loadJsonData } = require("./helpers");
 
-const loadJsonData = (url) =>
-  new Promise((resolve, reject) => {
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.send();
+const daysInMonth = (year, month) => new Date(year, month, 0).getDate();
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState == 4 && xhr.status == 200) {
-        try {
-          const json = JSON.parse(stripJsonComments(xhr.responseText));
-          return resolve(json);
-        } catch (err) {
-          return reject(err);
-        }
-      } else if (xhr.status == 404) {
-        return reject(xhr);
-      }
-    };
+describe.each([
+  ["DÜNE", "booking-duene.txt"],
+  ["MÖWE", "booking-moewe.txt"],
+])("Testing booking dates for %s", (_name, file) => {
+  let booked;
+
+  beforeAll(async () => {
+    booked = await loadJsonData(file);
   });
 
-let counter, i;
+  it("has at least one year", () => {
+    expect(Object.keys(booked).length).toBeGreaterThan(0);
+  });
 
-describe("Testing booking dates for DÜNE", () => {
-  it("async parent", async () => {
-    const BOOKED_DUENE = await loadJsonData("../data/booking-duene.txt");
-
-    // loop through years
-    for (const year in BOOKED_DUENE) {
-      if (Object.hasOwnProperty.call(BOOKED_DUENE, year)) {
-        const yearObj = BOOKED_DUENE[year];
-
-        // test each year
-        test(`Test year ${year}`, () => {
-          // loop through months to get days
-
-          counter = 1;
-          for (const month in yearObj) {
-            // check if all 12 months present
-            expect(parseInt(month)).toBe(counter);
-
-            if (Object.hasOwnProperty.call(yearObj, month)) {
-              const days = yearObj[month];
-              const numDays = days.length;
-              if (numDays !== 0) {
-                for (i = 0; i < numDays; i++) {
-                  // check if largest day is 31
-                  expect(days[i]).toBeLessThan(32);
-                }
-              }
-            }
-            counter += 1;
-          }
-        });
-      }
+  it("has all 12 months in order for every year", () => {
+    for (const year in booked) {
+      expect(Object.keys(booked[year])).toEqual(
+        Array.from({ length: 12 }, (_, i) => String(i + 1))
+      );
     }
   });
-});
 
-describe("Testing booking dates for MÖWE", () => {
-  it("async parent", async () => {
-    const BOOKED_MOEWE = await loadJsonData("../data/booking-moewe.txt");
-
-    // loop through years
-    for (const year in BOOKED_MOEWE) {
-      if (Object.hasOwnProperty.call(BOOKED_MOEWE, year)) {
-        const yearObj = BOOKED_MOEWE[year];
-
-        // test each year
-        test(`Test year ${year}`, () => {
-          // loop through months to get days
-
-          counter = 1;
-          for (const month in yearObj) {
-            // check if all 12 months present
-            expect(parseInt(month)).toBe(counter);
-
-            if (Object.hasOwnProperty.call(yearObj, month)) {
-              const days = yearObj[month];
-              const numDays = days.length;
-              if (numDays !== 0) {
-                for (i = 0; i < numDays; i++) {
-                  // check if largest day is 31
-                  expect(days[i]).toBeLessThan(32);
-                }
-              }
-            }
-            counter += 1;
-          }
+  it("only has valid, sorted, unique integer days for each month", () => {
+    for (const year in booked) {
+      for (const month in booked[year]) {
+        const days = booked[year][month];
+        expect(Array.isArray(days)).toBe(true);
+        days.forEach((d) => {
+          expect(Number.isInteger(d)).toBe(true);
+          expect(d).toBeGreaterThanOrEqual(1);
+          expect(d).toBeLessThanOrEqual(daysInMonth(+year, +month));
         });
+        expect(days).toEqual([...new Set(days)].sort((a, b) => a - b));
       }
     }
   });
