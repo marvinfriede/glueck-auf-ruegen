@@ -105,6 +105,7 @@ section.main .content .title {
   border-bottom: solid 1px var(--blue3);
   color: var(--blue2);
   font-size: var(--fs-h);
+  font-weight: inherit;
   padding: 1rem;
   text-align: center;
 }
@@ -149,4 +150,17 @@ section.main .content .title {
   padding: 15px 10px;
   text-align: center;
   width: 100%;
+}
+
+/* hidden from view, still read by screen readers and crawlers */
+.visually-hidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }

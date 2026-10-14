@@ -21,14 +21,11 @@ const onIntersection = (entries) => {
     const t = entry.target;
     if (entry.isIntersecting) {
       if (t.id == "id-0" && isEmpty(Sliders.landing)) {
-        console.log("Initialized slider for Landing.");
         initSliderLanding();
       } else if (t.id == "id-2") {
-        console.log("Initialized slider for Duene.");
         initSlider("duene");
         intersectionObserver.unobserve(t);
       } else if (t.id == "id-3") {
-        console.log("Initialized slider for Moewe.");
         initSlider("moewe");
         intersectionObserver.unobserve(t);
       }
