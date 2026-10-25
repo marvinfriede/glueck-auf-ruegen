@@ -156,23 +156,13 @@ export const initSliderLanding = () => {
     height: "100%",
     interval: 10000,
     keyboard: false, // in background anyway
-    lazyLoad: false,
+    lazyLoad: "nearby",
     pagination: true,
     perPage: 1,
-    preloadPages: 0, // performance! loads 2 images if set to 1
+    preloadPages: 1, // Load neighboring images before slide transitions.
     rewind: true,
     speed: 2000,
     type: "fade",
-  });
-  // Fetch background slides when requested, without competing with the first paint.
-  Sliders.landing.on("move", (index) => {
-    const img = Sliders.landing.Components.Slides.getAt(index).slide.querySelector("img");
-    if (img.dataset.heroSrc) {
-      if (img.dataset.heroSrcset) img.srcset = img.dataset.heroSrcset;
-      img.src = img.dataset.heroSrc;
-      delete img.dataset.heroSrc;
-      delete img.dataset.heroSrcset;
-    }
   });
   Sliders.landing.mount();
 };
