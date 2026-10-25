@@ -1,5 +1,6 @@
 import { BP } from "./constants.js";
 import { throttle } from "./utils-standard.js";
+import { removeLoadingMask } from "./loading-mask.js";
 
 import "../css/reset.css";
 import "../css/content.scss";
@@ -133,4 +134,10 @@ export const setEventListenersNavs = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   setEventListenersNavs();
+});
+
+// main.js handles the homepage overlay after aligning the grids.
+// Legal pages only load nav.js.
+window.addEventListener("load", () => {
+  if (!document.querySelector("#splide-landing")) removeLoadingMask();
 });

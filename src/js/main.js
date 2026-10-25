@@ -31,6 +31,7 @@ import { toggleAccordion } from "./accordion.js";
 import { Calendar } from "./cal.js";
 import { initIntersectionObserver, openImgFullscreen, setHeights } from "./slider.js";
 import { openBookingModal } from "./overlays.js";
+import { removeLoadingMask } from "./loading-mask.js";
 import { debounce, foreach } from "./utils-standard.js";
 import {
   goToBooking,
@@ -212,4 +213,14 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 window.addEventListener("load", () => {
   handleWindowResize();
+
+  // Re-align the original grids after fonts settle, but cap the extra wait.
+  const fontsReady = document.fonts ? document.fonts.ready : Promise.resolve();
+  Promise.race([
+    fontsReady,
+    new Promise((resolve) => setTimeout(resolve, 1000)),
+  ]).then(() => {
+    scaleGrids();
+    requestAnimationFrame(() => requestAnimationFrame(removeLoadingMask));
+  });
 });

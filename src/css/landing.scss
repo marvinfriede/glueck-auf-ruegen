@@ -19,6 +19,18 @@ section.landing {
     position: absolute;
     user-select: none;
     width: 100%;
+    overflow: hidden;
+    background-color: var(--blue2);
+
+    .slider-wrap {
+      width: 100%;
+      background-color: transparent;
+    }
+
+    #splide-landing:not(.is-initialized) {
+      .splide__list { display: block; }
+      .splide__slide:first-child { width: 100%; height: 100%; }
+    }
 
     .slider,
     .slider-wrap,
@@ -29,6 +41,9 @@ section.landing {
     }
 
     .splide__slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
   }
