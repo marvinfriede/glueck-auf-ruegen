@@ -7,7 +7,7 @@
   left: 0;
   height: 100%;
   justify-content: center;
-  overflow: hidden;
+  overflow-y: auto;
   padding: 0;
   position: fixed;
   width: 100%;
@@ -38,6 +38,13 @@
       }
       @media (min-width: breakpoints.$bp-xl) {
         padding: 50px;
+      }
+
+      .booking-note {
+        color: var(--gray6);
+        font-size: var(--fs-s);
+        line-height: 1.5;
+        margin-bottom: 20px;
       }
 
       .summary {
@@ -265,5 +272,18 @@
         width: 60px;
       }
     }
+  }
+}
+
+@media (max-width: 375px) {
+  #modal-booking .summary .data .row:nth-child(n + 3) {
+    flex-basis: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-height: 600px) {
+  .modal {
+    padding: 25px 15px;
   }
 }

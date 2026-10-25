@@ -1,7 +1,8 @@
 @use "_breakpoints.scss";
 
 .cal-wrap {
-  min-width: 40vw;
+  min-width: min(400px, calc(100vw - 40px));
+  max-width: calc(100vw - 40px);
   right: -2px;
   position: absolute;
   top: 100%;

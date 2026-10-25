@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin-when-cross-origin" />
     <link rel="canonical" href="https://www.glueck-auf-ruegen.de/impressum.html" />
     <meta name="robots" content="noindex, follow" />
-    <link rel="icon" href="img/favicon/favicon.512.png" />
+    <link rel="icon" href="img/favicon/favicon.128.png" />
     <link rel="apple-touch-icon" href="img/favicon/favicon.512.png" />
 
     <!-- description -->
@@ -50,20 +50,7 @@
       content="Impressum von Glück auf Rügen: Anbieterkennzeichnung und Kontaktdaten der Ferienwohnungen im Ostseebad Sellin."
     />
 
-    <noscript>
-      Diese Website benötigt JavaScript, um fehlerfrei zu funktionieren.
-      <style>
-        body {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          min-height: 100vh;
-        }
-        body > div {
-          display: none !important;
-        }
-      </style>
-    </noscript>
+    <noscript><p class="no-script">Für Kalender und Preisberechnung benötigen Sie JavaScript. Für Ihre Anfrage erreichen Sie uns unter <a href="mailto:Glueck-auf-ruegen@web.de">Glueck-auf-ruegen@web.de</a> oder <a href="tel:+4915259603163">01525 9603163</a>.</p></noscript>
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -95,11 +82,10 @@
     </script> -->
   </head>
   <body>
-    <div class="mask"></div>
-
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-wrapper">
       <aside>
-        <div class="nav-collapsed">
+        <nav id="mobile-navigation" class="nav-collapsed" aria-label="Hauptnavigation" inert>
           <div class="side-nav">
             <a class="nav-link" href="./#duene">Ferienwohnung Düne</a>
             <a class="nav-link" href="./#moewe">Bungalow Möwe</a>
@@ -115,14 +101,14 @@
               </div>
             </a>
           </div>
-        </div>
+        </nav>
       </aside>
 
       <header>
-        <div class="s">
+        <button class="s" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-navigation">
           <span class="upper"></span>
           <span class="lower"></span>
-        </div>
+        </button>
 
         <div class="l">
           <div class="header-outer">
@@ -166,7 +152,7 @@
         </div>
       </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <section class="main">
           <div class="content has-max-width">
             <div class="separator"></div>
@@ -184,14 +170,14 @@
                 <div>Telefon: <a href="tel:+4915259603163">01525 9603163</a></div>
                 <div>
                   E-Mail:
-                  <a href="mailto:kontakt@glück-auf-rügen.de"
-                    >kontakt@glück-auf-rügen.de</a
+                  <a href="mailto:Glueck-auf-ruegen@web.de"
+                    >Glueck-auf-ruegen@web.de</a
                   >
                 </div>
               </div>
 
               <div class="item">
-                <div class="bold large space-below">Haftungsausschluss</div>
+                <h2 class="bold large space-below">Haftungsausschluss</h2>
                 <div class="bold space-below">Haftung für Inhalte</div>
                 <div>
                   Die Inhalte unserer Seiten wurden mit größter Sorgfalt erstellt. Für die
@@ -226,7 +212,7 @@
               </div>
 
               <div class="item">
-                <div class="bold large space-below">Urheberrecht</div>
+                <h2 class="bold large space-below">Urheberrecht</h2>
                 <div>
                   Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen
                   Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,

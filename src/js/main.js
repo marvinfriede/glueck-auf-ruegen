@@ -43,6 +43,86 @@ import {
 } from "./utils-project";
 import Pricelist from "./pricelist";
 
+/**
+ * Adds keyboard support and accessible states to the existing custom controls.
+ * @returns {void}
+ */
+const initAccessibleControls = () => {
+  const makeButton = (el, label) => {
+    el.setAttribute("role", "button");
+    el.tabIndex = 0;
+    if (label) el.setAttribute("aria-label", label);
+  };
+  const labels = {
+    "select-house": "Unterkunft",
+    "select-guests": "Personen",
+    "select-extras": "Extras",
+    "select-month": "Monat",
+    "select-year": "Jahr",
+  };
+
+  foreach(document.querySelectorAll(".drop-root, .selector-root"), (root) => {
+    if (root.id === "select-date") return;
+
+    const trigger = root.querySelector(".select") || root.querySelector(".selection");
+    const popup = root.querySelector(".dropdown, .selector");
+    if (!trigger || !popup) return;
+
+    popup.id = `${root.id}-options`;
+    makeButton(trigger);
+
+    const caption = document.createElement("span");
+    caption.id = `${root.id}-label`;
+    caption.className = "visually-hidden";
+    caption.textContent = labels[root.id];
+    root.prepend(caption);
+
+    root.querySelector(".selection").id = `${root.id}-value`;
+    trigger.setAttribute("aria-labelledby", `${caption.id} ${root.id}-value`);
+    trigger.setAttribute("aria-controls", popup.id);
+    trigger.setAttribute("aria-expanded", "false");
+  });
+
+  const buttons = [
+    ".dropdown-option",
+    ".accordion",
+    ".cal-footer--button",
+    "#contact",
+    ".map .note",
+    ".slider-fullscreen",
+    ".close-button",
+  ];
+  foreach(document.querySelectorAll(buttons.join(", ")), (el) => {
+    let label;
+    if (el.matches(".close-button")) {
+      label = "Schließen";
+    } else if (el.matches(".slider-fullscreen")) {
+      label = "Bilder in Großansicht öffnen";
+    } else if (el.id === "contact") {
+      label = "Buchungsanfrage stellen";
+    }
+    makeButton(el, label);
+    if (el.matches(".accordion")) el.setAttribute("aria-expanded", "false");
+  });
+
+  foreach(document.querySelectorAll(".selector-option"), (el) => {
+    el.setAttribute("role", "checkbox");
+    el.setAttribute("aria-checked", el.dataset.selected);
+    el.removeAttribute("aria-selected");
+    el.tabIndex = 0;
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+
+    const target = event.target;
+    if (target.matches('[role="button"], [role="checkbox"], .date-picker')) {
+      event.preventDefault();
+      target.click();
+    }
+  });
+};
+
 // ---------------------------------------------------
 // event listeners and handlers
 // ---------------------------------------------------
@@ -125,6 +205,7 @@ const initPrices = async () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   setEventListeners();
+  initAccessibleControls();
   initIntersectionObserver();
   initPrices();
   Calendar.init();

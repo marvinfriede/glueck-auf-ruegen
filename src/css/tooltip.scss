@@ -36,6 +36,18 @@
       border-style: solid;
       border-color: var(--gray5) transparent transparent transparent;
     }
+
+    @media (max-width: 375px) {
+      left: auto;
+      margin-left: 0;
+      right: 0;
+
+      &::after {
+        left: auto;
+        margin-left: 0;
+        right: 10px;
+      }
+    }
   }
 }
 

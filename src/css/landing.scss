@@ -19,6 +19,18 @@ section.landing {
     position: absolute;
     user-select: none;
     width: 100%;
+
+    .slider,
+    .slider-wrap,
+    .splide,
+    .splide__track,
+    .splide__list {
+      height: 100%;
+    }
+
+    .splide__slide img {
+      object-fit: cover;
+    }
   }
 
   #id-0 {
@@ -103,6 +115,7 @@ section.landing {
           align-items: center;
           display: flex;
           position: relative;
+          z-index: 75;
         }
         .form-wrap--bg {
           background-color: var(--white);
@@ -117,6 +130,7 @@ section.landing {
         }
 
         .form {
+          min-width: 0;
           background-color: transparent;
           align-items: center;
           display: flex;
@@ -137,6 +151,7 @@ section.landing {
           }
 
           .form-field-wrap {
+            min-width: 0;
             display: inline-block;
             width: 100%;
 
@@ -212,7 +227,7 @@ section.landing {
                 padding-right: 5px;
 
                 &.faded {
-                  color: var(--gray4);
+                  color: var(--gray5);
                   font-size: var(--fs-s);
                   font-weight: normal;
                 }
@@ -225,6 +240,9 @@ section.landing {
             /* --------------- house, guests and extras ----------------- */
             .selector,
             .dropdown {
+              max-height: 60vh;
+              max-width: calc(100vw - 40px);
+              overflow: auto;
               -moz-backface-visibility: hidden;
               -webkit-backface-visibility: hidden;
               backface-visibility: hidden;
@@ -295,6 +313,7 @@ section.landing {
               }
               .selector-option--text {
                 margin-right: 20px;
+                white-space: normal;
               }
             }
 
@@ -308,6 +327,8 @@ section.landing {
               width: 100%;
 
               .date-inp {
+                flex: 1 1 0;
+                min-width: 0;
                 flex-grow: 1;
                 height: 100%;
                 position: relative;
@@ -317,6 +338,7 @@ section.landing {
                     background-color: transparent;
                     border: 0;
                     font-size: var(--fs);
+                    min-width: 0;
                     text-decoration: unset;
                     display: block;
                     cursor: pointer;
@@ -363,7 +385,7 @@ section.landing {
                 height: calc(100% - 2px);
                 margin-bottom: 1px;
                 margin-top: 1px;
-                padding: 18px 30px 0 5px;
+                padding: 18px 10px 0 5px;
 
                 @media (min-width: breakpoints.$bp-l) {
                   padding-top: 30px;
@@ -373,7 +395,7 @@ section.landing {
               .date-label {
                 align-items: center;
                 font-size: var(--fs);
-                color: var(--gray5);
+                color: var(--gray6);
                 display: flex;
                 height: 100%;
                 pointer-events: none;
@@ -386,7 +408,7 @@ section.landing {
             /* --------------- submit button ----------------- */
             &.form-button {
               align-items: center;
-              background-color: var(--blue7);
+              background-color: var(--blue3);
               border: 0;
               border-radius: 3px;
               cursor: pointer;
@@ -438,5 +460,17 @@ section.landing {
         }
       }
     }
+  }
+}
+
+#booking-error {
+  background-color: var(--white);
+  border-radius: 4px;
+  color: #a71929;
+  line-height: 1.5;
+  padding: 12px;
+
+  &:empty {
+    display: none;
   }
 }

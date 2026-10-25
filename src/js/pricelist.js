@@ -1,6 +1,6 @@
 import { FileNotFoundError } from "./custom-errors";
 import { getPricePeriods, loadJsonData } from "./utils-project";
-import { capitalizeFirstLetter, dateDiff } from "./utils-standard";
+import { capitalizeFirstLetter } from "./utils-standard";
 
 export default class Pricelist {
   constructor() {
@@ -75,36 +75,35 @@ export default class Pricelist {
   }
 
   runList() {
-    const panels = Array.from(this.root.querySelectorAll(".panel .panel-row"));
-    const p = this.prices[this.nameGer];
-    const listForMinMax = [];
+    const periods = getPricePeriods(this.prices[this.nameGer], this.year);
+    if (!periods.length) return;
 
-    // iterate all panel in accordion
-    for (let i = 0; i < panels.length; i++) {
-      const panel = panels[i];
-      const textDate = panel.firstElementChild.innerText;
-      const textPrice = panel.lastElementChild;
+    const formatDate = (value) => {
+      const [, month, day] = value.split("/");
+      return `${day}.${month}.`;
+    };
 
-      // date
-      const dayMonth = textDate.split(" - ")[0];
-      const day = dayMonth.split(".")[0];
-      const month = dayMonth.split(".")[1] - 1;
-      const currentYear = i == 0 ? this.year - 1 : this.year;
-      const date = new Date(currentYear, month, day);
+    const rows = periods.map((period) => {
+      const row = document.createElement("div");
+      row.className = "panel-row";
 
-      // iterate over { start, end, prices } of the year (latest known prices if year is missing)
-      for (const times of getPricePeriods(p, currentYear)) {
-        if (dateDiff(times.begin, date) === 0) {
-          this.style(textPrice, times.price);
-          listForMinMax.push(times.price);
-        }
-      }
-    }
+      const season = document.createElement("div");
+      season.className = "season";
+      season.innerText = `${formatDate(period.begin)} - ${formatDate(period.end)}`;
 
-    if (listForMinMax.length === 0) return;
+      const price = document.createElement("div");
+      price.className = "price large";
+      this.style(price, period.price);
 
-    const el = this.root.querySelector(".card-main--row.accordion .price > .value");
-    el.innerText = `${Math.min(...listForMinMax)}€ - ${Math.max(...listForMinMax)}€`;
+      row.append(season, price);
+      return row;
+    });
+
+    this.root.querySelector(".panel").replaceChildren(...rows);
+
+    const rates = periods.map((period) => period.price);
+    const range = this.root.querySelector(".card-main--row.accordion .price > .value");
+    range.innerText = `${Math.min(...rates)}€ - ${Math.max(...rates)}€`;
   }
 
   style(el, price, plus = false) {

@@ -167,6 +167,7 @@ select {
   -webkit-font-smoothing: antialiased !important;
 }
 
-:focus {
-  outline: none !important;
+:focus-visible {
+  outline: 3px solid #0f2557 !important;
+  outline-offset: 3px;
 }
