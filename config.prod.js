@@ -23,7 +23,18 @@ module.exports = {
     rules: [
       {
         test: /\.html$/i,
-        use: ["html-loader"],
+        use: [
+          {
+            loader: "html-loader",
+            options: {
+              sources: {
+                // Preserve static photograph filenames; CopyPlugin already copies them.
+                urlFilter: (attribute, value) =>
+                  !/^(?:\.\/)?img\/(duene|moewe|sellin)\/.*\.jpe?g$/i.test(value),
+              },
+            },
+          },
+        ],
       },
       {
         test: /\.(svgz?|png|jpe?g|gif)$/i,
