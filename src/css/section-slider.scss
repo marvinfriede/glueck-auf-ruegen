@@ -247,3 +247,11 @@ section.landing .slider-wrap {
 .splide--nav > .splide__track > .splide__list > .splide__slide.is-active {
   border-radius: 5px;
 }
+
+.splide:not(.is-initialized) {
+  visibility: visible;
+
+  .splide__slide:not(:first-child) {
+    display: none;
+  }
+}

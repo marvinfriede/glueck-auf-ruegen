@@ -29,6 +29,10 @@ export const Calendar = {
       this.BOOKED_DUENE = await loadJsonData("data/booking-duene.txt");
     } catch (err) {
       console.error(`Loading booking data failed with: ${err}.`);
+      document.querySelector("#booking-error").textContent = "Der Belegungskalender konnte nicht geladen werden. Bitte fragen Sie Ihre Reisedaten per E-Mail oder telefonisch an.";
+      this.arvl.input.disabled = true;
+      this.dprt.input.disabled = true;
+      return;
     }
     this.opts = options;
     this.booked = this.BOOKED_DUENE; // duene is standard on init
@@ -67,8 +71,7 @@ export const Calendar = {
     });
 
     // one listener for all clicks in cal
-    this.cal.addEventListener("mousedown", (e) => {
-      e.preventDefault(); // prevent loss of focus
+    this.cal.addEventListener("click", (e) => {
       this.handleCalActions(e.target);
     });
   },
@@ -107,6 +110,7 @@ export const Calendar = {
           this.arvl.node = el;
           this.setInput(el);
           this.calDayStyling(el, "cal-main__date--arrival");
+          document.querySelector("#booking-error").textContent = "";
         }
       }
 
@@ -116,6 +120,7 @@ export const Calendar = {
           this.dprt.node = el;
           this.setInput(el);
           this.calDayStyling(el, "cal-main__date--departure");
+          document.querySelector("#booking-error").textContent = "";
         }
       }
 
@@ -154,12 +159,12 @@ export const Calendar = {
   verifySelection: function (el) {
     if (el == this.dprt.node) {
       this.calDayStyling(this.dprt.node, "cal-main__date--departure", false);
-      this.clearInput(this.dprt.input, this.dprt.node);
+      this.clearInput(this.dprt.input);
       return false;
     }
     if (el == this.arvl.node) {
       this.calDayStyling(this.arvl.node, "cal-main__date--arrival", false);
-      this.clearInput(this.arvl.input, this.arvl.node);
+      this.clearInput(this.arvl.input);
       return false;
     }
 
@@ -185,7 +190,11 @@ export const Calendar = {
     }
 
     // active set, other empty
-    if (!isStrEmpty(this.activeInp.value) && isStrEmpty(other.value)) return true;
+    if (!isStrEmpty(this.activeInp.value) && isStrEmpty(other.value)) {
+      if (this.activeInp === this.arvl.input) this.arvl.date = dt(arvlDate).toISOStringNoTime();
+      else this.dprt.date = dt(dprtDate).toISOStringNoTime();
+      return true;
+    }
 
     // convert date string to int
     const arvlDayInt = dt(arvlDate).toInt();
@@ -216,6 +225,7 @@ export const Calendar = {
   },
 
   show: function (e) {
+    document.querySelector("#booking-error").textContent = "";
     if (this.isCalOpen === true) {
       // close if input is clicked again
       if (e.target == this.activeInp) {
@@ -240,7 +250,7 @@ export const Calendar = {
 
     // center in view
     this.cal.scrollIntoView({
-      behavior: "smooth",
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
       block: "center",
       inline: "center",
     });
@@ -248,29 +258,33 @@ export const Calendar = {
     addCalListeners();
   },
   hide: function () {
+    const previousInput = this.activeInp;
     if (this.activeInp) this.clearActiveInput();
     this.isCalOpen = false;
 
     Fade.out(this.cal, 500);
 
     removeCalListeners();
+    this.arvl.input.setAttribute("aria-expanded", "false");
+    this.dprt.input.setAttribute("aria-expanded", "false");
+    if (previousInput) previousInput.focus({ preventScroll: true });
   },
 
   // handles content (value) of content
   setInput: function (el) {
-    this.activeInp.value = new Date(el.dataset.date).toLocaleDateString();
+    this.activeInp.value = dt(el.dataset.date).toDate().toLocaleDateString("de-DE");
     this.activeInp.setAttribute("data-value", el.dataset.date);
     this.activeInp.setAttribute("data-has-value", true);
   },
-  clearInput: function (el, day) {
+  clearInput: function (el) {
     el.value = "";
     el.setAttribute("data-value", "");
     el.setAttribute("data-has-value", false);
 
-    if (this.arvl.node === day) {
+    if (el === this.arvl.input) {
       this.arvl.node = null;
       this.arvl.date = null;
-    } else if (this.dprt.node === day) {
+    } else if (el === this.dprt.input) {
       this.dprt.node = null;
       this.dprt.date = null;
     }
@@ -280,11 +294,13 @@ export const Calendar = {
   setActiveInput: function () {
     this.activeInp.classList.add("active");
     this.activeInp.setAttribute("data-active", true);
+    this.activeInp.setAttribute("aria-expanded", "true");
     this.cal.setAttribute("data-date-for", this.activeInp.parentNode.id);
   },
   clearActiveInput: function () {
     this.activeInp.classList.remove("active");
     this.activeInp.setAttribute("data-active", false);
+    this.activeInp.setAttribute("aria-expanded", "false");
     this.activeInp.blur();
     this.activeInp = false;
     this.cal.removeAttribute("data-date-for");
@@ -293,11 +309,13 @@ export const Calendar = {
   clearSelectedDates: function () {
     this.calDayStyling(this.arvl.node, "cal-main__date--arrival", false);
     this.calDayStyling(this.dprt.node, "cal-main__date--departure", false);
-    this.clearInput(this.arvl.input, this.arvl.node);
-    this.clearInput(this.dprt.input, this.dprt.node);
+    this.clearInput(this.arvl.input);
+    this.clearInput(this.dprt.input);
+    document.querySelector("#booking-error").textContent = "";
   },
 
   update: function (type, value) {
+    if (!this.BOOKED_MOEWE || !this.BOOKED_DUENE) return;
     if (type == "month") {
       this.date.setMonth(value);
     } else if (type == "year") {
@@ -314,6 +332,7 @@ export const Calendar = {
   },
 
   refresh: function (type) {
+    if (!this.BOOKED_MOEWE || !this.BOOKED_DUENE) return;
     // update data
     this.booked =
       document.querySelector("#select-house").dataset.value == "Möwe"
@@ -330,7 +349,7 @@ export const Calendar = {
       const date = dt(this.dprt.date).toDate();
 
       const arvlDayInt = dt(this.arvl.date).toInt();
-      const dprtDayInt = date.toInt();
+      const dprtDayInt = dt(date).toInt();
       const daysStayed = dateDiff(arvlDayInt, dprtDayInt);
 
       // starts with departure date
@@ -386,6 +405,13 @@ export const Calendar = {
     const month = this.date.getMonth() + 1;
 
     span.innerHTML = dayNum;
+    const label = day.toLocaleDateString("de-DE", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+    span.setAttribute("aria-label", label);
     div.className = "cal-main__date";
 
     // employ margin for first day
@@ -409,6 +435,8 @@ export const Calendar = {
       div.classList.add("cal-main__date--disabled");
       div.title = "Belegt";
     } else {
+      span.setAttribute("role", "button");
+      span.tabIndex = 0;
       div.classList.add("cal-main__date--active");
       div.setAttribute("data-Calendar-status", "active");
       span.setAttribute("data-date", dt(this.date).toISOStringNoTime());
@@ -499,7 +527,7 @@ const removeCalListeners = () => {
  */
 const closeCal = (e) => {
   // targets
-  if (e.target.closest(".cal-wrap")) return;
+  if (e.type !== "keyup" && e.target.closest(".cal-wrap")) return;
   if (e.target.classList.contains("date-picker") && e.type !== "keyup") return;
 
   // cover ESC press

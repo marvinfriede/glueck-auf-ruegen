@@ -26,6 +26,8 @@ footer {
 
       .title {
         cursor: pointer;
+        min-width: 0;
+        overflow-wrap: anywhere;
         font-size: var(--fs);
 
         a {

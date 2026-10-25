@@ -1,7 +1,7 @@
 import Splide from "@splidejs/splide";
 import "@splidejs/splide/dist/css/splide.min.css";
 
-import { BP, optionsCover, optionsFull, optionsThumb } from "./constants.js";
+import { optionsCover, optionsFull, optionsThumb, sliderLabels } from "./constants.js";
 import { openModal } from "./overlays.js";
 import { foreach, isEmpty, moveHtml } from "./utils-standard.js";
 
@@ -30,15 +30,6 @@ const onIntersection = (entries) => {
         intersectionObserver.unobserve(t);
       }
     }
-
-    // pause autoplay if out of view
-    if (t.id == "id-0" && !isEmpty(Sliders.landing)) {
-      if (entry.isIntersecting) {
-        document.querySelector(".splide__play").click();
-      } else {
-        document.querySelector(".splide__pause").click();
-      }
-    }
   });
 };
 
@@ -58,8 +49,8 @@ export const initIntersectionObserver = () => {
     intersectionObserver.observe(document.querySelector("#id-2"));
     intersectionObserver.observe(document.querySelector("#id-3"));
   } else {
-    initSliderDuene();
-    initSliderMoewe();
+    initSlider("duene");
+    initSlider("moewe");
     initSliderLanding();
   }
 };
@@ -102,7 +93,7 @@ export const setHeights = () => {
   } else if (height >= 1200 && height < 1300) {
     fixedHeight = 1000;
   } else if (height >= 1300 && height < 1400) {
-    fixedHeight = 110;
+    fixedHeight = 1100;
   } else if (height >= 1400 && height < 1600) {
     fixedHeight = 1200;
   } else if (height >= 1600 && height < 1900) {
@@ -122,13 +113,11 @@ export const setHeights = () => {
   // for fullscreen
   const modal = document.querySelector("#modal-splide");
   if (
-    (modal.classList.contains("is-open") &&
-      !modal.classList.contains("is-fading-out")) ||
+    (modal.classList.contains("is-open") && !modal.classList.contains("is-fading-out")) ||
     modal.classList.contains("is-fading-in")
   ) {
     fixedHeight = height - 100;
-    modal.querySelector(".slider-container").style.minHeight =
-      fixedHeight + "px";
+    modal.querySelector(".slider-container").style.minHeight = fixedHeight + "px";
   }
 
   // change height
@@ -161,25 +150,31 @@ export const initSliderLanding = () => {
   Sliders.landing = new Splide("#splide-landing", {
     arrows: false,
     autoplay: true,
-    breakpoints: {
-      [BP.n]: { fixedHeight: 640 },
-      [BP.l]: { fixedHeight: 764 },
-      [BP.xl]: { fixedHeight: 694 },
-      [BP.xxl]: { fixedHeight: 764 },
-    },
-    cover: true,
+    i18n: sliderLabels,
+    cover: false,
     drag: false, // in background anyway
-    fixedHeight: 764,
+    height: "100%",
     interval: 10000,
     keyboard: false, // in background anyway
-    lazyLoad: "nearby",
+    lazyLoad: false,
     pagination: true,
     perPage: 1,
     preloadPages: 0, // performance! loads 2 images if set to 1
     rewind: true,
     speed: 2000,
     type: "fade",
-  }).mount();
+  });
+  // Fetch background slides when requested, without competing with the first paint.
+  Sliders.landing.on("move", (index) => {
+    const img = Sliders.landing.Components.Slides.getAt(index).slide.querySelector("img");
+    if (img.dataset.heroSrc) {
+      if (img.dataset.heroSrcset) img.srcset = img.dataset.heroSrcset;
+      img.src = img.dataset.heroSrc;
+      delete img.dataset.heroSrc;
+      delete img.dataset.heroSrcset;
+    }
+  });
+  Sliders.landing.mount();
 };
 
 /**
@@ -198,18 +193,18 @@ export const initSlider = (name, cover = true, start = 0) => {
     // create slider and thumbnail for cover
     const thumb = new Splide(
       `#splide-${name}-thumb`,
-      Object.assign({}, optionsThumb, { start: start })
+      Object.assign({}, optionsThumb, { start: start }),
     ).mount();
     const splide = new Splide(
       `#splide-${name}`,
-      Object.assign({}, optionsCover, { start: start })
+      Object.assign({}, optionsCover, { start: start }),
     );
     Sliders[name] = splide.sync(thumb).mount();
   } else {
     // create slider only for full
     Sliders[name] = new Splide(
       `#splide-${name}`,
-      Object.assign({}, optionsFull, { start: start })
+      Object.assign({}, optionsFull, { start: start }),
     ).mount();
   }
 
@@ -273,11 +268,17 @@ export const closeImgFullscreen = (e) => {
   if (e.type === "keyup" && e.key !== "Escape") return;
 
   // targets
-  if (e.target.closest(".content") && !e.target.closest(".close-button"))
+  if (
+    e.type !== "keyup" &&
+    e.target.closest(".content") &&
+    !e.target.closest(".close-button")
+  )
     return;
 
   // closing logic
   const target = document.querySelector("#modal-splide .splide");
+  if (!target) return;
+
   let destination, slider;
   if (target.id == "splide-duene") {
     slider = Sliders.duene;
@@ -297,10 +298,7 @@ export const closeImgFullscreen = (e) => {
   initSlider(target.id, true, index);
 
   window.scrollTo({
-    top:
-      slider.root.closest(".slider").getBoundingClientRect().top +
-      window.scrollY -
-      64,
+    top: slider.root.closest(".slider").getBoundingClientRect().top + window.scrollY - 64,
   });
 
   removeImgFullscreenListeners();

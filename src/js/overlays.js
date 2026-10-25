@@ -7,6 +7,24 @@ import { getPricePeriods, loadJsonData } from "./utils-project.js";
 // ------------------------------------------------------------------------
 // modal
 // ------------------------------------------------------------------------
+let modalTrigger = null;
+
+const trapModalFocus = (event) => {
+  if (event.key !== "Tab") return;
+  const modal = document.querySelector(".modal.visible");
+  if (!modal) return;
+  const items = [...modal.querySelectorAll('a[href], button, input, [tabindex="0"]')]
+    .filter((el) => el.getClientRects().length && !el.disabled);
+  const first = items[0];
+  const last = items[items.length - 1];
+  const atStart = event.shiftKey && document.activeElement === first;
+  const atEnd = !event.shiftKey && document.activeElement === last;
+
+  if (atStart || atEnd) {
+    event.preventDefault();
+    (event.shiftKey ? last : first)?.focus();
+  }
+};
 
 /**
  * Attach listeners for closing modal functions. "Click event" would be triggered immediately and thereby closing the modal after opening "click event".
@@ -34,8 +52,12 @@ const removeModalListeners = () => {
  * @returns {void}
  */
 export const openModal = (modal) => {
-  if (modal) {
+  if (modal && !modal.classList.contains("visible")) {
+    modalTrigger = document.activeElement;
     Fade.in(modal, 500, true);
+    document.querySelector(".page-wrapper").inert = true;
+    document.addEventListener("keydown", trapModalFocus);
+    modal.querySelector(".close-button")?.focus({ preventScroll: true });
     addModalListeners();
   }
 };
@@ -53,7 +75,7 @@ const closeModal = (e) => {
   if (e.type === "keyup" && e.key !== "Escape") return;
 
   // targets
-  if (e.target.closest(".content") && !e.target.closest(".close-button")) return;
+  if (e.type !== "keyup" && e.target.closest(".content") && !e.target.closest(".close-button")) return;
 
   // actual closing function
   closeModalManually();
@@ -69,6 +91,9 @@ export const closeModalManually = () => {
   const modal = document.querySelector(".modal.visible");
   if (modal) {
     Fade.out(modal, 500, true);
+    document.querySelector(".page-wrapper").inert = false;
+    document.removeEventListener("keydown", trapModalFocus);
+    modalTrigger?.focus({ preventScroll: true });
     removeModalListeners();
   }
 };
@@ -79,6 +104,12 @@ export const closeModalManually = () => {
 
 export const openBookingModal = () => {
   try {
+    if (document.querySelector("#modal-booking.visible")) return;
+    if (Boolean(Calendar.arvl.date) !== Boolean(Calendar.dprt.date)) {
+      document.querySelector("#booking-error").textContent = "Bitte wählen Sie Anreise und Abreise oder leeren Sie beide Datumsfelder für eine allgemeine Anfrage.";
+      (Calendar.arvl.date ? Calendar.dprt.input : Calendar.arvl.input).focus();
+      return;
+    }
     const modal = document.querySelector(".modal");
     modal.title = "Klicken zum Schließen.";
     openModal(modal);
@@ -124,8 +155,7 @@ export const openBookingModal = () => {
     bookingPrices(data);
   } catch (err) {
     console.error(err);
-    alert("Ein interner Fehler ist aufgetreten. Seite wird neu geladen.");
-    location.reload();
+    document.querySelector("#booking-error").textContent = "Die Anfrage konnte nicht vorbereitet werden. Bitte kontaktieren Sie uns unter Glueck-auf-ruegen@web.de oder 01525 9603163.";
   }
 };
 const bookingFillHouse = (data) => {
@@ -135,7 +165,7 @@ const bookingFillGuests = (data) => {
   data.house.to.innerText = data.house.value;
 };
 const bookingFillExtras = (data) => {
-  if (data.extras.dog || data.extras.sheets || data.extras.bed) {
+  if ([data.extras.dog, data.extras.sheets, data.extras.bed].includes("true")) {
     data.extras.to.innerText = data.extras.from.innerText;
   } else {
     data.extras.to.innerText = "Keine.";
@@ -144,11 +174,11 @@ const bookingFillExtras = (data) => {
 const bookingFillDate = (data) => {
   const mail = document.querySelector("#mail");
   if (data.date.arvl.value && data.date.dprt.value) {
-    const arvlLocale = dt(data.date.arvl.value).toLocaleDateString();
-    const dprtLocale = dt(data.date.dprt.value).toLocaleDateString();
+    const arvlLocale = dt(data.date.arvl.value).toDate().toLocaleDateString("de-DE");
+    const dprtLocale = dt(data.date.dprt.value).toDate().toLocaleDateString("de-DE");
 
     // create subject and body of mail
-    const subject = `Buchung ${sanitizeHTML(data.house.value)} vom ${sanitizeHTML(
+    const subject = `Buchungsanfrage ${sanitizeHTML(data.house.value)} vom ${sanitizeHTML(
       arvlLocale
     )} bis ${sanitizeHTML(dprtLocale)}`;
     const body = `Sehr geehrte Familie Wolf,
@@ -187,6 +217,8 @@ const bookingPrices = async (data) => {
   const extra2 = document.querySelector(".pricing [data-id='extra-2']");
   const extra3 = document.querySelector(".pricing [data-id='extra-3']");
   const sum = document.querySelector(".pricing [data-id='sum']");
+  title.innerText = "Preis wird berechnet …";
+  [stays, cleaning, extra1, extra2, extra3, sum].forEach(hideElement);
 
   let PRICES;
   try {
@@ -278,6 +310,7 @@ const bookingPrices = async (data) => {
     hideElement(extra2);
   }
   if (data.extras.bed == "true") {
+    extra3.firstElementChild.innerText = house === "Düne" ? "Kinderreisebett" : "Zustellbett";
     extra3.lastElementChild.innerText = `${numStays} x ${PRICES[house].bed} €`;
     showElement(extra3);
 

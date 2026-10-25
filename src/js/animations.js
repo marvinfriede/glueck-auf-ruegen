@@ -10,6 +10,9 @@ export const hideElement = (el) => {
     el.classList.add("hidden");
     el.classList.remove("visible");
     el.setAttribute("aria-hidden", true);
+    el.closest(".drop-root, .selector-root")
+      ?.querySelector("[aria-expanded]")
+      ?.setAttribute("aria-expanded", "false");
   }
 };
 
@@ -23,6 +26,9 @@ export const showElement = (el) => {
     el.classList.add("visible");
     el.classList.remove("hidden");
     el.setAttribute("aria-hidden", false);
+    el.closest(".drop-root, .selector-root")
+      ?.querySelector("[aria-expanded]")
+      ?.setAttribute("aria-expanded", "true");
   }
 };
 
@@ -84,6 +90,9 @@ export const Fade = {
       el.classList.add("visible");
       el.classList.remove("hidden");
       el.setAttribute("aria-hidden", false);
+      el.closest(".drop-root, .selector-root")
+        ?.querySelector("[aria-expanded]")
+        ?.setAttribute("aria-expanded", "true");
 
       el.style.opacity = 0;
       el.style.transition = `opacity ${duration}ms`;

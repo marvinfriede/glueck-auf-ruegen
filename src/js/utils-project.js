@@ -7,6 +7,9 @@ export const loadJsonData = (url) =>
   new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
+    xhr.timeout = 10000;
+    xhr.onerror = () => reject(new Error("Daten konnten nicht geladen werden."));
+    xhr.ontimeout = () => reject(new Error("Zeitüberschreitung beim Laden der Daten."));
     xhr.send();
 
     xhr.onreadystatechange = function () {
@@ -64,7 +67,7 @@ export const openDropdown = async (e) => {
 const closeDropdown = async (e) => {
   if (e.touches) e.preventDefault();
 
-  const drop = document.querySelector(".dropdown.is-open");
+  const drop = document.querySelector(".dropdown.visible");
   const root = drop?.closest(".drop-root");
   if (!drop || !root) return;
 
@@ -79,9 +82,12 @@ const closeDropdown = async (e) => {
   }
   removeDropdownListeners();
   await Fade.out(drop, 500);
+  if (e.type === "keyup" || e.target.closest(".dropdown-option")) {
+    root.querySelector('[role="button"]')?.focus({ preventScroll: true });
+  }
 
   // do extra stuff for certain targets (dropdown options)
-  if (e.target.classList.contains("dropdown-option")) {
+  if (e.type === "click" && e.target.classList.contains("dropdown-option")) {
     // display selection
     const name = e.target.getAttribute("data-value");
     root.querySelector(".selection").innerText = name;
@@ -97,6 +103,18 @@ const closeDropdown = async (e) => {
 
 const updateDropdownGuests = (name) => {
   const opts = document.querySelectorAll("#select-guests .dropdown-option");
+  // This is the existing bed option and price, named for the selected accommodation.
+  const extras = document.querySelector("#select-extras");
+  const bedLabel = extras.querySelector('[data-name="bed"] .selector-option--text');
+  bedLabel.innerText = name === "Düne" ? "Kinderreisebett" : "Zustellbett";
+
+  const selected = [...extras.querySelectorAll(".active .selector-option--text")]
+    .map((el) => el.innerText)
+    .join(", ");
+  if (selected) {
+    extras.querySelector(".selection").innerText = selected;
+    extras.dataset.value = selected;
+  }
   if (name === "Düne") {
     // show all options and display max number of guests
     foreach(opts, (opt) => showElement(opt));
@@ -165,16 +183,16 @@ const closeSelector = (e) => {
   if (e.type === "keyup" && e.key !== "Escape") return;
 
   // cover click of selector option
-  if (e.target.closest(".selector-option")) {
+  if (e.type === "click" && e.target.closest(".selector-option")) {
     const opt = e.target.closest(".selector-option");
     if (opt.classList.contains("active")) {
       opt.classList.remove("active");
       opt.setAttribute("data-selected", false);
-      opt.setAttribute("aria-selected", false);
+      opt.setAttribute("aria-checked", false);
     } else {
       opt.classList.add("active");
       opt.setAttribute("data-selected", true);
-      opt.setAttribute("aria-selected", true);
+      opt.setAttribute("aria-checked", true);
     }
 
     const act = root.querySelectorAll(".active .selector-option--text");
@@ -202,6 +220,7 @@ const closeSelector = (e) => {
   }
   Fade.out(select, 500);
   removeSelectorListeners();
+  if (e.type === "keyup") root.querySelector('[role="button"]')?.focus({ preventScroll: true });
 };
 
 /**
@@ -243,19 +262,24 @@ export const openGoogleMap = () => {
 // ---------------------------------------------------
 
 export const goToBooking = (e) => {
+  e.preventDefault();
   document.querySelector("#buchen").scrollIntoView();
-  if (!e.target.dataset.value) return;
+  const value = e.currentTarget.dataset.value;
+  if (!value) return;
 
   const house = document.querySelector("#select-house .selection");
-  if (e.target.dataset.value === "duene") {
+  if (value === "duene") {
     house.innerText = "Düne";
     updateDropdownGuests("Düne");
-  } else if (e.target.dataset.value === "moewe") {
+  } else if (value === "moewe") {
     house.innerText = "Möwe";
     updateDropdownGuests("Möwe");
   } else {
     console.warn("Identifier not found.");
   }
+  document.querySelector("#select-house").dataset.value = house.innerText;
+  Calendar.refresh("month");
+  document.querySelector("#select-house [role='button']")?.focus({ preventScroll: true });
 };
 
 // ---------------------------------------------------

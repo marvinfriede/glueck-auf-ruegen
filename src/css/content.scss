@@ -164,3 +164,41 @@ section.main .content .title {
   white-space: nowrap;
   width: 1px;
 }
+
+.skip-link {
+  background-color: var(--white);
+  color: var(--blue2);
+  left: 12px;
+  padding: 15px;
+  position: fixed;
+  top: -100px;
+  z-index: 1000000;
+
+  &:focus {
+    top: 12px;
+  }
+}
+
+.no-script {
+  line-height: 1.6;
+  padding: 20px;
+
+  a {
+    color: var(--blue3);
+    text-decoration: underline;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

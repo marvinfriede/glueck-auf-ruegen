@@ -6,7 +6,7 @@
     <meta name="referrer" content="origin-when-cross-origin" />
     <link rel="canonical" href="https://www.glueck-auf-ruegen.de/datenschutz.html" />
     <meta name="robots" content="noindex, follow" />
-    <link rel="icon" href="img/favicon/favicon.512.png" />
+    <link rel="icon" href="img/favicon/favicon.128.png" />
     <link rel="apple-touch-icon" href="img/favicon/favicon.512.png" />
 
     <!-- description -->
@@ -50,20 +50,7 @@
       content="Datenschutzerklärung von Glück auf Rügen: Informationen zur Verarbeitung personenbezogener Daten auf dieser Website."
     />
 
-    <noscript>
-      Diese Website benötigt JavaScript, um fehlerfrei zu funktionieren.
-      <style>
-        body {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          min-height: 100vh;
-        }
-        body > div {
-          display: none !important;
-        }
-      </style>
-    </noscript>
+    <noscript><p class="no-script">Für Kalender und Preisberechnung benötigen Sie JavaScript. Für Ihre Anfrage erreichen Sie uns unter <a href="mailto:Glueck-auf-ruegen@web.de">Glueck-auf-ruegen@web.de</a> oder <a href="tel:+4915259603163">01525 9603163</a>.</p></noscript>
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -95,11 +82,10 @@
     </script> -->
   </head>
   <body>
-    <div class="mask"></div>
-
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-wrapper">
       <aside>
-        <div class="nav-collapsed">
+        <nav id="mobile-navigation" class="nav-collapsed" aria-label="Hauptnavigation" inert>
           <div class="side-nav">
             <a class="nav-link" href="./#duene">Ferienwohnung Düne</a>
             <a class="nav-link" href="./#moewe">Bungalow Möwe</a>
@@ -115,14 +101,14 @@
               </div>
             </a>
           </div>
-        </div>
+        </nav>
       </aside>
 
       <header>
-        <div class="s">
+        <button class="s" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-navigation">
           <span class="upper"></span>
           <span class="lower"></span>
-        </div>
+        </button>
 
         <div class="l">
           <div class="header-outer">
@@ -166,7 +152,7 @@
         </div>
       </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <section class="main">
           <div class="content has-max-width">
             <div class="separator"></div>
@@ -174,7 +160,7 @@
             <h1 class="title">Datenschutz</h1>
             <div class="container">
               <div class="item">
-                <div class="bold large space-below">Datenschutz</div>
+                <h2 class="bold large space-below">Datenschutz</h2>
                 <div>
                   Die Nutzung unserer Webseite ist in der Regel ohne Angabe
                   personenbezogener Daten möglich. Soweit auf unseren Seiten
@@ -195,7 +181,7 @@
               </div>
 
               <div class="item">
-                <div class="bold large space-below">Google Analytics und ähnliches</div>
+                <h2 class="bold large space-below">Google Analytics und ähnliches</h2>
                 <div>
                   Diese Website benutzt keine Analytic-Tools.
                   <!-- Diese Website benutzt Google Analytics, einen Webanalysedienst der Google Inc. (''Google''). Google Analytics verwendet sog.

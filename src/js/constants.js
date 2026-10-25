@@ -8,7 +8,22 @@ export const BP = {
   xxxl: 1700,
 };
 
+export const sliderLabels = {
+  prev: "Vorheriges Bild",
+  next: "Nächstes Bild",
+  first: "Erstes Bild",
+  last: "Letztes Bild",
+  slideX: "Bild %s",
+  pageX: "Seite %s",
+  slideLabel: "%s von %s",
+  play: "Diashow starten",
+  pause: "Diashow pausieren",
+  carousel: "Bildergalerie",
+  select: "Bild auswählen",
+};
+
 export const optionsFull = {
+  i18n: sliderLabels,
   cover: false,
   lazyLoad: "nearby",
   pagination: false,
@@ -21,6 +36,7 @@ export const optionsFull = {
 export const optionsCover = Object.assign({}, optionsFull, { cover: true });
 
 export const optionsThumb = {
+  i18n: sliderLabels,
   breakpoints: {
     700: {
       fixedHeight: 50,

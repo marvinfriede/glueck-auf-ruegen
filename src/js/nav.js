@@ -1,10 +1,8 @@
 import { BP } from "./constants.js";
 import { throttle } from "./utils-standard.js";
-import { removeLoadingMask } from "./loading-mask.js";
 
 import "../css/reset.css";
 import "../css/content.scss";
-import "../css/loading-mask.scss";
 import "../css/font.scss";
 import "../css/header.scss";
 import "../css/icons.scss";
@@ -42,7 +40,7 @@ const toggleNavOnScroll = () => {
     if (window.innerWidth >= BP.n) {
       headerL.style.top = "calc(-1 * var(--header-height))";
     } else {
-      headerS.style.right = "-60px";
+      headerS.style.right = "15px";
     }
   }
   prevScrollPos = currentScrollPos;
@@ -55,13 +53,23 @@ const toggleNavOnScroll = () => {
 export const toggleSmallMenu = () => {
   const clHeader = document.querySelector("header .s").classList;
   const clAside = document.querySelector("aside .nav-collapsed").classList;
+  const menu = document.querySelector("aside .nav-collapsed");
+  const button = document.querySelector("header .s");
   if (clHeader.contains("open")) {
     clHeader.remove("open");
     clAside.remove("open");
+    menu.inert = true;
+    button.setAttribute("aria-expanded", "false");
+    button.setAttribute("aria-label", "Menü öffnen");
+    button.focus({ preventScroll: true });
     removeSideNavListeners();
   } else {
     clHeader.add("open");
     clAside.add("open");
+    menu.inert = false;
+    button.setAttribute("aria-expanded", "true");
+    button.setAttribute("aria-label", "Menü schließen");
+    menu.querySelector("a")?.focus({ preventScroll: true });
     addSideNavListeners();
   }
 };
@@ -73,8 +81,11 @@ const closeSideNav = (e) => {
   // autoplay of landing slider triggered by click
   if (t.closest(".splide__autoplay.hidden")) return;
 
-  // cover ESC press
-  if (e.type === "keyup" && e.key == "Escape") toggleSmallMenu();
+  // Handle Escape once, even when focus is on a navigation link.
+  if (e.type === "keyup") {
+    if (e.key === "Escape") toggleSmallMenu();
+    return;
+  }
 
   // close if clicked next to nav or on link in nav
   if (t.closest("main") || t.closest("footer") || t.closest("a.nav-link"))
@@ -86,10 +97,8 @@ const closeSideNav = (e) => {
  * @returns {void}
  */
 const addSideNavListeners = () => {
-  setTimeout(() => {
-    document.addEventListener("click", closeSideNav);
-    document.addEventListener("keyup", closeSideNav);
-  }, 10);
+  document.addEventListener("click", closeSideNav);
+  document.addEventListener("keyup", closeSideNav);
 };
 
 /**
@@ -112,6 +121,10 @@ export const setEventListenersNavs = () => {
     .addEventListener("click", toggleSmallMenu);
 
   window.addEventListener("scroll", throttle(toggleNavOnScroll, 100));
+  window.addEventListener("resize", () => {
+    const menuIsOpen = document.querySelector("header .s").classList.contains("open");
+    if (window.innerWidth >= BP.n && menuIsOpen) toggleSmallMenu();
+  });
 };
 
 // ---------------------------------------------------
@@ -120,8 +133,4 @@ export const setEventListenersNavs = () => {
 
 document.addEventListener("DOMContentLoaded", () => {
   setEventListenersNavs();
-});
-
-window.addEventListener("load", () => {
-  removeLoadingMask();
 });

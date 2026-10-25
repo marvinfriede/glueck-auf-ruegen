@@ -46,6 +46,10 @@ header {
     transition-property: top;
     z-index: 999;
 
+    &:focus-within {
+      top: 0 !important;
+    }
+
     &::after {
       content: " ";
       display: block;
@@ -189,6 +193,7 @@ header {
 	--------------------------------------------------*/
 
   .s {
+    border: 0;
     -ms-flex-align: center;
     align-items: center;
     background-color: var(--white);
@@ -202,7 +207,7 @@ header {
     flex-wrap: nowrap;
     -ms-flex-pack: center;
     justify-content: center;
-    height: 40px;
+    height: 44px;
     padding: 10px;
     position: fixed;
     right: 15px;
@@ -211,7 +216,7 @@ header {
     transition-property: right;
     top: 15px;
     user-select: none;
-    width: 40px;
+    width: 44px;
     z-index: 999;
 
     @media (min-width: breakpoints.$bp-n) {
@@ -263,6 +268,7 @@ aside {
     flex-direction: column;
     height: 100vh;
     overflow: hidden;
+    overflow-y: auto;
     position: fixed;
     right: 0;
     top: 0;
@@ -316,4 +322,9 @@ aside {
       }
     }
   }
+}
+
+.header-logo img,
+.side-nav--logo img {
+  object-fit: contain;
 }

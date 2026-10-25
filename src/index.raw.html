@@ -10,7 +10,7 @@
     />
 
     <link rel="canonical" href="https://www.glueck-auf-ruegen.de/" />
-    <link rel="icon" href="img/favicon/favicon.512.png" />
+    <link rel="icon" href="img/favicon/favicon.128.png" />
     <link rel="apple-touch-icon" href="img/favicon/favicon.512.png" />
 
     <!-- description -->
@@ -54,33 +54,7 @@
       content="Ferienwohnung Düne (117 m², bis 6 Personen) und Bungalow Möwe (64 m², 2 Personen) im Ostseebad Sellin auf Rügen, mit Garten, WLAN und Parkplatz."
     />
 
-    <!-- Hide HTML to avoid FOUC -->
-    <style>
-      html {
-        visibility: hidden;
-        opacity: 0;
-      }
-    </style>
-
-    <noscript>
-      Diese Website benötigt JavaScript, um fehlerfrei zu funktionieren.
-      <style>
-        html {
-          visibility: visible;
-          opacity: 1;
-        }
-
-        body {
-          align-items: center;
-          display: flex;
-          justify-content: center;
-          min-height: 100vh;
-        }
-        body > div {
-          display: none !important;
-        }
-      </style>
-    </noscript>
+    <noscript><p class="no-script">Für Kalender und Preisberechnung benötigen Sie JavaScript. Für Ihre Anfrage erreichen Sie uns unter <a href="mailto:Glueck-auf-ruegen@web.de">Glueck-auf-ruegen@web.de</a> oder <a href="tel:+4915259603163">01525 9603163</a>.</p></noscript>
 
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
@@ -120,7 +94,7 @@
         "url": "https://www.glueck-auf-ruegen.de/",
         "image": "https://www.glueck-auf-ruegen.de/img/duene/wz1.opt.jpg",
         "telephone": "+49 1525 9603163",
-        "email": "kontakt@glueck-auf-ruegen.de",
+        "email": "Glueck-auf-ruegen@web.de",
         "sameAs": ["https://www.facebook.com/GLUECK.AUF.RUEGEN/"],
         "geo": {
           "@type": "GeoCoordinates",
@@ -140,18 +114,17 @@
 
   </head>
   <body>
-    <div class="mask"></div>
-
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-wrapper">
       <aside>
-        <div class="nav-collapsed">
+        <nav id="mobile-navigation" class="nav-collapsed" aria-label="Hauptnavigation" inert>
           <div class="side-nav">
             <a class="nav-link" href="#duene">Ferienwohnung Düne</a>
             <a class="nav-link" href="#moewe">Bungalow Möwe</a>
             <a class="nav-link" href="#lage">Lage</a>
             <a class="nav-link" href="#preise">Preise</a>
             <a class="nav-link" href="#details">Details</a>
-            <a class="nav-link" data-target="booking" title="Buchungsanfrage stellen"
+            <a class="nav-link" href="#buchen" data-target="booking" title="Buchungsanfrage stellen"
               >Anfrage</a
             >
           </div>
@@ -163,14 +136,14 @@
               </div>
             </a>
           </div>
-        </div>
+        </nav>
       </aside>
 
       <header>
-        <div class="s">
+        <button class="s" type="button" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobile-navigation">
           <span class="upper"></span>
           <span class="lower"></span>
-        </div>
+        </button>
 
         <div class="l">
           <div class="header-outer">
@@ -209,7 +182,7 @@
                       <a class="nav-link" href="#details">Details</a>
                     </div>
                     <div class="nav-item">
-                      <a class="nav-link special" data-target="booking">
+                      <a class="nav-link special" href="#buchen" data-target="booking">
                         <div title="Buchungsanfrage stellen">Anfrage</div></a
                       >
                     </div>
@@ -221,7 +194,7 @@
         </div>
       </header>
 
-      <main>
+      <main id="main-content" tabindex="-1">
         <section class="landing">
           <div class="landing-bg">
             <div class="slider">
@@ -232,40 +205,35 @@
                     <ul class="splide__list">
                       <li class="splide__slide" data-id="0" data-name="seebruecke">
                         <img
-                          data-splide-lazy="img/sellin/seebruecke-sonnenuntergang-2.opt.jpg"
+                          src="img/sellin/seebruecke-sonnenuntergang-2.opt.jpg" fetchpriority="high" width="1600" height="1066" decoding="async"
                           alt="Seebrücke von Sellin bei Sonnenuntergang"
                         />
                       </li>
                       <li class="splide__slide" data-id="1" data-name="baumfriedhof">
                         <img
-                          data-splide-lazy="img/sellin/baumfriedhof.opt.jpg"
+                          data-hero-src="img/sellin/baumfriedhof.opt.jpg" width="1600" height="1066" decoding="async"
                           alt="Baumfriedhof am Ostseestrand"
                         />
                       </li>
                       <li class="splide__slide" data-id="2" data-name="strand">
                         <img
-                          data-splide-lazy="img/sellin/strand-1.opt.jpg"
+                          data-hero-src="img/sellin/strand-1.opt.jpg" width="1600" height="1200" decoding="async"
                           alt="Steilküste an der Ostsee"
                         />
                       </li>
                       <li class="splide__slide" data-id="3" data-name="seebruecke">
                         <img
-                          data-splide-lazy="img/sellin/seebruecke-abend-2.opt.jpg"
+                          data-hero-src="img/sellin/seebruecke-abend-2.opt.jpg" width="1600" height="1066" decoding="async"
                           alt="Beleuchtete Seebrücke von Sellin am Abend"
                         />
                       </li>
                       <li class="splide__slide" data-id="4" data-name="strand">
                         <img
-                          data-splide-lazy="img/sellin/strand-2.opt.jpg"
+                          data-hero-src="img/sellin/strand-2.opt.jpg" width="1600" height="1063" decoding="async"
                           alt="Blick auf Strand und Ostsee von Düne"
                         />
                       </li>
                     </ul>
-                  </div>
-
-                  <div class="splide__autoplay hidden">
-                    <button class="splide__play">Play</button>
-                    <button class="splide__pause">Pause</button>
                   </div>
                 </div>
               </div>
@@ -309,7 +277,7 @@
                 <div id="buchen" class="separator"></div>
                 <div class="form-wrap">
                   <div class="form-wrap--bg"></div>
-                  <div class="form">
+                  <div class="form" role="group" aria-label="Buchungsanfrage vorbereiten">
                     <div class="form-field-wrap">
                       <div
                         id="select-house"
@@ -477,33 +445,33 @@
                           <div class="dates-wrap">
                             <div id="arrival" class="date-inp">
                               <input
-                                class="date-picker"
+                                class="date-picker" role="combobox" aria-haspopup="dialog" aria-autocomplete="none" id="arrival-date" aria-label="Anreise" aria-controls="booking-calendar" aria-expanded="false" aria-describedby="booking-error"
                                 readonly="readonly"
                                 value=""
                                 data-active="false"
                                 data-has-value="false"
                                 data-value=""
                               />
-                              <div class="date-label">Anreise</div>
+                              <label class="date-label" for="arrival-date">Anreise</label>
                             </div>
                             <div class="spacer">bis</div>
                             <div id="departure" class="date-inp">
                               <input
-                                class="date-picker"
+                                class="date-picker" role="combobox" aria-haspopup="dialog" aria-autocomplete="none" id="departure-date" aria-label="Abreise" aria-controls="booking-calendar" aria-expanded="false" aria-describedby="booking-error"
                                 readonly="readonly"
                                 value=""
                                 data-active="false"
                                 data-has-value="false"
                                 data-value=""
                               />
-                              <div class="date-label">Abreise</div>
+                              <label class="date-label" for="departure-date">Abreise</label>
                             </div>
                           </div>
                         </div>
-                        <div class="cal-wrap hidden" aria-hidden="true">
+                        <div id="booking-calendar" class="cal-wrap hidden" role="dialog" aria-label="Reisedaten auswählen" aria-hidden="true">
                           <div class="cal">
                             <div class="cal-header">
-                              <button class="cal-header__btn prev">
+                              <button type="button" class="cal-header__btn prev" aria-label="Vorheriger Monat">
                                 <img
                                   src="img/icons/arrow-right.svg"
                                   alt=""
@@ -705,7 +673,7 @@
                                 </div>
                               </div>
 
-                              <button class="cal-header__btn next">
+                              <button type="button" class="cal-header__btn next" aria-label="Nächster Monat">
                                 <img src="img/icons/arrow-right.svg" alt="" />
                               </button>
                             </div>
@@ -748,6 +716,7 @@
                     </div>
                   </div>
                 </div>
+                <p id="booking-error" class="booking-error" role="alert"></p>
               </div>
             </div>
           </div>
@@ -762,7 +731,7 @@
                   <div class="underline-spacer"></div>
                   <div class="desc-main">
                     <div class="desc-text">
-                      ... im schönen Ostseebad Sellin! Egal ob Störtebecker Festspiele,
+                      ... im schönen Ostseebad Sellin! Egal ob Störtebeker Festspiele,
                       Kap Arkona, Bernsteinmuseum oder der Baumwipfelpfad des Naturerbe
                       Zentrums Rügen - die zahlreichen Ausflugsziele der Insel Rügen
                       lassen sich von Sellin aus problemlos erreichen. Mit der Anbindung
@@ -883,28 +852,28 @@
                         <ul class="splide__list">
                           <li class="splide__slide" data-id="0" data-name="wz">
                             <img
-                              data-splide-lazy="img/duene/wz1.opt.jpg"
+                              src="img/duene/wz1.opt.jpg" loading="lazy" width="1600" height="1180" decoding="async"
                               alt="Wohnzimmer"
                               title="Wohnzimmer"
                             />
                           </li>
                           <li class="splide__slide" data-id="1" data-name="wz">
                             <img
-                              data-splide-lazy="img/duene/wz2.opt.jpg"
+                              data-splide-lazy="img/duene/wz2.opt.jpg" width="1600" height="2133" decoding="async"
                               alt="Esstisch"
                               title="Esstisch"
                             />
                           </li>
                           <li class="splide__slide" data-id="2" data-name="wz">
                             <img
-                              data-splide-lazy="img/duene/wz3.opt.jpg"
+                              data-splide-lazy="img/duene/wz3.opt.jpg" width="1600" height="960" decoding="async"
                               alt="Wohnzimmer mit Kamin"
                               title="Wohnzimmer mit Kamin"
                             />
                           </li>
                           <li class="splide__slide" data-id="3" data-name="k">
                             <img
-                              data-splide-lazy="img/duene/k1.opt.jpg"
+                              data-splide-lazy="img/duene/k1.opt.jpg" width="1600" height="1026" decoding="async"
                               alt="Küche mit hochwertiger Einbauküche"
                               title="Küche mit hochwertiger Einbauküche"
                             />
@@ -912,35 +881,35 @@
                           <!-- Schlafzimmer -->
                           <li class="splide__slide" data-id="4" data-name="sz">
                             <img
-                              data-splide-lazy="img/duene/sz1.opt.jpg"
+                              data-splide-lazy="img/duene/sz1.opt.jpg" width="1600" height="1180" decoding="async"
                               alt="Schlafzimmer 1 mit Boxspringbett"
                               title="Schlafzimmer 1 mit Boxspringbett"
                             />
                           </li>
                           <li class="splide__slide" data-id="5" data-name="sz">
                             <img
-                              data-splide-lazy="img/duene/sz2-1.opt.jpg"
+                              data-splide-lazy="img/duene/sz2-1.opt.jpg" width="1600" height="2133" decoding="async"
                               alt="Schlafzimmer 2 mit Doppelbett"
                               title="Schlafzimmer 2 mit Doppelbett"
                             />
                           </li>
                           <li class="splide__slide" data-id="6" data-name="sz">
                             <img
-                              data-splide-lazy="img/duene/sz2-2.opt.jpg"
+                              data-splide-lazy="img/duene/sz2-2.opt.jpg" width="1600" height="2094" decoding="async"
                               alt="Schlafzimmer 2 mit Doppelbett"
                               title="Schlafzimmer 2 mit Doppelbett"
                             />
                           </li>
                           <li class="splide__slide" data-id="7" data-name="sz">
                             <img
-                              data-splide-lazy="img/duene/sz3-1.opt.jpg"
+                              data-splide-lazy="img/duene/sz3-1.opt.jpg" width="1600" height="2133" decoding="async"
                               alt="Schlafzimmer 3 mit französischem Doppelbett"
                               title="Schlafzimmer 3 mit französischem Doppelbett"
                             />
                           </li>
                           <li class="splide__slide" data-id="8" data-name="sz">
                             <img
-                              data-splide-lazy="img/duene/sz3-2.opt.jpg"
+                              data-splide-lazy="img/duene/sz3-2.opt.jpg" width="1600" height="2115" decoding="async"
                               alt="Schlafzimmer 3 mit französischem Doppelbett"
                               title="Schlafzimmer 3 mit französischem Doppelbett"
                             />
@@ -948,28 +917,28 @@
                           <!-- Bad -->
                           <li class="splide__slide" data-id="9" data-name="bad">
                             <img
-                              data-splide-lazy="img/duene/bad1-1.opt.jpg"
+                              data-splide-lazy="img/duene/bad1-1.opt.jpg" width="1600" height="2133" decoding="async"
                               alt="Bad 1"
                               title="Bad 1 (mit Badewanne)"
                             />
                           </li>
                           <li class="splide__slide" data-id="10" data-name="bad">
                             <img
-                              data-splide-lazy="img/duene/bad1-2.opt.jpg"
+                              data-splide-lazy="img/duene/bad1-2.opt.jpg" width="1600" height="2133" decoding="async"
                               alt="Bad 1"
                               title="Bad 1 (mit Badewanne)"
                             />
                           </li>
                           <li class="splide__slide" data-id="11" data-name="bad">
                             <img
-                              data-splide-lazy="img/duene/bad1-3.opt.jpg"
+                              data-splide-lazy="img/duene/bad1-3.opt.jpg" width="1600" height="1041" decoding="async"
                               alt="Bad 1 (mit Badewanne)"
                               title="Bad 1 (mit Badewanne)"
                             />
                           </li>
                           <li class="splide__slide" data-id="12" data-name="bad">
                             <img
-                              data-splide-lazy="img/duene/bad2-1.opt.jpg"
+                              data-splide-lazy="img/duene/bad2-1.opt.jpg" width="1600" height="2133" decoding="async"
                               alt="Bad 2 (mit Dusche)"
                               title="Bad 2 (mit Dusche)"
                             />
@@ -977,42 +946,42 @@
                           <!-- Balkon -->
                           <li class="splide__slide" data-id="13" data-name="balkon">
                             <img
-                              data-splide-lazy="img/duene/balkon1.opt.jpg"
+                              data-splide-lazy="img/duene/balkon1.opt.jpg" width="1600" height="898" decoding="async"
                               alt="Balkon von außen"
                               title="Balkon von außen"
                             />
                           </li>
                           <li class="splide__slide" data-id="14" data-name="balkon">
                             <img
-                              data-splide-lazy="img/duene/balkon2.opt.jpg"
+                              data-splide-lazy="img/duene/balkon2.opt.jpg" width="1600" height="1066" decoding="async"
                               alt="Balkon"
                               title="Balkon"
                             />
                           </li>
                           <li class="splide__slide" data-id="15" data-name="balkon">
                             <img
-                              data-splide-lazy="img/duene/balkon3.opt.jpg"
+                              data-splide-lazy="img/duene/balkon3.opt.jpg" width="1600" height="2400" decoding="async"
                               alt="Balkon"
                               title="Balkon"
                             />
                           </li>
                           <li class="splide__slide" data-id="16" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten4.opt.jpg"
+                              data-splide-lazy="img/duene/garten4.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten mit Klettergerüst und Schaukeln"
                               title="Garten mit Klettergerüst und Schaukeln"
                             />
                           </li>
                           <li class="splide__slide" data-id="17" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten5.opt.jpg"
+                              data-splide-lazy="img/duene/garten5.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten mit Klettergerüst und Schaukeln"
                               title="Garten mit Klettergerüst und Schaukeln"
                             />
                           </li>
                           <li class="splide__slide" data-id="18" data-name="grundriss">
                             <img
-                              data-splide-lazy="img/duene/grundriss-duene.opt.jpg"
+                              data-splide-lazy="img/duene/grundriss-duene.opt.jpg" width="1600" height="2276" decoding="async"
                               alt="Grundriss Ferienwohnung Düne"
                               title="Grundriss Ferienwohnung Düne"
                             />
@@ -1182,91 +1151,91 @@
                         <ul class="splide__list">
                           <li class="splide__slide" data-id="0" data-name="wz">
                             <img
-                              data-splide-lazy="img/moewe/wz1.opt.jpg"
+                              src="img/moewe/wz1.opt.jpg" loading="lazy" width="1600" height="1125" decoding="async"
                               alt="Wohnbereich mit moderner Ausstattung"
                               title="Wohnbereich mit moderner Ausstattung"
                             />
                           </li>
                           <li class="splide__slide" data-id="1" data-name="wz">
                             <img
-                              data-splide-lazy="img/moewe/wz2.opt.jpg"
+                              data-splide-lazy="img/moewe/wz2.opt.jpg" width="1600" height="1168" decoding="async"
                               alt="Wohnbereich mit moderner Ausstattung"
                               title="Wohnbereich mit moderner Ausstattung"
                             />
                           </li>
                           <li class="splide__slide" data-id="2" data-name="wz">
                             <img
-                              data-splide-lazy="img/moewe/wz3.opt.jpg"
+                              data-splide-lazy="img/moewe/wz3.opt.jpg" width="1600" height="2152" decoding="async"
                               alt="Wohnbereich mit moderner Ausstattung"
                               title="Wohnbereich mit moderner Ausstattung"
                             />
                           </li>
                           <li class="splide__slide" data-id="3" data-name="wk">
                             <img
-                              data-splide-lazy="img/moewe/k1.opt.jpg"
+                              data-splide-lazy="img/moewe/k1.opt.jpg" width="1600" height="1189" decoding="async"
                               alt="Küche mit moderner Ausstattung"
                               title="Küche mit moderner Ausstattung"
                             />
                           </li>
                           <li class="splide__slide" data-id="4" data-name="sz">
                             <img
-                              data-splide-lazy="img/moewe/sz1.opt.jpg"
+                              data-splide-lazy="img/moewe/sz1.opt.jpg" width="1600" height="1136" decoding="async"
                               alt="Schlafzimmer mit komfortablem Boxspringbett"
                               title="Schlafzimmer mit komfortablem Boxspringbett"
                             />
                           </li>
                           <li class="splide__slide" data-id="5" data-name="sz">
                             <img
-                              data-splide-lazy="img/moewe/sz2.opt.jpg"
+                              data-splide-lazy="img/moewe/sz2.opt.jpg" width="1600" height="1179" decoding="async"
                               alt="Schlafzimmer mit komfortablem Boxspringbett"
                               title="Schlafzimmer mit komfortablem Boxspringbett"
                             />
                           </li>
                           <li class="splide__slide" data-id="6" data-name="bad">
                             <img
-                              data-splide-lazy="img/moewe/bad1.opt.jpg"
+                              data-splide-lazy="img/moewe/bad1.opt.jpg" width="1600" height="2091" decoding="async"
                               alt="Bad mit XXL-Dusche"
                               title="Bad mit XXL-Dusche"
                             />
                           </li>
                           <li class="splide__slide" data-id="7" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten1.opt.jpg"
+                              data-splide-lazy="img/duene/garten1.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten"
                               title="Garten"
                             />
                           </li>
                           <li class="splide__slide" data-id="8" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten2.opt.jpg"
+                              data-splide-lazy="img/duene/garten2.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten mit Sitzecke und Sonnenschirm"
                               title="Garten mit Sitzecke und Sonnenschirm"
                             />
                           </li>
                           <li class="splide__slide" data-id="9" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten3.opt.jpg"
+                              data-splide-lazy="img/duene/garten3.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten mit Sitzecke und Sonnenschirm"
                               title="Garten mit Sitzecke und Sonnenschirm"
                             />
                           </li>
                           <li class="splide__slide" data-id="10" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten4.opt.jpg"
+                              data-splide-lazy="img/duene/garten4.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten mit Klettergerüst und Schaukeln"
                               title="Garten mit Klettergerüst und Schaukeln"
                             />
                           </li>
                           <li class="splide__slide" data-id="11" data-name="garten">
                             <img
-                              data-splide-lazy="img/duene/garten5.opt.jpg"
+                              data-splide-lazy="img/duene/garten5.opt.jpg" width="1600" height="1064" decoding="async"
                               alt="Garten mit Klettergerüst und Schaukeln"
                               title="Garten mit Klettergerüst und Schaukeln"
                             />
                           </li>
                           <li class="splide__slide" data-id="12" data-name="grundriss">
                             <img
-                              data-splide-lazy="img/moewe/grundriss-moewe.opt.jpg"
+                              data-splide-lazy="img/moewe/grundriss-moewe.opt.jpg" width="1600" height="2508" decoding="async"
                               alt="Grundriss Bungalow Möwe"
                               title="Grundriss Bungalow Möwe"
                             />
@@ -1352,7 +1321,7 @@
                 </div>
                 <div>
                   Das Grundstück ist komplett umzäunt. Parkflächen stehen vor dem
-                  Grundstück kostenfrei zur Verfügung.
+                  Grundstück gegen Gebühr zur Verfügung.
                 </div>
               </div>
 
@@ -1381,7 +1350,7 @@
                   <div class="grid-item">
                     <span class="icon"></span>
                     <span class="text">
-                      Ahoi Bad (1000m)<!-- -
+                      AHOI! Erlebnisbad (1000m)<!-- -
                       <span
                         class="tooltip"
                         tabindex="0"
@@ -1396,7 +1365,7 @@
                   </div>
                   <div class="grid-item">
                     <span class="icon"></span>
-                    <span class="text"> Haltestelle Seldivner Bäderbahn (200m) </span>
+                    <span class="text"> Haltestelle Selliner Bäderbahn (200m) </span>
                   </div>
                   <div class="grid-item">
                     <span class="icon"></span>
@@ -1408,7 +1377,7 @@
                   </div>
                   <div class="grid-item">
                     <span class="icon"></span>
-                    <span class="text"> Hunderstrand (600m) </span>
+                    <span class="text"> Hundestrand (600m) </span>
                   </div>
                 </div>
               </div>
@@ -1423,12 +1392,12 @@
                   </div>
                 </div>
                 <iframe
+                  title="Lage der Unterkünfte am Buchenweg 4 in Sellin"
                   class="hidden"
                   frameborder="0"
                   loading="lazy"
                   style="border: 0"
                   allowfullscreen
-                  src=""
                 >
                 </iframe>
               </div>
@@ -1461,40 +1430,11 @@
                         </div>
                       </div>
                       <div class="price large">
-                        <div class="value">119€ - 210€</div>
+                        <div class="value"></div>
                         <div class="note">pro Nacht</div>
                       </div>
                     </div>
-                    <div class="panel">
-                      <div class="panel-row">
-                        <div class="season">23.12. - 03.01.</div>
-                        <div class="price large">210€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">04.01. - 31.03.</div>
-                        <div class="price large">119€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">01.04. - 31.05.</div>
-                        <div class="price large">155€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">01.06. - 12.09.</div>
-                        <div class="price large">210€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">13.09. - 31.10.</div>
-                        <div class="price large">155€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">01.11. - 22.12.</div>
-                        <div class="price large">119€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">23.12. - 03.01.</div>
-                        <div class="price large">210€</div>
-                      </div>
-                    </div>
+                    <div class="panel"></div>
 
                     <div class="card-main--row">
                       <div class="extras">Endreinigung</div>
@@ -1537,7 +1477,7 @@
                     <div class="card-main--row">
                       <div class="extras">Kinderreisebett</div>
                       <div class="price">
-                        <div class="value bed">kostenlos</div>
+                        <div class="value bed"></div>
                       </div>
                     </div>
 
@@ -1573,40 +1513,11 @@
                         </div>
                       </div>
                       <div class="price large">
-                        <div class="value span">65€ - 99€</div>
+                        <div class="value span"></div>
                         <div class="note">pro Nacht</div>
                       </div>
                     </div>
-                    <div class="panel">
-                      <div class="panel-row">
-                        <div class="season">23.12. - 03.01.</div>
-                        <div class="price large">99€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">04.01. - 31.03.</div>
-                        <div class="price large">65€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">01.04. - 31.05.</div>
-                        <div class="price large">75€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">01.06. - 12.09.</div>
-                        <div class="price large">99€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">13.09. - 31.10.</div>
-                        <div class="price large">75€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">01.11. - 22.12.</div>
-                        <div class="price large">65€</div>
-                      </div>
-                      <div class="panel-row">
-                        <div class="season">23.12. - 03.01.</div>
-                        <div class="price large">99€</div>
-                      </div>
-                    </div>
+                    <div class="panel"></div>
 
                     <div class="card-main--row">
                       <div class="extras">Endreinigung</div>
@@ -1678,7 +1589,7 @@
 
               <div class="details">
                 <div class="row">
-                  <div class="row-title">Ausstattung</div>
+                  <h3 class="row-title">Ausstattung</h3>
                   <div class="row-content">
                     <div class="row-content--title">Badezimmer</div>
                     <div class="rwo-content--content">
@@ -1725,7 +1636,7 @@
                 </div>
 
                 <div class="row">
-                  <div class="row-title">An-/Abreise</div>
+                  <h3 class="row-title">An-/Abreise</h3>
                   <div class="row-content">
                     <div class="row-content--title">Anreise</div>
                     <div class="rwo-content--content">15:00 - 0:00 Uhr</div>
@@ -1737,7 +1648,7 @@
                 </div>
 
                 <div class="row">
-                  <div class="row-title">Aufbettung</div>
+                  <h3 class="row-title">Aufbettung</h3>
                   <div class="row-content">
                     <div class="row-content--title">Babybett</div>
                     <div class="rwo-content--content">kostenlos auf Anfrage</div>
@@ -1751,7 +1662,7 @@
                 </div>
 
                 <div class="row">
-                  <div class="row-title">Sonstiges</div>
+                  <h3 class="row-title">Sonstiges</h3>
                   <div class="row-content">
                     <div class="row-content--title">Haustiere</div>
                     <div class="rwo-content--content">
@@ -1777,7 +1688,7 @@
                   <div class="row-content">
                     <div class="row-content--title">Feiern</div>
                     <div class="rwo-content--content">
-                      Parties/Feiern/Veranstaltungen sind nicht gestattet.
+                      Partys/Feiern/Veranstaltungen sind nicht gestattet.
                     </div>
                   </div>
                 </div>
@@ -1809,8 +1720,8 @@
                   <img src="img/icons/mail.svg" alt="" loading="lazy" />
                 </div>
                 <div class="title">
-                  <a href="mailto:kontakt@glueck-auf-ruegen.de"
-                    >kontakt@glueck-auf-ruegen.de</a
+                  <a href="mailto:Glueck-auf-ruegen@web.de"
+                    >Glueck-auf-ruegen@web.de</a
                   >
                 </div>
               </div>
@@ -1838,7 +1749,7 @@
       </footer>
     </div>
 
-    <div id="modal-booking" class="modal hidden">
+    <div id="modal-booking" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="booking-summary-title" aria-hidden="true">
       <div class="content has-max-width">
         <div class="container" title="">
           <div class="close-button" title="Klicken zum Schließen.">
@@ -1847,7 +1758,7 @@
             </div>
           </div>
           <div class="summary">
-            <div class="title">Buchungszusammenfassung</div>
+            <div class="title" id="booking-summary-title">Buchungszusammenfassung</div>
             <div class="data">
               <div id="data-house" class="row">
                 <div class="descriptor">Objekt</div>
@@ -1868,7 +1779,7 @@
             </div>
           </div>
 
-          <div class="pricing">
+          <div class="pricing" aria-live="polite">
             <div class="title"></div>
             <div class="row hidden" data-id="stays">
               <div class="item"></div>
@@ -1895,18 +1806,22 @@
               <div class="price total"></div>
             </div>
           </div>
-
+          <p class="booking-note">
+            Die Berechnung dient der Orientierung. Parkgebühren sind nicht enthalten.
+            Bitte geben Sie bei Ihrer Anfrage an, ob Sie einen Stellplatz benötigen.
+            Verfügbarkeit und Gesamtpreis bestätigen wir persönlich. Über das
+            E-Mail-Symbol öffnen Sie Ihr E-Mail-Programm; es wird noch keine Nachricht versendet.
+          </p>
           <div class="contact-panel">
             <a
               id="mail"
+              aria-label="E-Mail an Glueck-auf-ruegen@web.de"
               class="contact-panel--item"
-              href="mailto:kontakt@glueck-auf-ruegen.de"
+              href="mailto:Glueck-auf-ruegen@web.de"
               title="Schreiben Sie uns eine E-Mail"
             >
               <div class="icon symbol l">
-                <svg
-                  alt=""
-                  loading="lazy"
+                <svg aria-hidden="true" focusable="false"
                   viewBox="0 0 64 48"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -1920,14 +1835,13 @@
             </a>
             <a
               id="phone"
+              aria-label="Anrufen: 01525 9603163"
               class="contact-panel--item"
               href="tel:+4915259603163"
               title="Rufen Sie uns an."
             >
               <div class="icon symbol l">
-                <svg
-                  alt=""
-                  loading="lazy"
+                <svg aria-hidden="true" focusable="false"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 128 128"
                 >
@@ -1944,12 +1858,10 @@
               href="https://www.facebook.com/GLUECK.AUF.RUEGEN/"
               target="_blank"
               rel="noopener noreferrer"
-              title="Schreiben Sie uns auf Facebook."
+              title="Schreiben Sie uns auf Facebook." aria-label="Glück auf Rügen auf Facebook"
             >
               <div class="icon symbol l">
-                <svg
-                  alt=""
-                  loading="lazy"
+                <svg aria-hidden="true" focusable="false"
                   viewBox="0 0 512 512"
                   xmlns="http://www.w3.org/2000/svg"
                 >
@@ -1966,7 +1878,7 @@
       </div>
     </div>
 
-    <div id="modal-splide" class="modal hidden">
+    <div id="modal-splide" class="modal hidden" role="dialog" aria-modal="true" aria-label="Bildergalerie in Großansicht" aria-hidden="true">
       <div class="content has-max-width">
         <div class="close-button" title="Klicken zum Schließen.">
           <div class="icon symbol l">
