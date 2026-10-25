@@ -27,6 +27,25 @@
   --font-fancy: "Dancing Script", cursive;
 }
 
+/* Reserve gallery and map heights before browser anchor scrolling. */
+:root { --gallery-height: 150px; }
+@media (min-height: 300px)  { :root { --gallery-height: 200px; } }
+@media (min-height: 400px)  { :root { --gallery-height: 250px; } }
+@media (min-height: 500px)  { :root { --gallery-height: 350px; } }
+@media (min-height: 600px)  { :root { --gallery-height: 450px; } }
+@media (min-height: 700px)  { :root { --gallery-height: 550px; } }
+@media (min-height: 800px)  { :root { --gallery-height: 600px; } }
+@media (min-height: 900px)  { :root { --gallery-height: 700px; } }
+@media (min-height: 1000px) { :root { --gallery-height: 800px; } }
+@media (min-height: 1100px) { :root { --gallery-height: 900px; } }
+@media (min-height: 1200px) { :root { --gallery-height: 1000px; } }
+@media (min-height: 1300px) { :root { --gallery-height: 1100px; } }
+@media (min-height: 1400px) { :root { --gallery-height: 1200px; } }
+@media (min-height: 1600px) { :root { --gallery-height: 1400px; } }
+@media (min-height: 1900px) { :root { --gallery-height: 1600px; } }
+section.main .slider-container { min-height: var(--gallery-height); }
+section.main #id-4 .map { height: var(--gallery-height); }
+
 /*-------------------------------------------------
 -------------------- global -----------------------
 --------------------------------------------------*/

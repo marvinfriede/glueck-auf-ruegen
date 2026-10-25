@@ -3,6 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Keep the page covered until initial layout is ready. -->
+    <style>
+      .mask {
+        position: fixed;
+        inset: 0;
+        z-index: 9999999;
+        background: #fff;
+        opacity: 1;
+        transition: opacity 250ms ease;
+        animation: mask-failsafe 0s linear 3s forwards;
+      }
+      .mask.is-hidden { opacity: 0; pointer-events: none; }
+      @keyframes mask-failsafe {
+        to { visibility: hidden; pointer-events: none; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mask { transition: none; }
+      }
+    </style>
+    <noscript><style>.mask { display: none !important; }</style></noscript>
     <meta name="referrer" content="origin-when-cross-origin" />
     <link rel="canonical" href="https://www.glueck-auf-ruegen.de/datenschutz.html" />
     <meta name="robots" content="noindex, follow" />
@@ -82,6 +102,7 @@
     </script> -->
   </head>
   <body>
+    <div class="mask" aria-hidden="true"></div>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
     <div class="page-wrapper">
       <aside>

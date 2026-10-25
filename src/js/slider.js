@@ -68,39 +68,11 @@ export const setHeights = () => {
     window.innerHeight ||
     document.documentElement.clientHeight ||
     document.body.clientHeight;
-  let fixedHeight = 0;
-
-  if (height < 300) {
-    fixedHeight = 150;
-  } else if (height >= 300 && height < 400) {
-    fixedHeight = 200;
-  } else if (height >= 400 && height < 500) {
-    fixedHeight = 250;
-  } else if (height >= 500 && height < 600) {
-    fixedHeight = 350;
-  } else if (height >= 600 && height < 700) {
-    fixedHeight = 450;
-  } else if (height >= 700 && height < 800) {
-    fixedHeight = 550;
-  } else if (height >= 800 && height < 900) {
-    fixedHeight = 600;
-  } else if (height >= 900 && height < 1000) {
-    fixedHeight = 700;
-  } else if (height >= 1000 && height < 1100) {
-    fixedHeight = 800;
-  } else if (height >= 1100 && height < 1200) {
-    fixedHeight = 900;
-  } else if (height >= 1200 && height < 1300) {
-    fixedHeight = 1000;
-  } else if (height >= 1300 && height < 1400) {
-    fixedHeight = 1100;
-  } else if (height >= 1400 && height < 1600) {
-    fixedHeight = 1200;
-  } else if (height >= 1600 && height < 1900) {
-    fixedHeight = 1400;
-  } else {
-    fixedHeight = 1600;
-  }
+  // Match the dimensions CSS reserved before the browser follows an anchor.
+  let fixedHeight = parseInt(
+    getComputedStyle(document.documentElement).getPropertyValue("--gallery-height"),
+    10,
+  ) || 550;
 
   // set height to avoid CLS on load
   foreach(document.querySelectorAll(".main .slider-container"), (slider) => {
